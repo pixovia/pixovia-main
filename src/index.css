@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+.App {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Hover effects */
+a[href="/store"]:hover,
+a[href="/library"]:hover {
+  transform: translateY(-5px) !important;
+  border-color: rgba(102, 126, 234, 0.3) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+}
+
+a[href="/"]:hover {
+  transform: translateY(-2px) !important;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  .services {
+    grid-template-columns: 1fr !important;
+  }
+}
