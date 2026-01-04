@@ -1,0 +1,2102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- SEO Meta Tags -->
+  <title>Pixovia Player - Universal Media Player for Videos, Audio & Images</title>
+  <meta name="description" content="Pixovia Player is a universal media player supporting videos (MP4, WebM), audio (MP3, WAV), and images (JPG, PNG, WebP). Features YouTube-style video player, Spotify-style audio player, and Instagram-style image viewer with mobile optimization.">
+  <meta name="keywords" content="media player, video player, audio player, image viewer, universal player, YouTube player, Spotify player, Instagram viewer, online media player, web player, mobile player">
+  <meta name="author" content="Pixovia">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  <meta name="revisit-after" content="7 days">
+  <meta name="distribution" content="global">
+  <meta name="rating" content="general">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Pixovia Player - Universal Media Player">
+  <meta property="og:description" content="Universal media player supporting videos, audio, and images with YouTube-style, Spotify-style, and Instagram-style interfaces.">
+  <meta property="og:url" content="https://pixovia.pages.dev/player">
+  <meta property="og:site_name" content="Pixovia Player">
+  <meta property="og:image" content="https://pixovia.pages.dev/logo-coloured.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pixovia Player Universal Media Player Interface">
+  <meta property="og:locale" content="en_US">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pixovia Player - Universal Media Player">
+  <meta name="twitter:description" content="Universal media player supporting videos, audio, and images with modern interfaces.">
+  <meta name="twitter:image" content="https://pixovia.pages.dev/logo-coloured.png">
+  <meta name="twitter:image:alt" content="Pixovia Player Universal Media Player">
+  <meta name="twitter:site" content="@pixovia">
+  <meta name="twitter:creator" content="@pixovia">
+  
+  <!-- Favicon Links -->
+  <link rel="apple-touch-icon" sizes="180x180" href="https://pixovia.pages.dev/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://pixovia.pages.dev/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://pixovia.pages.dev/favicon-16x16.png">
+  <link rel="manifest" href="https://pixovia.pages.dev/site.webmanifest">
+  <link rel="shortcut icon" href="https://pixovia.pages.dev/favicon.ico">
+  
+  <!-- Additional SEO Tags -->
+  <meta name="theme-color" content="#1db954">
+  <meta name="msapplication-TileColor" content="#1db954">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://pixovia.pages.dev/player">
+  
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://pixovia.pages.dev">
+  <link rel="preconnect" href="https://cdn4.iconfinder.com">
+  
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pixovia Player",
+    "description": "Universal media player supporting videos, audio, and images with YouTube-style, Spotify-style, and Instagram-style interfaces.",
+    "url": "https://pixovia.pages.dev/player",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Pixovia",
+      "url": "https://pixovia.pages.dev"
+    },
+    "featureList": [
+      "Video Player (MP4, WebM, AVI, MOV)",
+      "Audio Player (MP3, WAV, AAC, FLAC)",
+      "Image Viewer (JPG, PNG, WebP, GIF)",
+      "Mobile Responsive Design",
+      "YouTube-style Video Interface",
+      "Spotify-style Audio Interface",
+      "Instagram-style Image Interface",
+      "Fullscreen Support",
+      "Touch Controls",
+      "Keyboard Shortcuts"
+    ]
+  }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+    
+    /* YouTube Video Player */
+    .youtube-player {
+      background: #0f0f0f;
+      color: white;
+      min-height: 100vh;
+      display: none;
+    }
+    .yt-video-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+    }
+    .yt-video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .yt-video {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      object-fit: cover;
+    }
+    .yt-video::-webkit-media-controls {
+      display: none !important;
+    }
+    .yt-video::-webkit-media-controls-enclosure {
+      display: none !important;
+    }
+    .custom-controls {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 20px 16px 16px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .custom-controls.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .yt-video-wrapper:hover .custom-controls {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .progress-container {
+      margin-bottom: 12px;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #ff0000;
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.1s;
+    }
+    .control-buttons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .control-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 4px;
+    }
+    .control-btn:hover { background: rgba(255,255,255,0.1); }
+    .volume-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .volume-slider {
+      width: 60px;
+      height: 4px;
+    }
+    .settings-menu {
+      position: absolute;
+      bottom: 60px;
+      right: 16px;
+      background: rgba(28,28,28,0.9);
+      border-radius: 8px;
+      padding: 8px;
+      display: none;
+      min-width: 150px;
+      z-index: 20;
+    }
+    .settings-section {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+    .settings-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    .settings-header {
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #aaa;
+      font-weight: 600;
+    }
+    .settings-item {
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 14px;
+      position: relative;
+    }
+    .settings-item:hover { background: rgba(255,255,255,0.1); }
+    .settings-item.active {
+      background: rgba(255,255,255,0.2);
+    }
+    .settings-item.active::after {
+      content: '✓';
+      position: absolute;
+      right: 12px;
+      color: #ff0000;
+    }
+    .center-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.7);
+      border: none;
+      color: white;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      font-size: 32px;
+      cursor: pointer;
+      display: none;
+      z-index: 10;
+    }
+    .yt-info {
+      padding: 16px 0;
+    }
+    .yt-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .yt-meta {
+      color: #aaa;
+      font-size: 14px;
+    }
+    
+    /* YouTube Shorts Player */
+    .shorts-player {
+      background: #000;
+      color: white;
+      height: 100vh;
+      height: 100dvh;
+      display: none;
+      position: relative;
+      overflow: hidden;
+      justify-content: center;
+      align-items: center;
+    }
+    .shorts-phone-frame {
+      position: relative;
+      background: #1a1a1a;
+      border-radius: 25px;
+      padding: 20px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.8);
+      border: 3px solid #333;
+    }
+    .shorts-video-container {
+      position: relative;
+      background: #000;
+      border-radius: 15px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .shorts-video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .shorts-video::-webkit-media-controls {
+      display: none !important;
+    }
+    .shorts-video::-webkit-media-controls-enclosure {
+      display: none !important;
+    }
+    .shorts-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+    }
+    .shorts-side-controls {
+      position: absolute;
+      right: 15px;
+      bottom: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      pointer-events: auto;
+    }
+    .shorts-btn {
+      background: rgba(0,0,0,0.7);
+      border: none;
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .shorts-btn:hover {
+      background: rgba(0,0,0,0.9);
+      transform: scale(1.1);
+    }
+    .shorts-info {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      pointer-events: auto;
+      text-align: center;
+    }
+    .shorts-title {
+      font-size: 14px;
+      margin-bottom: 8px;
+      background: rgba(0,0,0,0.7);
+      padding: 8px 12px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+    .shorts-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255,255,255,0.3);
+      pointer-events: auto;
+    }
+    .shorts-progress-fill {
+      height: 100%;
+      background: white;
+      width: 0%;
+      transition: width 0.1s;
+    }
+    .shorts-center-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.7);
+      border: none;
+      color: white;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      font-size: 32px;
+      cursor: pointer;
+      display: none;
+      backdrop-filter: blur(10px);
+      z-index: 10;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .shorts-center-play:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    
+    /* Spotify Audio Player */
+    .spotify-player {
+      background: linear-gradient(135deg, #1db954, #191414);
+      color: white;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: none;
+      padding: 40px;
+    }
+    .spotify-container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .album-art {
+      width: 300px;
+      height: 300px;
+      border-radius: 8px;
+      margin: 0 auto 30px;
+      background: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: #666;
+    }
+    .track-info h2 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .track-info p {
+      font-size: 18px;
+      color: #b3b3b3;
+      margin-bottom: 30px;
+    }
+    .audio-progress-container {
+      width: 100%;
+      margin: 20px 0;
+      position: relative;
+    }
+    .audio-progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+    }
+    .audio-progress-fill {
+      height: 100%;
+      background: #1db954;
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.1s;
+      position: relative;
+    }
+    .audio-progress-thumb {
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      background: #1db954;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .audio-progress-bar:hover .audio-progress-thumb {
+      opacity: 1;
+    }
+    .audio-time-display {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #b3b3b3;
+      margin-top: 8px;
+    }
+    .spotify-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin: 30px 0;
+      position: relative;
+    }
+    .spotify-btn {
+      background: none;
+      border: none;
+      color: #b3b3b3;
+      cursor: pointer;
+      font-size: 20px;
+      padding: 8px;
+      border-radius: 50%;
+      transition: color 0.2s;
+    }
+    .spotify-btn:hover { color: white; }
+    .play-btn {
+      background: #1db954;
+      color: white;
+      width: 56px;
+      height: 56px;
+      font-size: 24px;
+      border-radius: 50%;
+    }
+    .play-btn:hover { 
+      background: #1ed760;
+      transform: scale(1.05);
+    }
+    .audio-menu {
+      position: absolute;
+      right: -10px;
+      bottom: 60px;
+      background: rgba(40,40,40,0.95);
+      border-radius: 8px;
+      padding: 8px;
+      display: none;
+      min-width: 120px;
+      backdrop-filter: blur(10px);
+    }
+    .audio-menu-item {
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #b3b3b3;
+    }
+    .audio-menu-item:hover {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+    .audio-menu-item.active {
+      color: #1db954;
+    }
+    
+    /* Instagram Image Viewer */
+    .instagram-player {
+      background: #000;
+      color: white;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: none;
+      padding: 20px;
+    }
+    .insta-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #262626;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .insta-header {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #363636;
+    }
+    .insta-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #555;
+    }
+    .insta-username {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .insta-image {
+      width: 100%;
+      display: block;
+    }
+    .insta-actions {
+      padding: 16px;
+      display: flex;
+      gap: 16px;
+    }
+    .insta-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .download-btn {
+      background: #0095f6;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: auto;
+    }
+    
+    /* Mobile Responsive Styles */
+    @media screen and (max-width: 768px) {
+      body {
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+      }
+      
+      .yt-video-container {
+        padding: 10px;
+      }
+      
+      .custom-controls {
+        padding: 15px 12px 12px;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+      
+      /* Mobile fullscreen auto-hide */
+      .yt-video-wrapper:fullscreen .custom-controls,
+      .yt-video-wrapper:-webkit-full-screen .custom-controls {
+        opacity: 0 !important;
+        transition: opacity 0.3s;
+      }
+      
+      .yt-video-wrapper:fullscreen .custom-controls.show,
+      .yt-video-wrapper:-webkit-full-screen .custom-controls.show {
+        opacity: 1 !important;
+      }
+      
+      .control-buttons {
+        gap: 8px;
+      }
+      
+      .control-btn {
+        font-size: 16px;
+        padding: 10px;
+        min-width: 44px;
+        min-height: 44px;
+      }
+      
+      .volume-container {
+        display: none;
+      }
+      
+      #timeDisplay {
+        font-size: 12px;
+        display: none;
+      }
+      
+      .progress-bar {
+        height: 6px;
+        margin-bottom: 15px;
+      }
+      
+      .settings-menu {
+        bottom: 70px;
+        right: 12px;
+        left: 12px;
+        min-width: auto;
+        max-height: 60vh;
+        overflow-y: auto;
+      }
+      
+      .settings-item {
+        padding: 12px 16px;
+        font-size: 16px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+      }
+      
+      .center-play-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+      }
+      
+      .yt-info {
+        padding: 12px 0;
+      }
+      
+      .yt-title {
+        font-size: 18px;
+        line-height: 1.3;
+      }
+      
+      .yt-meta {
+        font-size: 13px;
+      }
+      
+      /* Mobile Shorts */
+      .shorts-phone-frame {
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+      }
+      
+      .shorts-video-container {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 0 !important;
+      }
+      
+      .shorts-side-controls {
+        right: 20px;
+        bottom: 100px;
+        gap: 20px;
+      }
+      
+      .shorts-btn {
+        width: 56px;
+        height: 56px;
+        font-size: 20px;
+      }
+      
+      .shorts-info {
+        top: 30px;
+        left: 20px;
+        right: 90px;
+      }
+      
+      .shorts-title {
+        font-size: 16px;
+      }
+      
+      .shorts-center-play {
+        width: 80px;
+        height: 80px;
+        font-size: 32px;
+      }
+      
+      /* Mobile Spotify */
+      .spotify-player {
+        padding: 20px;
+      }
+      
+      .album-art {
+        width: 250px;
+        height: 250px;
+        margin-bottom: 20px;
+      }
+      
+      .track-info h2 {
+        font-size: 24px;
+      }
+      
+      .track-info p {
+        font-size: 16px;
+      }
+      
+      .audio-progress-bar {
+        height: 8px;
+      }
+      
+      .audio-progress-thumb {
+        width: 16px;
+        height: 16px;
+        right: -8px;
+      }
+      
+      .spotify-controls {
+        gap: 15px;
+      }
+      
+      .spotify-btn {
+        font-size: 18px;
+        padding: 12px;
+      }
+      
+      .play-btn {
+        width: 56px;
+        height: 56px;
+        font-size: 20px;
+      }
+      
+      .audio-menu {
+        right: -20px;
+        bottom: 70px;
+      }
+      
+      /* Mobile Instagram */
+      .instagram-player {
+        padding: 10px;
+      }
+      
+      .insta-container {
+        max-width: 100%;
+        margin: 0;
+      }
+      
+      .insta-actions {
+        padding: 12px;
+      }
+      
+      .insta-btn {
+        font-size: 20px;
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .download-btn {
+        padding: 10px 16px;
+        font-size: 14px;
+      }
+    }
+    
+    @media screen and (max-width: 480px) {
+      .yt-video-container {
+        padding: 5px;
+      }
+      
+      .custom-controls {
+        padding: 12px 8px 8px;
+      }
+      
+      .control-buttons {
+        gap: 4px;
+      }
+      
+      .control-btn {
+        font-size: 14px;
+        padding: 8px;
+        min-width: 40px;
+        min-height: 40px;
+      }
+      
+      .progress-bar {
+        height: 8px;
+      }
+      
+      .center-play-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+      
+      .yt-title {
+        font-size: 16px;
+      }
+      
+      .settings-menu {
+        bottom: 60px;
+        right: 8px;
+        left: 8px;
+      }
+    }
+    
+    /* Touch-friendly interactions */
+    @media (hover: none) and (pointer: coarse) {
+      .custom-controls {
+        opacity: 1 !important;
+      }
+      
+      .yt-video-wrapper:hover .custom-controls {
+        opacity: 1;
+      }
+      
+      .control-btn:hover {
+        background: rgba(255,255,255,0.2);
+      }
+      
+      .settings-item:hover {
+        background: rgba(255,255,255,0.2);
+      }
+    }
+    
+    /* Welcome Page */
+    .welcome-page {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+    .welcome-container {
+      max-width: 600px;
+      background: rgba(255,255,255,0.1);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+    .welcome-title {
+      font-size: 48px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    .welcome-subtitle {
+      font-size: 20px;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+    .welcome-steps {
+      text-align: left;
+      margin: 30px 0;
+      background: rgba(0,0,0,0.2);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .welcome-step {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .welcome-links {
+      margin-top: 30px;
+    }
+    .welcome-btn {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      margin: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .welcome-btn:hover {
+      background: #ff5252;
+    }
+    
+    .url-input-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 20px 0;
+      align-items: center;
+    }
+    
+    .url-input {
+      width: 100%;
+      max-width: 400px;
+      padding: 15px 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 25px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    
+    .url-input::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+    
+    .url-input:focus {
+      border-color: #4CAF50;
+      background: rgba(255,255,255,0.15);
+      box-shadow: 0 0 20px rgba(76,175,80,0.3);
+    }
+    
+    .play-button {
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(76,175,80,0.3);
+      min-width: 150px;
+    }
+    
+    .play-button:hover {
+      background: linear-gradient(45deg, #45a049, #4CAF50);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(76,175,80,0.4);
+    }
+    
+    .play-button:active {
+      transform: translateY(0);
+    }
+    
+    @media (min-width: 600px) {
+      .url-input-container {
+        flex-direction: row;
+        justify-content: center;
+      }
+      
+      .url-input {
+        flex: 1;
+        max-width: 300px;
+      }
+    }
+    
+    /* Error Page */
+    .error-page {
+      background: #1a1a1a;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+    .error-container {
+      max-width: 500px;
+      background: rgba(255,0,0,0.1);
+      padding: 40px;
+      border-radius: 20px;
+      border: 2px solid #ff4444;
+    }
+    
+    /* Branding */
+    .branding {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+    .branding a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+    .branding a:hover {
+      text-decoration: underline;
+    }
+    
+    .site-links {
+      position: fixed;
+      bottom: 70px;
+      right: 20px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 15px;
+      border-radius: 15px;
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+    .site-links a {
+      color: #2196F3;
+      text-decoration: none;
+      display: block;
+      margin: 5px 0;
+    }
+    .site-links a:hover {
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+      .branding, .site-links {
+        display: none;
+      }
+      .welcome-title {
+        font-size: 36px;
+      }
+      .welcome-container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- YouTube Video Player -->
+<div id="youtubePlayer" class="youtube-player">
+  <div class="yt-video-container">
+    <div class="yt-video-wrapper">
+      <video id="ytVideo" class="yt-video" disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback"></video>
+      <button id="centerPlayBtn" class="center-play-btn" onclick="togglePlayPause()">▶</button>
+      <div class="custom-controls" id="customControls">
+        <div class="progress-container">
+          <div class="progress-bar" onclick="seekVideo(event)">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+        <div class="control-buttons">
+          <button class="control-btn" id="playPauseBtn" onclick="togglePlayPause()">▶</button>
+          <div class="volume-container">
+            <button class="control-btn" id="volumeBtn" onclick="toggleMute()">🔊</button>
+            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="100" onchange="setVolume(this.value)">
+          </div>
+          <span id="timeDisplay" style="font-size:14px;color:#ccc;">0:00 / 0:00</span>
+          <div style="flex:1;"></div>
+          <button class="control-btn" id="captionsBtn" onclick="toggleCaptions()" style="opacity:0.5;">CC</button>
+          <button class="control-btn" onclick="toggleSettings()">⚙️</button>
+          <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
+        </div>
+      </div>
+      <div class="settings-menu" id="settingsMenu">
+        <div class="settings-section">
+          <div class="settings-header">Quality</div>
+          <div id="qualityOptions">
+            <div class="settings-item" onclick="changeQuality('auto')">Auto</div>
+          </div>
+        </div>
+        <div class="settings-section">
+          <div class="settings-header">Speed</div>
+          <div class="settings-item" onclick="changeSpeed(0.5)">0.5x</div>
+          <div class="settings-item" onclick="changeSpeed(0.75)">0.75x</div>
+          <div class="settings-item" onclick="changeSpeed(1)">Normal</div>
+          <div class="settings-item" onclick="changeSpeed(1.25)">1.25x</div>
+          <div class="settings-item" onclick="changeSpeed(1.5)">1.5x</div>
+          <div class="settings-item" onclick="changeSpeed(2)">2x</div>
+        </div>
+        <div class="settings-section">
+          <div class="settings-item" onclick="downloadVideo()">
+            <img src="assets/download.png" style="width:16px;height:16px;margin-right:8px;vertical-align:middle;filter:brightness(0) invert(1);"> Download
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="yt-info">
+      <h1 class="yt-title" id="ytTitle">Video Title</h1>
+      <div class="yt-meta" id="ytMeta">0 views</div>
+    </div>
+  </div>
+</div>
+
+<!-- YouTube Shorts Player -->
+<div id="shortsPlayer" class="shorts-player">
+  <div class="shorts-phone-frame" id="shortsFrame">
+    <div class="shorts-video-container" id="shortsVideoContainer">
+      <video id="shortsVideo" class="shorts-video" loop disablePictureInPicture controlsList="nodownload nofullscreen noremoteplaybook"></video>
+      <button id="shortsCenterPlay" class="shorts-center-play" onclick="togglePlayPause()">▶</button>
+    </div>
+    <div class="shorts-overlay">
+      <div class="shorts-progress">
+        <div class="shorts-progress-fill" id="shortsProgressFill"></div>
+      </div>
+      <div class="shorts-info">
+        <div class="shorts-title" id="shortsTitle">Video Title</div>
+      </div>
+      <div class="shorts-side-controls">
+        <button class="shorts-btn" onclick="shareVideo()" title="Share">
+          <img src="assets/share.png" style="width:20px;height:20px;filter:brightness(0) invert(1);">
+        </button>
+        <button class="shorts-btn" onclick="downloadVideo()" title="Download">
+          <img src="assets/download.png" style="width:20px;height:20px;filter:brightness(0) invert(1);">
+        </button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Spotify Audio Player -->
+<div id="spotifyPlayer" class="spotify-player">
+  <div class="spotify-container">
+    <div class="album-art" id="albumArt">🎵</div>
+    <div class="track-info">
+      <h2 id="trackTitle">Unknown Track</h2>
+      <p id="artistAlbum">Unknown Artist • Unknown Album</p>
+    </div>
+    <audio id="audioElement" style="display: none;"></audio>
+    <div class="audio-progress-container">
+      <div class="audio-progress-bar" onclick="seekAudio(event)">
+        <div class="audio-progress-fill" id="audioProgressFill">
+          <div class="audio-progress-thumb"></div>
+        </div>
+      </div>
+      <div class="audio-time-display">
+        <span id="audioCurrentTime">0:00</span>
+        <span id="audioTotalTime">0:00</span>
+      </div>
+    </div>
+    <div class="spotify-controls">
+      <button class="spotify-btn" onclick="skipAudio(-10)"><img src="assets/backward.png" style="width:20px;height:20px;filter:brightness(0) invert(1);"></button>
+      <button class="spotify-btn play-btn" id="audioPlayBtn" onclick="toggleAudioPlayPause()">▶</button>
+      <button class="spotify-btn" onclick="skipAudio(10)"><img src="assets/forward.png" style="width:20px;height:20px;filter:brightness(0) invert(1);"></button>
+      <button class="spotify-btn" onclick="toggleAudioMenu()">⋮</button>
+      <div class="audio-menu" id="audioMenu">
+        <div class="audio-menu-item" onclick="changeAudioSpeed(0.5)">0.5x</div>
+        <div class="audio-menu-item" onclick="changeAudioSpeed(0.75)">0.75x</div>
+        <div class="audio-menu-item active" onclick="changeAudioSpeed(1)">Normal</div>
+        <div class="audio-menu-item" onclick="changeAudioSpeed(1.25)">1.25x</div>
+        <div class="audio-menu-item" onclick="changeAudioSpeed(1.5)">1.5x</div>
+        <div class="audio-menu-item" onclick="changeAudioSpeed(2)">2x</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Instagram Image Viewer -->
+<div id="instagramPlayer" class="instagram-player">
+  <div class="insta-container">
+    <div class="insta-header">
+      <div class="insta-avatar"></div>
+      <span class="insta-username">kk_player</span>
+    </div>
+    <img id="instaImage" class="insta-image" alt="Image">
+    <div class="insta-actions">
+      <button class="insta-btn">❤️</button>
+      <button class="insta-btn">💬</button>
+      <button class="insta-btn" onclick="shareImage()">
+        <img src="assets/share.png" style="width:20px;height:20px;filter:brightness(0) invert(1);">
+      </button>
+      <button class="download-btn" onclick="downloadImage()">
+        <img src="assets/download.png" style="width:20px;height:20px;filter:brightness(0) invert(1);">
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Welcome Page -->
+<div id="welcomePage" class="welcome-page" style="display:none;">
+  <div class="welcome-container">
+    <h1 class="welcome-title">Pixovia Player</h1>
+    <p class="welcome-subtitle">Universal Media Player for Videos, Audio & Images</p>
+    
+    <div class="welcome-steps">
+      <h3>How to Use:</h3>
+      <div class="welcome-step">1. Add <code>?url=your_media_url</code> to the end of this page URL</div>
+      <div class="welcome-step">2. Replace <code>your_media_url</code> with your media file URL</div><br>
+      <h3>or simply:</h3>
+      <div class="url-input-container">
+        <input type="url" id="videoUrl" placeholder="Enter media URL (video, audio, or image)" class="url-input">
+        <button onclick="playVideo()" class="play-button">Play Media</button>
+      </div>
+      <br><h3>Advantages:</h3>
+      <div class="welcome-step">1. Supports videos (MP4, WebM), audio (MP3, WAV), images (JPG, PNG, WebP)</div>
+      <div class="welcome-step">2. Enjoy YouTube-like video player, Spotify-like audio player, and Instagram-like image viewer</div>
+    </div>
+    
+    <div class="welcome-links">
+      <a href="https://pixovia.pages.dev" class="welcome-btn">Visit Pixovia</a>
+      <a href="https://pixovia.pages.dev/contact" class="welcome-btn">Contact Us</a>
+    </div>
+
+    <p style="margin-top:20px;font-size:14px;opacity:0.8;">Created by <a href="https://pixovia.pages.dev" style="color:#4CAF50;">Pixovia</a></p>
+  </div>
+</div>
+
+<!-- Error Page -->
+<div id="errorPage" class="error-page" style="display:none;">
+  <div class="error-container">
+    <h1>❌ URL Not Working</h1>
+    <p>The media URL you provided is not accessible (404/403 error).</p>
+    <p>Please check the URL and try again.</p>
+    
+    <div style="margin:20px 0;">
+      <a href="https://pixovia.pages.dev" class="welcome-btn">Visit Pixovia</a>
+      <a href="https://pixovia.pages.dev/contact" class="welcome-btn">Contact Us</a>
+    </div>
+
+    <p style="font-size:14px;opacity:0.8;">Created by <a href="https://pixovia.pages.dev" style="color:#4CAF50;">Pixovia</a></p>
+  </div>
+</div>
+
+<!-- Branding -->
+<div class="branding" id="branding" style="display:none;">
+  Created by <a href="https://pixovia.pages.dev">Pixovia</a>
+</div>
+
+<!-- Site Links -->
+<div class="site-links" id="siteLinks" style="display:none;">
+  <div id="siteLinksContent"></div>
+</div>
+
+<script>
+let currentPlayer = null;
+let mediaType = null;
+let isShorts = false;
+
+const params = new URLSearchParams(window.location.search);
+const mediaURL = params.get("url");
+
+if (!mediaURL) {
+  showWelcomePage();
+} else {
+  checkMediaURL(mediaURL);
+}
+
+function showWelcomePage() {
+  document.getElementById('welcomePage').style.display = 'flex';
+}
+
+function showErrorPage() {
+  document.getElementById('errorPage').style.display = 'flex';
+}
+
+function checkMediaURL(url) {
+  // Skip CORS-blocking validation, directly load media
+  loadMedia(url);
+}
+
+function showBranding() {
+  const isMobile = window.innerWidth <= 768;
+  if (!isMobile) {
+    document.getElementById('branding').style.display = 'block';
+    document.getElementById('siteLinks').style.display = 'block';
+    
+    let siteUrl = '';
+    if (mediaType === 'video') {
+      siteUrl = isShorts ? 'kkreels.ct.ws' : 'kkvideos.ct.ws';
+    } else if (mediaType === 'audio') {
+      siteUrl = 'kkaudio.ct.ws';
+    } else if (mediaType === 'image') {
+      siteUrl = 'kkimages.ct.ws';
+    }
+    
+    if (siteUrl) {
+      document.getElementById('siteLinksContent').innerHTML = `
+        <div>More ${mediaType}s at:</div>
+        <a href="https://${siteUrl}" target="_blank">${siteUrl}</a>
+      `;
+    }
+  }
+}
+
+function detectMediaType(url) {
+  const ext = url.split('.').pop().toLowerCase().split('?')[0];
+  if (['mp4', 'webm', 'ogg', 'avi', 'mov', 'mkv', 'm4v'].includes(ext)) return 'video';
+  if (['mp3', 'wav', 'ogg', 'aac', 'm4a', 'flac', 'wma'].includes(ext)) return 'audio';
+  if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg', 'tiff'].includes(ext)) return 'image';
+  return 'video';
+}
+
+function loadMedia(url) {
+  mediaType = detectMediaType(url);
+  hideAllPlayers();
+  
+  if (mediaType === 'video') {
+    loadVideo(url);
+  } else if (mediaType === 'audio') {
+    loadAudio(url);
+  } else if (mediaType === 'image') {
+    loadImage(url);
+  }
+}
+
+function hideAllPlayers() {
+  document.getElementById('youtubePlayer').style.display = 'none';
+  document.getElementById('shortsPlayer').style.display = 'none';
+  document.getElementById('spotifyPlayer').style.display = 'none';
+  document.getElementById('instagramPlayer').style.display = 'none';
+}
+
+function loadVideo(url) {
+  const video = document.createElement('video');
+  video.src = url;
+  video.addEventListener('loadedmetadata', () => {
+    const aspectRatio = video.videoWidth / video.videoHeight;
+    isShorts = aspectRatio <= 1.2;
+    
+    if (isShorts) {
+      currentPlayer = document.getElementById('shortsVideo');
+      currentPlayer.src = url;
+      document.getElementById('shortsPlayer').style.display = 'flex';
+      document.getElementById('shortsTitle').textContent = getFileName(url);
+      setupShortsLayout(video.videoWidth, video.videoHeight);
+      setupShortsEvents();
+    } else {
+      currentPlayer = document.getElementById('ytVideo');
+      currentPlayer.src = url;
+      document.getElementById('youtubePlayer').style.display = 'block';
+      document.getElementById('ytTitle').textContent = getFileName(url);
+      setupVideoEvents();
+    }
+    currentPlayer.autoplay = true;
+    showBranding();
+  });
+  
+  video.addEventListener('error', () => {
+    showErrorPage();
+  });
+}
+
+function setupShortsLayout(videoWidth, videoHeight) {
+  const isMobile = window.innerWidth <= 768;
+  const frame = document.getElementById('shortsFrame');
+  const container = document.getElementById('shortsVideoContainer');
+  
+  if (isMobile) {
+    frame.style.width = '100vw';
+    frame.style.height = '100vh';
+    frame.style.borderRadius = '0';
+    frame.style.padding = '0';
+    frame.style.border = 'none';
+    container.style.borderRadius = '0';
+    container.style.width = '100%';
+    container.style.height = '100%';
+  } else {
+    const maxHeight = window.innerHeight * 0.8;
+    const frameWidth = Math.min(350, maxHeight * 0.5);
+    const frameHeight = maxHeight;
+    
+    frame.style.width = frameWidth + 'px';
+    frame.style.height = frameHeight + 'px';
+    
+    const containerWidth = frameWidth - 40;
+    const containerHeight = frameHeight - 40;
+    
+    container.style.width = containerWidth + 'px';
+    container.style.height = containerHeight + 'px';
+    
+    container.style.justifyContent = 'center';
+    container.style.alignItems = 'center';
+  }
+}
+
+function shareVideo() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Check out this video',
+      url: mediaURL
+    });
+  } else {
+    navigator.clipboard.writeText(mediaURL).then(() => {
+      alert('Video URL copied to clipboard!');
+    });
+  }
+}
+
+function setupVideoEvents() {
+  const video = currentPlayer;
+  const controls = document.getElementById('customControls');
+  const videoWrapper = document.querySelector('.yt-video-wrapper');
+  let controlsTimeout;
+  const isMobile = window.innerWidth <= 768;
+  
+  video.addEventListener('timeupdate', updateProgress);
+  video.addEventListener('loadedmetadata', () => {
+    updateDuration();
+    detectVideoQuality();
+  });
+  video.addEventListener('play', () => {
+    document.getElementById('playPauseBtn').innerHTML = '<img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-pause-512.png" style="width:16px;height:16px;">';
+    document.getElementById('centerPlayBtn').style.display = 'none';
+    if (!isMobile) {
+      showControls();
+      hideControlsAfterDelay();
+    }
+  });
+  video.addEventListener('pause', () => {
+    document.getElementById('playPauseBtn').textContent = '▶';
+    document.getElementById('centerPlayBtn').style.display = 'block';
+    showControls();
+  });
+  video.addEventListener('click', (e) => {
+    // Don't toggle if clicking on controls
+    if (e.target.closest('.custom-controls')) return;
+    togglePlayPause();
+    showControls();
+    if (!isMobile && !video.paused) hideControlsAfterDelay();
+  });
+  
+  // Desktop mouse events
+  if (!isMobile) {
+    videoWrapper.addEventListener('mousemove', () => {
+      showControls();
+      hideControlsAfterDelay();
+    });
+    
+    videoWrapper.addEventListener('mouseleave', () => {
+      if (!video.paused) {
+        clearTimeout(controlsTimeout);
+        controlsTimeout = setTimeout(() => {
+          controls.classList.remove('show');
+        }, 1000);
+      }
+    });
+  }
+  
+  // Mobile touch events
+  if (isMobile) {
+    video.addEventListener('touchstart', () => {
+      showControls();
+      // Auto-hide in fullscreen on mobile
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        hideControlsAfterDelay();
+      }
+    });
+    
+    // Touch anywhere on video wrapper to show controls in fullscreen
+    videoWrapper.addEventListener('touchstart', (e) => {
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (!e.target.closest('.custom-controls')) {
+          showControls();
+          hideControlsAfterDelay();
+        }
+      }
+    });
+  }
+  
+  if (video.textTracks && video.textTracks.length > 0) {
+    document.getElementById('captionsBtn').style.opacity = '1';
+  }
+  
+  // Show controls initially
+  showControls();
+  if (!isMobile) hideControlsAfterDelay();
+  
+  function showControls() {
+    controls.classList.add('show');
+    clearTimeout(controlsTimeout);
+  }
+  
+  function hideControlsAfterDelay() {
+    clearTimeout(controlsTimeout);
+    controlsTimeout = setTimeout(() => {
+      const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
+      if (!video.paused && (!isMobile || isFullscreen)) {
+        controls.classList.remove('show');
+      }
+    }, 3000);
+  }
+}
+
+function setupShortsEvents() {
+  const video = currentPlayer;
+  const centerPlayBtn = document.getElementById('shortsCenterPlay');
+  let hideTimeout;
+  
+  video.addEventListener('timeupdate', updateShortsProgress);
+  video.addEventListener('play', () => {
+    centerPlayBtn.style.display = 'none';
+  });
+  video.addEventListener('pause', () => {
+    centerPlayBtn.style.display = 'block';
+    centerPlayBtn.innerHTML = '▶';
+  });
+  
+  video.addEventListener('click', (e) => {
+    if (e.target.closest('.shorts-side-controls')) return;
+    
+    togglePlayPause();
+    showPlayPauseIcon();
+  });
+  
+  function showPlayPauseIcon() {
+    const icon = centerPlayBtn.cloneNode(true);
+    icon.id = 'tempPlayIcon';
+    icon.style.display = 'block';
+    icon.style.opacity = '0.8';
+    icon.style.transform = 'translate(-50%, -50%) scale(1.2)';
+    icon.style.pointerEvents = 'none';
+    if (video.paused) {
+      icon.innerHTML = '▶';
+    } else {
+      icon.innerHTML = '<img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-pause-512.png" style="width:24px;height:24px;filter:brightness(0) invert(1);">';
+    }
+    
+    const container = document.getElementById('shortsVideoContainer');
+    const existingIcon = document.getElementById('tempPlayIcon');
+    if (existingIcon) existingIcon.remove();
+    
+    container.appendChild(icon);
+    
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      if (icon && icon.parentNode) {
+        icon.style.opacity = '0';
+        setTimeout(() => {
+          if (icon && icon.parentNode) icon.remove();
+        }, 200);
+      }
+    }, 800);
+  }
+}
+
+function updateProgress() {
+  const video = currentPlayer;
+  const progress = (video.currentTime / video.duration) * 100;
+  document.getElementById('progressFill').style.width = progress + '%';
+  
+  const current = formatTime(video.currentTime);
+  const total = formatTime(video.duration);
+  document.getElementById('timeDisplay').textContent = `${current} / ${total}`;
+}
+
+function updateShortsProgress() {
+  const video = currentPlayer;
+  const progress = (video.currentTime / video.duration) * 100;
+  document.getElementById('shortsProgressFill').style.width = progress + '%';
+}
+
+function updateDuration() {
+  const video = currentPlayer;
+  const total = formatTime(video.duration);
+  document.getElementById('timeDisplay').textContent = `0:00 / ${total}`;
+}
+
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+function seekVideo(event) {
+  const progressBar = event.currentTarget;
+  const rect = progressBar.getBoundingClientRect();
+  const clientX = event.clientX || (event.touches && event.touches[0].clientX);
+  const pos = (clientX - rect.left) / rect.width;
+  currentPlayer.currentTime = pos * currentPlayer.duration;
+}
+
+function setVolume(value) {
+  currentPlayer.volume = value / 100;
+  updateVolumeIcon();
+}
+
+function toggleMute() {
+  currentPlayer.muted = !currentPlayer.muted;
+  updateVolumeIcon();
+}
+
+function updateVolumeIcon() {
+  const btn = document.getElementById('volumeBtn');
+  if (currentPlayer.muted || currentPlayer.volume === 0) {
+    btn.textContent = '🔇';
+  } else if (currentPlayer.volume < 0.5) {
+    btn.textContent = '🔉';
+  } else {
+    btn.textContent = '🔊';
+  }
+}
+
+function toggleCaptions() {
+  const video = currentPlayer;
+  if (video.textTracks && video.textTracks.length > 0) {
+    const track = video.textTracks[0];
+    track.mode = track.mode === 'showing' ? 'hidden' : 'showing';
+  }
+}
+
+function toggleSettings() {
+  const menu = document.getElementById('settingsMenu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+  
+  if (menu.style.display === 'block') {
+    document.querySelectorAll('.settings-item').forEach(item => {
+      if (item.textContent === 'Normal') {
+        item.classList.add('active');
+      }
+    });
+  }
+}
+
+function downloadVideo() {
+  const link = document.createElement('a');
+  link.href = mediaURL;
+  link.download = getFileName(mediaURL);
+  link.click();
+}
+
+function loadAudio(url) {
+  currentPlayer = document.getElementById('audioElement');
+  currentPlayer.src = url;
+  document.getElementById('spotifyPlayer').style.display = 'block';
+  
+  const filename = getFileName(url);
+  document.getElementById('trackTitle').textContent = filename;
+  
+  setupAudioEvents();
+  showBranding();
+  
+  currentPlayer.addEventListener('error', () => {
+    showErrorPage();
+  });
+  
+  const albumArt = document.getElementById('albumArt');
+  const defaultImg = new Image();
+  defaultImg.src = 'default.webp';
+  defaultImg.onload = () => {
+    albumArt.innerHTML = `<img src="default.webp" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">`;
+  };
+  defaultImg.onerror = () => {
+    albumArt.innerHTML = '🎵';
+  };
+}
+
+function setupAudioEvents() {
+  const audio = currentPlayer;
+  const playBtn = document.getElementById('audioPlayBtn');
+  
+  audio.addEventListener('timeupdate', updateAudioProgress);
+  audio.addEventListener('loadedmetadata', updateAudioDuration);
+  audio.addEventListener('play', () => {
+    playBtn.innerHTML = '<img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-pause-512.png" style="width:20px;height:20px;filter:brightness(0) invert(1);">';
+  });
+  audio.addEventListener('pause', () => {
+    playBtn.innerHTML = '▶';
+  });
+  audio.addEventListener('ended', () => {
+    playBtn.innerHTML = '▶';
+  });
+}
+
+function updateAudioProgress() {
+  const audio = currentPlayer;
+  if (!audio.duration) return;
+  
+  const progress = (audio.currentTime / audio.duration) * 100;
+  document.getElementById('audioProgressFill').style.width = progress + '%';
+  
+  const current = formatTime(audio.currentTime);
+  document.getElementById('audioCurrentTime').textContent = current;
+}
+
+function updateAudioDuration() {
+  const audio = currentPlayer;
+  const total = formatTime(audio.duration);
+  document.getElementById('audioTotalTime').textContent = total;
+}
+
+function seekAudio(event) {
+  const progressBar = event.currentTarget;
+  const rect = progressBar.getBoundingClientRect();
+  const clientX = event.clientX || (event.touches && event.touches[0].clientX);
+  const pos = (clientX - rect.left) / rect.width;
+  currentPlayer.currentTime = pos * currentPlayer.duration;
+}
+
+function toggleAudioPlayPause() {
+  if (!currentPlayer) return;
+  if (currentPlayer.paused) {
+    currentPlayer.play();
+  } else {
+    currentPlayer.pause();
+  }
+}
+
+function skipAudio(seconds) {
+  if (!currentPlayer) return;
+  currentPlayer.currentTime += seconds;
+}
+
+function toggleAudioMenu() {
+  const menu = document.getElementById('audioMenu');
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+
+function changeAudioSpeed(speed) {
+  if (!currentPlayer) return;
+  currentPlayer.playbackRate = speed;
+  
+  document.querySelectorAll('.audio-menu-item').forEach(item => {
+    item.classList.remove('active');
+  });
+  
+  const speedText = speed === 1 ? 'Normal' : speed + 'x';
+  document.querySelectorAll('.audio-menu-item').forEach(item => {
+    if (item.textContent === speedText) {
+      item.classList.add('active');
+    }
+  });
+  
+  document.getElementById('audioMenu').style.display = 'none';
+}
+
+function loadImage(url) {
+  const img = document.getElementById('instaImage');
+  img.src = url;
+  document.getElementById('instagramPlayer').style.display = 'block';
+  showBranding();
+  
+  img.addEventListener('error', () => {
+    showErrorPage();
+  });
+}
+
+function getFileName(url) {
+  return decodeURIComponent(url.split('/').pop().split('?')[0]);
+}
+
+function togglePlayPause() {
+  if (!currentPlayer) return;
+  if (currentPlayer.paused) {
+    currentPlayer.play();
+  } else {
+    currentPlayer.pause();
+  }
+}
+
+function changeSpeed(speed) {
+  if (!currentPlayer || mediaType === 'image') return;
+  currentPlayer.playbackRate = speed;
+  
+  document.querySelectorAll('.settings-item').forEach(item => {
+    if (item.textContent.includes('x') || item.textContent === 'Normal') {
+      item.classList.remove('active');
+    }
+  });
+  
+  const speedText = speed === 1 ? 'Normal' : speed + 'x';
+  document.querySelectorAll('.settings-item').forEach(item => {
+    if (item.textContent === speedText) {
+      item.classList.add('active');
+    }
+  });
+  
+  document.getElementById('settingsMenu').style.display = 'none';
+}
+
+function detectVideoQuality() {
+  const video = currentPlayer;
+  if (!video.videoWidth || !video.videoHeight) return;
+  
+  const height = video.videoHeight;
+  const qualityOptions = document.getElementById('qualityOptions');
+  
+  qualityOptions.innerHTML = '<div class="settings-item active" onclick="changeQuality(\'auto\')">Auto</div>';
+  
+  const qualities = [];
+  
+  if (height >= 2160) qualities.push('2160p (4K)');
+  if (height >= 1440) qualities.push('1440p (2K)');
+  if (height >= 1080) qualities.push('1080p (HD)');
+  if (height >= 720) qualities.push('720p');
+  if (height >= 480) qualities.push('480p');
+  if (height >= 360) qualities.push('360p');
+  if (height >= 240) qualities.push('240p');
+  
+  qualities.forEach(quality => {
+    const option = document.createElement('div');
+    option.className = 'settings-item';
+    option.textContent = quality;
+    option.onclick = () => changeQuality(quality);
+    qualityOptions.appendChild(option);
+  });
+}
+
+function changeQuality(quality) {
+  document.querySelectorAll('#qualityOptions .settings-item').forEach(item => {
+    item.classList.remove('active');
+  });
+  
+  event.target.classList.add('active');
+  console.log('Quality changed to:', quality);
+  document.getElementById('settingsMenu').style.display = 'none';
+}
+
+function toggleFullscreen() {
+  if (!currentPlayer) return;
+  const container = isShorts ? document.getElementById('shortsPlayer') : document.querySelector('.yt-video-wrapper');
+  
+  if (!document.fullscreenElement) {
+    if (container.requestFullscreen) {
+      container.requestFullscreen();
+    } else if (container.webkitRequestFullscreen) {
+      container.webkitRequestFullscreen();
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+}
+
+function downloadImage() {
+  const link = document.createElement('a');
+  link.href = mediaURL;
+  link.download = getFileName(mediaURL);
+  link.click();
+}
+
+function shareImage() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Check out this image',
+      url: mediaURL
+    });
+  } else {
+    // Fallback: copy to clipboard
+    navigator.clipboard.writeText(mediaURL).then(() => {
+      alert('Image URL copied to clipboard!');
+    }).catch(() => {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = mediaURL;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      alert('Image URL copied to clipboard!');
+    });
+  }
+}
+
+// Event listeners
+document.addEventListener('keydown', (e) => {
+  if (!currentPlayer) return;
+  
+  // Show controls on any key press for video
+  if (mediaType === 'video' && !isShorts) {
+    const controls = document.getElementById('customControls');
+    if (controls) {
+      controls.classList.add('show');
+      const isMobile = window.innerWidth <= 768;
+      if (!isMobile && !currentPlayer.paused) {
+        setTimeout(() => {
+          controls.classList.remove('show');
+        }, 3000);
+      }
+    }
+  }
+  
+  switch(e.code) {
+    case 'Space':
+      e.preventDefault();
+      togglePlayPause();
+      break;
+    case 'KeyF':
+      toggleFullscreen();
+      break;
+    case 'KeyM':
+      toggleMute();
+      break;
+    case 'ArrowLeft':
+      currentPlayer.currentTime -= 10;
+      break;
+    case 'ArrowRight':
+      currentPlayer.currentTime += 10;
+      break;
+  }
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.settings-menu') && !e.target.closest('[onclick="toggleSettings()"]')) {
+    const settingsMenu = document.getElementById('settingsMenu');
+    if (settingsMenu) settingsMenu.style.display = 'none';
+  }
+  
+  if (!e.target.closest('.audio-menu') && !e.target.closest('[onclick="toggleAudioMenu()"]')) {
+    const audioMenu = document.getElementById('audioMenu');
+    if (audioMenu) audioMenu.style.display = 'none';
+  }
+  
+  if (e.target.closest('.shorts-side-controls')) {
+    e.stopPropagation();
+  }
+});
+
+document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement && mediaType === 'video') {
+    if (!isShorts) {
+      const controls = document.getElementById('customControls');
+      controls.classList.add('show');
+      // Auto-hide after entering fullscreen
+      setTimeout(() => {
+        if (!currentPlayer.paused) {
+          controls.classList.remove('show');
+        }
+      }, 3000);
+    }
+  }
+});
+
+document.addEventListener('webkitfullscreenchange', () => {
+  if (document.webkitFullscreenElement && mediaType === 'video') {
+    if (!isShorts) {
+      const controls = document.getElementById('customControls');
+      controls.classList.add('show');
+      // Auto-hide after entering fullscreen
+      setTimeout(() => {
+        if (!currentPlayer.paused) {
+          controls.classList.remove('show');
+        }
+      }, 3000);
+    }
+  }
+});
+
+window.addEventListener('resize', () => {
+  if (isShorts && currentPlayer) {
+    const video = currentPlayer;
+    if (video.videoWidth && video.videoHeight) {
+      setupShortsLayout(video.videoWidth, video.videoHeight);
+    }
+  }
+});
+
+// Touch support for progress bars
+document.addEventListener('DOMContentLoaded', () => {
+  const progressBar = document.querySelector('.progress-bar');
+  if (progressBar) {
+    progressBar.addEventListener('touchstart', seekVideo);
+    progressBar.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      seekVideo(e);
+    });
+  }
+  
+  const audioProgressBar = document.querySelector('.audio-progress-bar');
+  if (audioProgressBar) {
+    audioProgressBar.addEventListener('touchstart', seekAudio);
+    audioProgressBar.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      seekAudio(e);
+    });
+  }
+});
+function playVideo() {
+  let url = document.getElementById("videoUrl").value.trim();
+  
+  if (url === "") {
+    showNotification("Please enter a media URL", "error");
+    return;
+  }
+  
+  // Add protocol if missing
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    url = 'https://' + url;
+  }
+  
+  // Basic URL validation
+  try {
+    new URL(url);
+  } catch {
+    showNotification("Please enter a valid URL", "error");
+    return;
+  }
+  
+  // Check if it's a supported media format
+  const supportedFormats = [
+    'mp4', 'webm', 'ogg', 'avi', 'mov', 'mkv', 'm4v',
+    'mp3', 'wav', 'aac', 'm4a', 'flac', 'wma',
+    'jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg', 'tiff'
+  ];
+  
+  const ext = url.split('.').pop().toLowerCase().split('?')[0];
+  if (!supportedFormats.includes(ext)) {
+    showNotification("Unsupported format. Please use video (MP4, WebM), audio (MP3, WAV), or image (JPG, PNG) files.", "warning");
+  }
+  
+  showNotification("Loading media...", "info");
+  
+  // Encode the URL to avoid breaking query parameters
+  let encoded = encodeURIComponent(url);
+  window.location.href = "https://pixovia.pages.dev/player/?url=" + encoded;
+}
+
+function showNotification(message, type = "info") {
+  // Remove existing notification
+  const existing = document.querySelector('.notification');
+  if (existing) existing.remove();
+  
+  const notification = document.createElement('div');
+  notification.className = `notification notification-${type}`;
+  notification.textContent = message;
+  
+  const colors = {
+    info: '#2196F3',
+    success: '#4CAF50',
+    warning: '#FF9800',
+    error: '#f44336'
+  };
+  
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${colors[type]};
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    animation: slideIn 0.3s ease;
+    max-width: 300px;
+  `;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.style.animation = 'slideOut 0.3s ease';
+    setTimeout(() => notification.remove(), 300);
+  }, 3000);
+}
+
+// Add CSS animations for notifications
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  @keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+  }
+`;
+document.head.appendChild(style);
+
+// Add Enter key support for URL input
+document.addEventListener('DOMContentLoaded', () => {
+  const urlInput = document.getElementById('videoUrl');
+  if (urlInput) {
+    urlInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        playVideo();
+      }
+    });
+  }
+});
+</script>
+
+</body>
+</html>
