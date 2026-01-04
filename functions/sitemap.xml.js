@@ -25,7 +25,15 @@ export async function onRequest(context) {
     { loc: `${baseUrl}/sports`, priority: '0.8', changefreq: 'daily' },
     { loc: `${baseUrl}/learn`, priority: '0.8', changefreq: 'weekly' },
     { loc: `${baseUrl}/downloader`, priority: '0.7', changefreq: 'weekly' },
-    { loc: `${baseUrl}/contact`, priority: '0.5', changefreq: 'monthly' }
+    { loc: `${baseUrl}/contact`, priority: '0.5', changefreq: 'monthly' },
+    // Icons and images for Google indexing
+    { loc: `${baseUrl}/icon-coloured-closeup.png`, priority: '0.3', changefreq: 'yearly' },
+    { loc: `${baseUrl}/icon-coloured-closeup.jpg`, priority: '0.3', changefreq: 'yearly' },
+    { loc: `${baseUrl}/icon-coloured-closeup.webp`, priority: '0.3', changefreq: 'yearly' },
+    { loc: `${baseUrl}/logo-coloured.png`, priority: '0.3', changefreq: 'yearly' },
+    { loc: `${baseUrl}/og-image.png`, priority: '0.3', changefreq: 'yearly' },
+    { loc: `${baseUrl}/android-chrome-512x512.png`, priority: '0.2', changefreq: 'yearly' },
+    { loc: `${baseUrl}/apple-touch-icon.png`, priority: '0.2', changefreq: 'yearly' }
   ];
 
   try {
@@ -51,12 +59,16 @@ export async function onRequest(context) {
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls.map(url => `  <url>
     <loc>${url.loc}</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>${url.changefreq}</changefreq>
-    <priority>${url.priority}</priority>
+    <priority>${url.priority}</priority>${url.loc === baseUrl + '/' ? `
+    <image:image>
+      <image:loc>${baseUrl}/icon-coloured-closeup.png</image:loc>
+      <image:title>Pixovia LLC - Multi-Service Platform</image:title>
+    </image:image>` : ''}
   </url>`).join('\n')}
 </urlset>`;
 
