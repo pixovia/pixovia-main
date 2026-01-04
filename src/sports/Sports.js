@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import SportsHome from './pages/SportsHome';
 import SportDetails from './pages/SportDetails';
+import SportsType from './pages/SportsType';
 import SEO from '../components/SEO';
 
 function Sports() {
@@ -15,6 +16,7 @@ function Sports() {
       />
       <Routes>
         <Route path="/" element={<SportsHome />} />
+        <Route path="/type/:typeName" element={<SportsType />} />
         <Route path="/:id" element={<SportDetails />} />
       </Routes>
     </>
