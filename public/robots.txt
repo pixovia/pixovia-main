@@ -16,4 +16,10 @@ Allow: /library/
 Allow: /sports/
 Allow: /sports/type/
 Allow: /music/
+Allow: /music/songs
+Allow: /music/albums
+Allow: /music/artists
+Allow: /music/player/
+Allow: /music/album/
+Allow: /music/artist/
 Allow: /learn/
