@@ -10,8 +10,10 @@ Allow: /sports/type/
 Crawl-delay: 1
 
 # High priority pages
+Allow: /movies/
 Allow: /store/
 Allow: /library/
-Allow: /movies/
+Allow: /sports/
+Allow: /sports/type/
 Allow: /music/
 Allow: /learn/
