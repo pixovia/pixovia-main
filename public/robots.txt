@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://pixovia.pages.dev/sitemap.xml
+
+# Specific crawl directives for sports content
+Allow: /sports/
+Allow: /sports/type/
+Crawl-delay: 1
+
+# High priority pages
+Allow: /store/
+Allow: /library/
+Allow: /movies/
+Allow: /music/
+Allow: /learn/
