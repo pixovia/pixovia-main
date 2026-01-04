@@ -23,7 +23,8 @@ const Apps = () => {
   const fetchApps = async () => {
     try {
       const data = await appsService.getApps();
-      const sortedData = data.sort((a, b) => {
+      const filteredData = data.filter(app => app.app_type === 'app' || app.app_type === 'game');
+      const sortedData = filteredData.sort((a, b) => {
         if (a.app_type === 'app' && b.app_type === 'game') return -1;
         if (a.app_type === 'game' && b.app_type === 'app') return 1;
         return 0;

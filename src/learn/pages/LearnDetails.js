@@ -1,0 +1,205 @@
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { learnService } from '../../library/lib/supabase';
+
+function LearnDetails() {
+  const { id } = useParams();
+  const [learn, setLearn] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    loadLearn();
+  }, [id]);
+
+  const loadLearn = async () => {
+    try {
+      setLoading(true);
+      const data = await learnService.getLearnItem(id);
+      setLearn(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleContentClick = (file) => {
+    if (file.file_url) {
+      window.open(`http://kkplayer.pages.dev/?url=${encodeURIComponent(file.file_url)}`, '_blank');
+    }
+  };
+
+  const padding = window.innerWidth <= 768 ? '1rem 0.5rem' : '2rem';
+
+  if (loading) {
+    return (
+      <div style={{ padding, textAlign: 'center', color: '#fff', minHeight: '100vh', background: 'linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #2d1b69 100%)' }}>
+        <h2>Loading course...</h2>
+      </div>
+    );
+  }
+
+  if (error || !learn) {
+    return (
+      <div style={{ padding, textAlign: 'center', color: '#fff', minHeight: '100vh', background: 'linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #2d1b69 100%)' }}>
+        <h2>Course not found</h2>
+        <p>{error}</p>
+        <Link to="/learn" style={{ color: '#667eea', textDecoration: 'none' }}>
+          ← Back to Learn
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ 
+      padding,
+      background: 'linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #2d1b69 100%)',
+      minHeight: '100vh',
+      color: '#fff'
+    }}>
+      <div style={{ width: '100%' }}>
+        <div style={{ marginBottom: '2rem' }}>
+          <Link 
+            to="/learn" 
+            style={{ 
+              color: '#667eea', 
+              textDecoration: 'none',
+              display: 'inline-block',
+              marginBottom: '1rem'
+            }}
+          >
+            ← Back to Learn
+          </Link>
+        </div>
+
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : '1fr 2fr',
+          gap: '2rem',
+          alignItems: 'start'
+        }}>
+          <div style={{ position: 'relative' }}>
+            {learn.thumbnail_file?.file_url ? (
+              <img 
+                src={learn.thumbnail_file.file_url}
+                alt={learn.title || 'Course thumbnail'}
+                style={{
+                  width: '100%',
+                  borderRadius: '15px',
+                  aspectRatio: '16/9',
+                  objectFit: 'cover'
+                }}
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <div style={{
+                width: '100%',
+                aspectRatio: '16/9',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                borderRadius: '15px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '4rem'
+              }}>
+                📚
+              </div>
+            )}
+          </div>
+
+          <div>
+            <h1 style={{ 
+              fontSize: '2.5rem', 
+              marginBottom: '1rem',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}>
+              {learn.title || 'Untitled Course'}
+            </h1>
+
+            {learn.description && (
+              <p style={{ 
+                color: '#b3b3b3', 
+                fontSize: '1.1rem',
+                lineHeight: '1.6',
+                marginBottom: '2rem'
+              }}>
+                {learn.description}
+              </p>
+            )}
+
+            {learn.content_files && learn.content_files.length > 0 && (
+              <div>
+                <h3 style={{ 
+                  fontSize: '1.5rem', 
+                  marginBottom: '1rem',
+                  color: '#00d4ff'
+                }}>
+                  Course Content
+                </h3>
+                <div style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : 'repeat(auto-fit, minmax(200px, 1fr))',
+                  gap: '1rem'
+                }}>
+                  {learn.content_files.map((file, index) => (
+                    <button
+                      key={file.id}
+                      onClick={() => handleContentClick(file)}
+                      style={{
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        border: 'none',
+                        borderRadius: '10px',
+                        padding: '1rem',
+                        color: '#fff',
+                        cursor: 'pointer',
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        transition: 'transform 0.2s ease',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.5rem'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.transform = 'translateY(-2px)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.transform = 'translateY(0)';
+                      }}
+                    >
+                      <span>📚</span>
+                      {file.title || `Lesson ${index + 1}`}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {(!learn.content_files || learn.content_files.length === 0) && (
+              <div style={{
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: '15px',
+                padding: '2rem',
+                textAlign: 'center'
+              }}>
+                <h3 style={{ color: '#00d4ff', marginBottom: '1rem' }}>
+                  Coming Soon
+                </h3>
+                <p style={{ color: '#b3b3b3' }}>
+                  This course will be available soon.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default LearnDetails;

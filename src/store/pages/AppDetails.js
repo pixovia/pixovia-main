@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Star, Download, ArrowLeft, Monitor, HardDrive, ExternalLink, User, Calendar, FileText, Image, Play, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { Star, Download, ArrowLeft, Monitor, HardDrive, ExternalLink, User, Calendar, FileText, Image, Play, ChevronLeft, ChevronRight, X, Share } from 'lucide-react';
 import { appsService } from '../lib/supabase';
 import { useSEO } from '../lib/useSEO';
 import StarRating from '../components/StarRating';
@@ -150,6 +150,19 @@ const AppDetails = () => {
     }
   };
 
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: app.name,
+        text: `Check out ${app.name} on Pixovia Store`,
+        url: window.location.href
+      });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      toast.success('Link copied to clipboard!');
+    }
+  };
+
   const handleDownload = async (downloadUrl, fileName, fileType) => {
     try {
       if (!downloadUrl.startsWith('http')) {
@@ -262,10 +275,30 @@ const AppDetails = () => {
 
   return (
     <div className="app-details">
-      <Link to="/store/" className="btn btn-secondary" style={{ marginBottom: '2rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-        <ArrowLeft size={16} />
-        Back to Store
-      </Link>
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
+        <Link to="/store/" className="btn btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+          <ArrowLeft size={16} />
+          Back to Store
+        </Link>
+        
+        <button 
+          onClick={handleShare}
+          style={{
+            background: 'transparent',
+            border: '1px solid #00d4ff',
+            color: '#00d4ff',
+            padding: '0.5rem 1rem',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.5rem'
+          }}
+        >
+          <Share size={16} />
+          Share
+        </button>
+      </div>
 
       {/* Hero Section with Background - Desktop/Tablet Only */}
       {(app.bg_image || app.bg_video) && window.innerWidth > 768 && (

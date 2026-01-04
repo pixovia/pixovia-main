@@ -9,104 +9,399 @@ const Home = () => {
         description="Leading digital solutions provider. Access our Store for free apps, games, themes, and extensions, plus our Library service."
         url="https://pixovia.pages.dev/"
       />
-      <div style={{
-        fontFamily: 'Inter, sans-serif',
-        background: 'linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #2d1b69 100%)',
+      <div className="antialiased" style={{
+        fontFamily: 'Plus Jakarta Sans, sans-serif',
+        backgroundColor: '#000000',
         color: '#ffffff',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: window.innerWidth <= 768 ? '1rem 0.5rem' : '2rem'
+        margin: 0,
+        overflowX: 'hidden',
+        minHeight: '100vh'
       }}>
-      <div style={{ textAlign: 'center', maxWidth: '800px' }}>
-        <h1 style={{
-          fontSize: '3.5rem',
-          fontWeight: '700',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          marginBottom: '1rem'
+        <div className="animated-bg" style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: 'radial-gradient(circle at 50% 50%, #111 0%, #000 100%)',
+          zIndex: -1
         }}>
-          Pixovia LLC
-        </h1>
-        
-        <p style={{
-          fontSize: '1.2rem',
-          color: '#b3b3b3',
-          marginBottom: '3rem'
-        }}>
-          Digital Solutions & Services
-        </p>
-        
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '2rem',
-          marginBottom: '3rem'
-        }}>
-          <a href="/store" style={{
-            background: 'rgba(255, 255, 255, 0.06)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            borderRadius: '15px',
-            padding: '2rem',
-            transition: 'all 0.3s ease',
-            textDecoration: 'none',
-            color: 'inherit',
-            display: 'block'
-          }}>
-            <h2 style={{
-              fontSize: '1.5rem',
-              color: '#00d4ff',
-              marginBottom: '1rem'
-            }}>
-              🏪 Store
-            </h2>
-            <p style={{
-              color: '#b3b3b3',
-              lineHeight: '1.6'
-            }}>
-              Free apps, games, browser themes, and extensions for all platforms. 
-              Download premium software completely free of cost.
-            </p>
-          </a>
-          
-          <a href="/library" style={{
-            background: 'rgba(255, 255, 255, 0.06)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            borderRadius: '15px',
-            padding: '2rem',
-            transition: 'all 0.3s ease',
-            textDecoration: 'none',
-            color: 'inherit',
-            display: 'block'
-          }}>
-            <h2 style={{
-              fontSize: '1.5rem',
-              color: '#00d4ff',
-              marginBottom: '1rem'
-            }}>
-              📚 Library
-            </h2>
-            <p style={{
-              color: '#b3b3b3',
-              lineHeight: '1.6'
-            }}>
-              Coming soon - Digital library and resource center for developers 
-              and tech enthusiasts.
-            </p>
-          </a>
+          <div className="orb" style={{
+            position: 'absolute',
+            width: '600px',
+            height: '600px',
+            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(80px)',
+            animation: 'float 20s infinite alternate'
+          }}></div>
         </div>
-        
-        <div style={{
-          color: '#888',
-          fontSize: '0.9rem'
-        }}>
-          <p>&copy; 2024 Pixovia LLC. All rights reserved.</p>
-        </div>
+
+        {/* Header */}
+        <nav className="p-8 flex justify-between items-center relative z-10">
+          <div className="flex items-center gap-4">
+            <img 
+              src="https://github.com/pixovia/store-files/releases/download/v1.0.0.0.0.0.0.0.3/icon-coloured-closeup.jpg" 
+              alt="Pixovia" 
+              className="w-10 h-10 rounded-xl shadow-2xl"
+            />
+            <span className="font-extrabold text-2xl tracking-tighter uppercase italic">
+              PIXOVIA <span className="text-gray-500">LLC</span>
+            </span>
+          </div>
+          <div className="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400">
+            <span>Global Ecosystem</span>
+            <span>Always Free</span>
+            <span>2026 Vision</span>
+          </div>
+        </nav>
+
+        {/* Hero */}
+        <header className="max-w-7xl mx-auto px-6 pt-20 pb-16 text-center relative z-10">
+          <h1 className="text-6xl md:text-9xl font-extrabold tracking-tighter mb-8 leading-none uppercase">
+            EVERYTHING.<br/>
+            <span className="text-gray-500 italic">WITHOUT LIMITS.</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-400 font-light max-w-3xl mx-auto leading-relaxed">
+            Pixovia LLC is building the world's first truly open digital network. Every service, every file, and every stream—accessible to all, completely free of cost.
+          </p>
+        </header>
+
+        {/* Navigation Grid */}
+        <main className="max-w-7xl mx-auto px-6 pb-32 relative z-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            {/* Store */}
+            <a href="/store/" className="service-card p-8 rounded-3xl block" style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(15px)',
+              transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <span className="badge-free" style={{
+                fontSize: '10px',
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                background: '#ffffff',
+                color: '#000000',
+                padding: '2px 8px',
+                borderRadius: '4px',
+                marginBottom: '12px',
+                display: 'inline-block'
+              }}>All Platforms</span>
+              <div className="icon-box" style={{
+                width: '56px',
+                height: '56px',
+                background: 'rgba(255, 255, 255, 0.9)',
+                borderRadius: '14px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '24px',
+                padding: '12px',
+                transition: 'transform 0.3s ease'
+              }}>
+                <img src="https://cdn-icons-png.flaticon.com/512/2697/2697432.png" alt="Store" style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain'
+                }} />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Store</h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Free apps, games, browser themes, and extensions for all platforms. Download premium software at no cost.</p>
+            </a>
+
+            {/* Library */}
+            <a href="/library/" className="service-card p-8 rounded-3xl block" style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(15px)',
+              transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <span className="badge-free" style={{
+                fontSize: '10px',
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                background: '#ffffff',
+                color: '#000000',
+                padding: '2px 8px',
+                borderRadius: '4px',
+                marginBottom: '12px',
+                display: 'inline-block'
+              }}>Open Source</span>
+              <div className="icon-box" style={{
+                width: '56px',
+                height: '56px',
+                background: 'rgba(255, 255, 255, 0.9)',
+                borderRadius: '14px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '24px',
+                padding: '12px',
+                transition: 'transform 0.3s ease'
+              }}>
+                <img src="https://cdn-icons-png.flaticon.com/512/264/264745.png" alt="Library" style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain'
+                }} />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Library</h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Resource center for developers and tech enthusiasts. Upload, share, and discover exclusive digital files.</p>
+            </a>
+
+            {/* Movies */}
+            <a href="/movies/" className="service-card p-8 rounded-3xl block" style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(15px)',
+              transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <span className="badge-free" style={{
+                fontSize: '10px',
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                background: '#ffffff',
+                color: '#000000',
+                padding: '2px 8px',
+                borderRadius: '4px',
+                marginBottom: '12px',
+                display: 'inline-block'
+              }}>No Ads</span>
+              <div className="icon-box" style={{
+                width: '56px',
+                height: '56px',
+                background: 'rgba(255, 255, 255, 0.9)',
+                borderRadius: '14px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '24px',
+                padding: '12px',
+                transition: 'transform 0.3s ease'
+              }}>
+                <img src="https://cdn-icons-png.flaticon.com/512/412/412887.png" alt="Movies" style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain'
+                }} />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Movies</h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Watch unlimited movies in high definition. All genres, latest releases, and timeless classics for free.</p>
+            </a>
+
+            {/* Sports Live */}
+            <a href="/sports/" className="service-card p-8 rounded-3xl block" style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(15px)',
+              transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <span className="badge-free bg-green-500 text-white" style={{
+                fontSize: '10px',
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                padding: '2px 8px',
+                borderRadius: '4px',
+                marginBottom: '12px',
+                display: 'inline-block'
+              }}>Live</span>
+              <div className="icon-box" style={{
+                width: '56px',
+                height: '56px',
+                background: 'rgba(255, 255, 255, 0.9)',
+                borderRadius: '14px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '24px',
+                padding: '12px',
+                transition: 'transform 0.3s ease',
+                fontSize: '24px'
+              }}>⚽</div>
+              <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Sports Live</h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Watch live sports worldwide. Football, cricket, basketball, and every major event streamed in 4K.</p>
+            </a>
+
+            {/* Music */}
+            <a href="/music/" className="service-card p-8 rounded-3xl block" style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(15px)',
+              transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <span className="badge-free" style={{
+                fontSize: '10px',
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                background: '#ffffff',
+                color: '#000000',
+                padding: '2px 8px',
+                borderRadius: '4px',
+                marginBottom: '12px',
+                display: 'inline-block'
+              }}>Unlimited</span>
+              <div className="icon-box" style={{
+                width: '56px',
+                height: '56px',
+                background: 'rgba(255, 255, 255, 0.9)',
+                borderRadius: '14px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '24px',
+                padding: '12px',
+                transition: 'transform 0.3s ease',
+                fontSize: '24px'
+              }}>🎵</div>
+              <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Music</h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Stream unlimited tracks from your favorite artists. High-fidelity audio with zero subscription fees.</p>
+            </a>
+
+            {/* Learn */}
+            <a href="/learn/" className="service-card p-8 rounded-3xl block" style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(15px)',
+              transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <span className="badge-free" style={{
+                fontSize: '10px',
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                background: '#ffffff',
+                color: '#000000',
+                padding: '2px 8px',
+                borderRadius: '4px',
+                marginBottom: '12px',
+                display: 'inline-block'
+              }}>Knowledge</span>
+              <div className="icon-box" style={{
+                width: '56px',
+                height: '56px',
+                background: 'rgba(255, 255, 255, 0.9)',
+                borderRadius: '14px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '24px',
+                padding: '12px',
+                transition: 'transform 0.3s ease'
+              }}>
+                <img src="https://cdn-icons-png.flaticon.com/512/943/943406.png" alt="Learn" style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain'
+                }} />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Learn</h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Free educational platform. Courses, tutorials, and materials for every subject under the sun.</p>
+            </a>
+
+            {/* Downloader */}
+            <a href="/downloader/" className="service-card p-8 rounded-3xl block lg:col-span-3" style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(15px)',
+              transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="max-w-xl">
+                  <span className="badge-free" style={{
+                    fontSize: '10px',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    background: '#ffffff',
+                    color: '#000000',
+                    padding: '2px 8px',
+                    borderRadius: '4px',
+                    marginBottom: '12px',
+                    display: 'inline-block'
+                  }}>Universal</span>
+                  <div className="icon-box" style={{
+                    width: '56px',
+                    height: '56px',
+                    background: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '14px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '24px',
+                    padding: '12px',
+                    transition: 'transform 0.3s ease'
+                  }}>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3720/3720168.png" alt="Downloader" style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain'
+                    }} />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Downloader</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed font-light">Extract and save media from YouTube, Facebook, Instagram, and 50+ other platforms instantly.</p>
+                </div>
+                <div className="hidden lg:flex gap-4">
+                  <span className="px-4 py-2 bg-white/5 rounded-lg text-[10px] font-bold uppercase tracking-widest text-gray-500">YT</span>
+                  <span className="px-4 py-2 bg-white/5 rounded-lg text-[10px] font-bold uppercase tracking-widest text-gray-500">FB</span>
+                  <span className="px-4 py-2 bg-white/5 rounded-lg text-[10px] font-bold uppercase tracking-widest text-gray-500">IG</span>
+                </div>
+              </div>
+            </a>
+
+          </div>
+        </main>
+
+        {/* Footer */}
+        <footer className="p-12 border-t border-white/5 bg-black/50 relative z-10">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div className="text-center md:text-left">
+              <p className="font-black text-xl tracking-tighter mb-2 uppercase italic">Pixovia LLC</p>
+              <p className="text-xs text-gray-500 font-bold uppercase tracking-[0.2em]">The Digital Liberation Front • 2026</p>
+            </div>
+            <div className="flex gap-12 text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em]">
+              <a href="#" className="hover:text-white transition">Network Status</a>
+              <a href="#" className="hover:text-white transition">Open Source</a>
+              <a href="#" className="hover:text-white transition">Privacy</a>
+            </div>
+          </div>
+        </footer>
+
+        <style jsx>{`
+          @keyframes float {
+            0% { transform: translate(-10%, -10%); }
+            100% { transform: translate(10%, 10%); }
+          }
+          .service-card:hover {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            transform: translateY(-10px) !important;
+          }
+          .service-card:hover .icon-box {
+            transform: scale(1.1) !important;
+          }
+        `}</style>
       </div>
-    </div>
     </>
   );
 };

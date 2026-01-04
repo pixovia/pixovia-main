@@ -5,6 +5,10 @@ import Home from './pages/Home';
 import Library from './library/Library';
 import Contact from './pages/Contact';
 import Store from './store/Store';
+import Movies from './movies/Movies';
+import Sports from './sports/Sports';
+import Music from './music/Music';
+import Learn from './learn/Learn';
 
 function App() {
   return (
@@ -16,6 +20,10 @@ function App() {
             <Route path="/library/*" element={<Library />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/store/*" element={<Store />} />
+            <Route path="/movies/*" element={<Movies />} />
+            <Route path="/sports/*" element={<Sports />} />
+            <Route path="/music/*" element={<Music />} />
+            <Route path="/learn/*" element={<Learn />} />
           </Routes>
         </div>
       </Router>

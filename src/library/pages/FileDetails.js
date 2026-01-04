@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { libraryService } from '../lib/supabase';
-import { ArrowLeft, Download, ExternalLink, FolderOpen, X, Play, Maximize } from 'lucide-react';
+import { ArrowLeft, Download, ExternalLink, FolderOpen, X, Play, Maximize, Share } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const FileDetails = () => {
@@ -29,6 +29,19 @@ const FileDetails = () => {
       console.error('Error fetching file:', error);
       toast.error('Failed to load file');
       setLoading(false);
+    }
+  };
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: file.title,
+        text: `Check out ${file.title} on Pixovia Library`,
+        url: window.location.href
+      });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      toast.success('Link copied to clipboard!');
     }
   };
 
@@ -93,17 +106,36 @@ const FileDetails = () => {
 
   return (
     <div style={{ padding: '2rem 1rem', maxWidth: '800px', margin: '0 auto', background: '#f8f9fa', minHeight: '100vh', color: '#333' }}>
-      <Link to="/library/files" style={{ 
-        display: 'inline-flex', 
-        alignItems: 'center', 
-        gap: '0.5rem', 
-        color: '#6c757d', 
-        textDecoration: 'none',
-        marginBottom: '2rem'
-      }}>
-        <ArrowLeft size={16} />
-        Back to Files
-      </Link>
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
+        <Link to="/library/files" style={{ 
+          display: 'inline-flex', 
+          alignItems: 'center', 
+          gap: '0.5rem', 
+          color: '#6c757d', 
+          textDecoration: 'none'
+        }}>
+          <ArrowLeft size={16} />
+          Back to Files
+        </Link>
+        
+        <button 
+          onClick={handleShare}
+          style={{
+            background: 'transparent',
+            border: '1px solid #007bff',
+            color: '#007bff',
+            padding: '0.5rem 1rem',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.5rem'
+          }}
+        >
+          <Share size={16} />
+          Share
+        </button>
+      </div>
 
       <div style={{
         background: '#fff',

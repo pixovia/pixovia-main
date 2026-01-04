@@ -5,6 +5,210 @@ const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+export const moviesService = {
+  // Get movies from movie_audio_learn table
+  async getMovies() {
+    const { data, error } = await supabase
+      .from('movie_audio_learn')
+      .select(`
+        *,
+        thumbnail_file:files!movie_audio_learn_thumbnail_fkey(*)
+      `)
+      .eq('type', 'movie')
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data;
+  },
+
+  // Get movie by ID with content files
+  async getMovie(id) {
+    const { data, error } = await supabase
+      .from('movie_audio_learn')
+      .select(`
+        *,
+        thumbnail_file:files!movie_audio_learn_thumbnail_fkey(*)
+      `)
+      .eq('id', id)
+      .eq('type', 'movie')
+      .single();
+    
+    if (error) throw error;
+    
+    // Get content files if content_url contains file IDs
+    if (data && data.content_url) {
+      const fileIds = data.content_url.split(',').map(id => id.trim());
+      const { data: contentFiles, error: filesError } = await supabase
+        .from('files')
+        .select('*')
+        .in('id', fileIds);
+      
+      if (filesError) throw filesError;
+      data.content_files = contentFiles;
+    }
+    
+    return data;
+  },
+
+  async searchMovies(query) {
+    const { data, error } = await supabase
+      .from('movie_audio_learn')
+      .select(`
+        *,
+        thumbnail_file:files!movie_audio_learn_thumbnail_fkey(*)
+      `)
+      .eq('type', 'movie')
+      .or(`title.ilike.%${query}%,description.ilike.%${query}%`)
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data;
+  }
+};
+
+export const sportsService = {
+  async getSports() {
+    const { data, error } = await supabase
+      .from('sports')
+      .select(`
+        *,
+        thumbnail_file:files!sports_thumbnail_fkey(*)
+      `)
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data;
+  },
+
+  async getSport(id) {
+    const { data, error } = await supabase
+      .from('sports')
+      .select(`
+        *,
+        thumbnail_file:files!sports_thumbnail_fkey(*)
+      `)
+      .eq('id', id)
+      .single();
+    
+    if (error) throw error;
+    
+    if (data && data.content_url) {
+      const fileIds = data.content_url.split(',').map(id => id.trim());
+      const { data: contentFiles, error: filesError } = await supabase
+        .from('files')
+        .select('*')
+        .in('id', fileIds);
+      
+      if (filesError) throw filesError;
+      data.content_files = contentFiles;
+    }
+    
+    return data;
+  }
+};
+
+export const musicService = {
+  async getMusic() {
+    const { data, error } = await supabase
+      .from('movie_audio_learn')
+      .select(`
+        *,
+        thumbnail_file:files!movie_audio_learn_thumbnail_fkey(*)
+      `)
+      .eq('type', 'audio')
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data;
+  },
+
+  async getMusicItem(id) {
+    const { data, error } = await supabase
+      .from('movie_audio_learn')
+      .select(`
+        *,
+        thumbnail_file:files!movie_audio_learn_thumbnail_fkey(*)
+      `)
+      .eq('id', id)
+      .eq('type', 'audio')
+      .single();
+    
+    if (error) throw error;
+    
+    if (data && data.content_url) {
+      // For audio, content_url should be a single file ID
+      const { data: audioFile, error: fileError } = await supabase
+        .from('files')
+        .select('*')
+        .eq('id', data.content_url.trim())
+        .single();
+      
+      if (fileError) throw fileError;
+      data.audio_file = audioFile;
+    }
+    
+    return data;
+  },
+
+  async searchMusic(query) {
+    const { data, error } = await supabase
+      .from('movie_audio_learn')
+      .select(`
+        *,
+        thumbnail_file:files!movie_audio_learn_thumbnail_fkey(*)
+      `)
+      .eq('type', 'audio')
+      .or(`title.ilike.%${query}%,description.ilike.%${query}%`)
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data;
+  }
+};
+
+export const learnService = {
+  async getLearn() {
+    const { data, error } = await supabase
+      .from('movie_audio_learn')
+      .select(`
+        *,
+        thumbnail_file:files!movie_audio_learn_thumbnail_fkey(*)
+      `)
+      .eq('type', 'learn')
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data;
+  },
+
+  async getLearnItem(id) {
+    const { data, error } = await supabase
+      .from('movie_audio_learn')
+      .select(`
+        *,
+        thumbnail_file:files!movie_audio_learn_thumbnail_fkey(*)
+      `)
+      .eq('id', id)
+      .eq('type', 'learn')
+      .single();
+    
+    if (error) throw error;
+    
+    if (data && data.content_url) {
+      const fileIds = data.content_url.split(',').map(id => id.trim());
+      const { data: contentFiles, error: filesError } = await supabase
+        .from('files')
+        .select('*')
+        .in('id', fileIds);
+      
+      if (filesError) throw filesError;
+      data.content_files = contentFiles;
+    }
+    
+    return data;
+  }
+};
+
 export const libraryService = {
   // Get all albums
   async getAlbums() {
@@ -141,6 +345,50 @@ export const libraryService = {
       .order('created_at', { ascending: false });
     
     if (error) throw error;
+    return data;
+  },
+
+  // Get movies from movie_audio_learn table
+  async getMovies() {
+    const { data, error } = await supabase
+      .from('movie_audio_learn')
+      .select(`
+        *,
+        thumbnail_file:files!movie_audio_learn_thumbnail_fkey(*)
+      `)
+      .eq('type', 'movie')
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data;
+  },
+
+  // Get movie by ID with content files
+  async getMovie(id) {
+    const { data, error } = await supabase
+      .from('movie_audio_learn')
+      .select(`
+        *,
+        thumbnail_file:files!movie_audio_learn_thumbnail_fkey(*)
+      `)
+      .eq('id', id)
+      .eq('type', 'movie')
+      .single();
+    
+    if (error) throw error;
+    
+    // Get content files if content_url contains file IDs
+    if (data && data.content_url) {
+      const fileIds = data.content_url.split(',').map(id => id.trim());
+      const { data: contentFiles, error: filesError } = await supabase
+        .from('files')
+        .select('*')
+        .in('id', fileIds);
+      
+      if (filesError) throw filesError;
+      data.content_files = contentFiles;
+    }
+    
     return data;
   }
 };

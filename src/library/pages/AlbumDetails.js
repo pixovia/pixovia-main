@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { libraryService } from '../lib/supabase';
-import { ArrowLeft, Download } from 'lucide-react';
+import { ArrowLeft, Download, Share } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const AlbumDetails = () => {
@@ -19,6 +19,19 @@ const AlbumDetails = () => {
       document.title = `${album.title} - Pixovia Library`;
     }
   }, [album]);
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: album.title,
+        text: `Check out ${album.title} album on Pixovia Library`,
+        url: window.location.href
+      });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      toast.success('Link copied to clipboard!');
+    }
+  };
 
   const fetchAlbumData = async () => {
     try {
@@ -189,17 +202,36 @@ const AlbumDetails = () => {
 
   return (
     <div style={{ padding: window.innerWidth <= 768 ? '1rem 0.5rem' : '2rem' }}>
-      <Link to="/library/albums" style={{ 
-        display: 'inline-flex', 
-        alignItems: 'center', 
-        gap: '0.5rem', 
-        color: '#888', 
-        textDecoration: 'none',
-        marginBottom: '2rem'
-      }}>
-        <ArrowLeft size={16} />
-        Back to Albums
-      </Link>
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
+        <Link to="/library/albums" style={{ 
+          display: 'inline-flex', 
+          alignItems: 'center', 
+          gap: '0.5rem', 
+          color: '#888', 
+          textDecoration: 'none'
+        }}>
+          <ArrowLeft size={16} />
+          Back to Albums
+        </Link>
+        
+        <button 
+          onClick={handleShare}
+          style={{
+            background: 'transparent',
+            border: '1px solid #00d4ff',
+            color: '#00d4ff',
+            padding: '0.5rem 1rem',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.5rem'
+          }}
+        >
+          <Share size={16} />
+          Share
+        </button>
+      </div>
 
       <div style={{ marginBottom: '3rem' }}>
         <h1 style={{ fontSize: '2.5rem', color: '#00d4ff', marginBottom: '0.5rem' }}>
