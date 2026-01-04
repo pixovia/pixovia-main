@@ -22,6 +22,9 @@ export async function onRequest(context) {
     { loc: `${baseUrl}/library`, priority: '0.9', changefreq: 'daily' },
     { loc: `${baseUrl}/movies`, priority: '0.9', changefreq: 'daily' },
     { loc: `${baseUrl}/music`, priority: '0.9', changefreq: 'daily' },
+    { loc: `${baseUrl}/music/songs`, priority: '0.8', changefreq: 'daily' },
+    { loc: `${baseUrl}/music/albums`, priority: '0.8', changefreq: 'daily' },
+    { loc: `${baseUrl}/music/artists`, priority: '0.8', changefreq: 'daily' },
     { loc: `${baseUrl}/sports`, priority: '0.9', changefreq: 'hourly' },
     { loc: `${baseUrl}/learn`, priority: '0.8', changefreq: 'weekly' },
     { loc: `${baseUrl}/downloader`, priority: '0.7', changefreq: 'weekly' },
@@ -61,7 +64,14 @@ export async function onRequest(context) {
     files.forEach(file => urls.push({ loc: `${baseUrl}/library/file/${file.id}`, priority: '0.6', changefreq: 'monthly' }));
     albums.forEach(album => urls.push({ loc: `${baseUrl}/library/album/${album.id}`, priority: '0.6', changefreq: 'monthly' }));
     movies.forEach(movie => urls.push({ loc: `${baseUrl}/movies/${movie.id}`, priority: '0.8', changefreq: 'weekly' }));
-    music.forEach(track => urls.push({ loc: `${baseUrl}/music/player/${track.id}`, priority: '0.6', changefreq: 'monthly' }));
+    music.forEach(track => {
+      urls.push({ loc: `${baseUrl}/music/player/${track.id}`, priority: '0.6', changefreq: 'monthly' });
+    });
+    
+    // Add music album pages
+    albums.forEach(album => {
+      urls.push({ loc: `${baseUrl}/music/album/${album.id}`, priority: '0.7', changefreq: 'monthly' });
+    });
     sports.forEach(sport => urls.push({ loc: `${baseUrl}/sports/${sport.id}`, priority: '0.7', changefreq: 'hourly' }));
     courses.forEach(course => urls.push({ loc: `${baseUrl}/learn/${course.id}`, priority: '0.6', changefreq: 'monthly' }));
   } catch (error) {
