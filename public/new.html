@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixovia LLC | The Free Future</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fcfcfc;
+            color: #0f172a;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .light-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(241, 245, 249, 1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 90%, rgba(226, 232, 240, 0.5) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .service-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            border-color: #cbd5e1;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
+
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            background: #f8fafc;
+            border: 1px solid #f1f5f9;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            padding: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .icon-box {
+            background: #0f172a;
+            transform: scale(1.1) rotate(-3deg);
+        }
+
+        .icon-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: filter 0.3s ease;
+        }
+
+        .service-card:hover .icon-img {
+            filter: invert(1);
+        }
+
+        .badge-free {
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .hero-text {
+            background: linear-gradient(to bottom, #000 40%, #64748b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="light-mesh"></div>
+
+    <!-- Header -->
+    <nav class="p-8 flex justify-between items-center relative z-10">
+        <div class="flex items-center gap-4">
+            <img src="https://github.com/pixovia/store-files/releases/download/v1.0.0.0.0.0.0.0.3/icon-coloured-closeup.jpg" 
+                 alt="Pixovia" class="w-10 h-10 rounded-xl shadow-lg">
+            <span class="font-extrabold text-2xl tracking-tighter uppercase italic text-slate-900">PIXOVIA <span class="text-slate-400">LLC</span></span>
+        </div>
+        <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500">
+            <span>Global Ecosystem</span>
+            <span>Always Free</span>
+            <span>2026 Vision</span>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="max-w-7xl mx-auto px-6 pt-20 pb-16 text-center relative z-10">
+        <h1 class="hero-text text-6xl md:text-9xl font-extrabold tracking-tighter mb-8 leading-none uppercase">
+            EVERYTHING.<br>
+            <span class="text-slate-400 italic font-medium">WITHOUT LIMITS.</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-slate-500 font-light max-w-3xl mx-auto leading-relaxed">
+            Pixovia LLC is building the world's first truly open digital network. Every service, every file, and every stream—accessible to all, <span class="text-slate-900 font-semibold">completely free of cost.</span>
+        </p>
+    </header>
+
+    <!-- Navigation Grid -->
+    <main class="max-w-7xl mx-auto px-6 pb-32 relative z-10">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Store -->
+            <a href="#" class="service-card p-10 rounded-[2rem] block">
+                <span class="badge-free">All Platforms</span>
+                <div class="icon-box">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2697/2697432.png" alt="Store" class="icon-img">
+                </div>
+                <h3 class="text-2xl font-bold mb-3 uppercase tracking-tight text-slate-900">Store</h3>
+                <p class="text-slate-500 text-sm leading-relaxed font-light">Free apps, games, browser themes, and extensions for all platforms. Download premium software at no cost.</p>
+            </a>
+
+            <!-- Library -->
+            <a href="#" class="service-card p-10 rounded-[2rem] block">
+                <span class="badge-free">Open Source</span>
+                <div class="icon-box">
+                    <img src="https://cdn-icons-png.flaticon.com/512/264/264745.png" alt="Library" class="icon-img">
+                </div>
+                <h3 class="text-2xl font-bold mb-3 uppercase tracking-tight text-slate-900">Library</h3>
+                <p class="text-slate-500 text-sm leading-relaxed font-light">Resource center for developers and tech enthusiasts. Upload, share, and discover exclusive digital files.</p>
+            </a>
+
+            <!-- Movies -->
+            <a href="#" class="service-card p-10 rounded-[2rem] block">
+                <span class="badge-free">No Ads</span>
+                <div class="icon-box">
+                    <img src="https://cdn-icons-png.flaticon.com/512/412/412887.png" alt="Movies" class="icon-img">
+                </div>
+                <h3 class="text-2xl font-bold mb-3 uppercase tracking-tight text-slate-900">Movies</h3>
+                <p class="text-slate-500 text-sm leading-relaxed font-light">Watch unlimited movies in high definition. All genres, latest releases, and timeless classics for free.</p>
+            </a>
+
+            <!-- Sports Live -->
+            <a href="#" class="service-card p-10 rounded-[2rem] block">
+                <span class="badge-free bg-emerald-600 text-white">Live</span>
+                <div class="icon-box text-2xl">⚽</div>
+                <h3 class="text-2xl font-bold mb-3 uppercase tracking-tight text-slate-900">Sports Live</h3>
+                <p class="text-slate-500 text-sm leading-relaxed font-light">Watch live sports worldwide. Football, cricket, basketball, and every major event streamed in 4K.</p>
+            </a>
+
+            <!-- Music -->
+            <a href="#" class="service-card p-10 rounded-[2rem] block">
+                <span class="badge-free">Unlimited</span>
+                <div class="icon-box text-2xl">🎵</div>
+                <h3 class="text-2xl font-bold mb-3 uppercase tracking-tight text-slate-900">Music</h3>
+                <p class="text-slate-500 text-sm leading-relaxed font-light">Stream unlimited tracks from your favorite artists. High-fidelity audio with zero subscription fees.</p>
+            </a>
+
+            <!-- Learn -->
+            <a href="#" class="service-card p-10 rounded-[2rem] block">
+                <span class="badge-free">Knowledge</span>
+                <div class="icon-box">
+                    <img src="https://cdn-icons-png.flaticon.com/512/943/943406.png" alt="Learn" class="icon-img">
+                </div>
+                <h3 class="text-2xl font-bold mb-3 uppercase tracking-tight text-slate-900">Learn</h3>
+                <p class="text-slate-500 text-sm leading-relaxed font-light">Free educational platform. Courses, tutorials, and materials for every subject under the sun.</p>
+            </a>
+
+            <!-- Downloader -->
+            <a href="#" class="service-card p-10 rounded-[2rem] block lg:col-span-3">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-10">
+                    <div class="max-w-xl">
+                        <span class="badge-free">Universal</span>
+                        <div class="icon-box">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3720/3720168.png" alt="Downloader" class="icon-img">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 uppercase tracking-tight text-slate-900">Downloader</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed font-light">Extract and save media from YouTube, Facebook, Instagram, and 50+ other platforms instantly.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-5 py-2 bg-slate-100 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-slate-400">YouTube</span>
+                        <span class="px-5 py-2 bg-slate-100 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Facebook</span>
+                        <span class="px-5 py-2 bg-slate-100 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Instagram</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="p-16 border-t border-slate-200 bg-white relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="text-center md:text-left">
+                <p class="font-black text-2xl tracking-tighter mb-2 uppercase italic text-slate-900">Pixovia LLC</p>
+                <p class="text-xs text-slate-400 font-bold uppercase tracking-[0.2em]">The Digital Liberation Front • 2026</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-10 text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">
+                <a href="#" class="hover:text-slate-900 transition">Network Status</a>
+                <a href="#" class="hover:text-slate-900 transition">Open Source</a>
+                <a href="#" class="hover:text-slate-900 transition">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

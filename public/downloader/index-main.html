@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Pixovia Downloader - Premium Video & Audio Downloader for 50+ Platforms</title>
+    <meta name="title" content="Pixovia Downloader - Premium Video & Audio Downloader for 50+ Platforms">
+    <meta name="description" content="Download videos and audio from YouTube, Instagram, TikTok, Facebook, Twitter, SoundCloud and 50+ platforms. Fast, secure, and high-quality downloads with Pixovia premium tools.">
+    <meta name="keywords" content="video downloader, audio downloader, YouTube downloader, Instagram downloader, TikTok downloader, Pixovia, online video download, MP4 download, MP3 download">
+    <meta name="author" content="Pixovia">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://pixovia.pages.dev/downloader/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pixovia.pages.dev/downloader/">
+    <meta property="og:title" content="Pixovia Downloader - Premium Video & Audio Downloader">
+    <meta property="og:description" content="Download videos and audio from 50+ platforms including YouTube, Instagram, TikTok, Facebook, and more. Fast, secure, and high-quality downloads.">
+    <meta property="og:image" content="https://pixovia.pages.dev/downloader/img/og-image.jpg">
+    <meta property="og:site_name" content="Pixovia">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://pixovia.pages.dev/downloader/">
+    <meta property="twitter:title" content="Pixovia Downloader - Premium Video & Audio Downloader">
+    <meta property="twitter:description" content="Download videos and audio from 50+ platforms. Fast, secure, and high-quality downloads with Pixovia premium tools.">
+    <meta property="twitter:image" content="https://pixovia.pages.dev/downloader/img/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="application-name" content="Pixovia Downloader">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Pixovia Downloader",
+      "description": "Premium video and audio downloader supporting 50+ platforms",
+      "url": "https://pixovia.pages.dev/downloader/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pixovia",
+        "url": "https://pixovia.pages.dev"
+      }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="pix">Pix</span><span class="ovia">ovia</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#platforms">Platforms</a>
+                <a href="#about">About</a>
+                <a href="https://pixovia.pages.dev" target="_blank">More Tools</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero-title">Free Video Downloader</h1>
+                <p class="hero-subtitle">Download videos and audio from any platform with enterprise-grade quality</p>
+                
+                <div class="download-card">
+                    <div class="input-section">
+                        <div class="input-wrapper">
+                            <i class="fas fa-link input-icon"></i>
+                            <input type="url" id="videoUrl" placeholder="Paste video URL from any supported platform..." class="url-input">
+                            <button id="pasteBtn" class="paste-button" onclick="pasteFromClipboard()">
+                                <i class="fas fa-clipboard"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="options-section disabled" id="optionsSection">
+                        <div class="format-selection">
+                            <label class="option-label">Format</label>
+                            <div class="format-buttons">
+                                <button class="format-btn active" data-format="mp4" onclick="selectFormat('mp4')">
+                                    <i class="fas fa-video"></i>
+                                    <span>Video (MP4)</span>
+                                </button>
+                                <button class="format-btn" data-format="mp3" onclick="selectFormat('mp3')">
+                                    <i class="fas fa-music"></i>
+                                    <span>Audio (MP3)</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="quality-selection" id="qualitySection">
+                            <label class="option-label">Quality</label>
+                            <div class="custom-dropdown" id="qualityDropdown">
+                                <div class="dropdown-selected disabled" id="dropdownSelected">
+                                    <span class="selected-text">Select quality...</span>
+                                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                                </div>
+                                <div class="dropdown-options" id="dropdownOptions">
+                                    <div class="dropdown-option" data-value="">Select quality...</div>
+                                </div>
+                                <div id="qualityLoading" class="quality-loading">
+                                    <i class="fas fa-spinner"></i>
+                                    <span>Detecting available qualities...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="audio-options" id="audioOptions">
+                            <label class="toggle-container">
+                                <input type="checkbox" id="muteToggle">
+                                <span class="toggle-slider"></span>
+                                <span class="toggle-label">Mute Audio</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="download-buttons">
+                        <button id="downloadBtn" class="download-button" onclick="downloadVideo()">
+                            <i class="fas fa-download"></i>
+                            <span>Download Now</span>
+                        </button>
+                        <button id="cancelBtn" class="cancel-button" onclick="cancelDownload()">
+                            <i class="fas fa-times"></i>
+                            <span>Cancel</span>
+                        </button>
+                    </div>
+
+                    <div id="progressContainer" class="progress-section">
+                        <div class="progress-header">
+                            <div class="progress-icon">
+                                <i class="fas fa-cloud-download-alt"></i>
+                            </div>
+                            <div class="progress-details">
+                                <h3>Processing Your Download</h3>
+                                <p>Pixovia is working its magic...</p>
+                            </div>
+                        </div>
+                        <div class="progress-info">
+                            <span id="progressText">Preparing download...</span>
+                            <span id="progressPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progressFill" class="progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div id="downloadResult" class="download-result"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="platforms" class="platforms-section">
+            <div class="container">
+                <h2 class="section-title">Supported Platforms</h2>
+                <div class="platforms-grid">
+                    <div class="platform-card youtube">
+                        <i class="fab fa-youtube"></i>
+                        <h3>YouTube</h3>
+                        <p>Videos, Shorts, Playlists, Live</p>
+                    </div>
+                    <div class="platform-card vimeo">
+                        <i class="fab fa-vimeo"></i>
+                        <h3>Vimeo</h3>
+                        <p>HD Videos, Private Content</p>
+                    </div>
+                    <div class="platform-card dailymotion">
+                        <i class="fas fa-video"></i>
+                        <h3>Dailymotion</h3>
+                        <p>Videos, Live Streams</p>
+                    </div>
+                    <div class="platform-card twitch">
+                        <i class="fab fa-twitch"></i>
+                        <h3>Twitch</h3>
+                        <p>Clips, VODs, Live Streams</p>
+                    </div>
+                    <div class="platform-card instagram">
+                        <i class="fab fa-instagram"></i>
+                        <h3>Instagram</h3>
+                        <p>Posts, Reels, Stories (Public)</p>
+                    </div>
+                    <div class="platform-card facebook">
+                        <i class="fab fa-facebook"></i>
+                        <h3>Facebook</h3>
+                        <p>Public Posts, Videos</p>
+                    </div>
+                    <div class="platform-card twitter">
+                        <i class="fab fa-twitter"></i>
+                        <h3>Twitter/X</h3>
+                        <p>Videos, GIFs</p>
+                    </div>
+                    <div class="platform-card tiktok">
+                        <i class="fab fa-tiktok"></i>
+                        <h3>TikTok</h3>
+                        <p>Videos (No Watermark)</p>
+                    </div>
+                    <div class="platform-card reddit">
+                        <i class="fab fa-reddit"></i>
+                        <h3>Reddit</h3>
+                        <p>Videos in Posts</p>
+                    </div>
+                    <div class="platform-card soundcloud">
+                        <i class="fab fa-soundcloud"></i>
+                        <h3>SoundCloud</h3>
+                        <p>Music, Podcasts, Audio</p>
+                    </div>
+                    <div class="platform-card bandcamp">
+                        <i class="fab fa-bandcamp"></i>
+                        <h3>Bandcamp</h3>
+                        <p>Music Albums, Tracks</p>
+                    </div>
+                    <div class="platform-card news">
+                        <i class="fas fa-newspaper"></i>
+                        <h3>News Sites</h3>
+                        <p>BBC, CNN, NBC, Discovery</p>
+                    </div>
+                </div>
+                <div class="additional-platforms">
+                    <h4>Additional Platforms</h4>
+                    <div class="platform-tags">
+                        <span class="platform-tag">PeerTube</span>
+                        <span class="platform-tag">VK.com</span>
+                        <span class="platform-tag">Mixcloud</span>
+                        <span class="platform-tag">Archive.org</span>
+                        <span class="platform-tag">9gag</span>
+                        <span class="platform-tag">LinkedIn Learning</span>
+                        <span class="platform-tag">Coursera</span>
+                        <span class="platform-tag">Udemy</span>
+                        <span class="platform-tag">Comedy Central</span>
+                        <span class="platform-tag">+ 40 More</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-hero">
+                        <h2>About Pixovia</h2>
+                        <p>We're revolutionizing how people download and enjoy media content from their favorite platforms. Our mission is to provide the fastest, most secure, and user-friendly video downloading experience.</p>
+                    </div>
+                    
+                    <div class="about-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">10M+</div>
+                            <div class="stat-label">Downloads Served</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Platforms Supported</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">99.9%</div>
+                            <div class="stat-label">Uptime Guarantee</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Support Available</div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-mission">
+                        <h3>Our Mission</h3>
+                        <p>At Pixovia, we believe that accessing your favorite content should be simple, fast, and secure. We've built a platform that respects user privacy while delivering enterprise-grade performance. Our team of engineers works tirelessly to support new platforms and maintain the highest quality standards.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
+            <div class="container">
+                <h2 class="section-title">Premium Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Lightning Fast</h3>
+                        <p>Download videos in seconds with our optimized servers</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>100% Secure</h3>
+                        <p>Enterprise-grade security with no data collection</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-hd-video"></i>
+                        <h3>High Quality</h3>
+                        <p>Download in original quality up to 4K resolution</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Cross Platform</h3>
+                        <p>Works on all devices and operating systems</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="pix">Pix</span><span class="ovia">ovia</span>
+                </div>
+                <p class="footer-tagline">Powering the future of digital tools</p>
+                <div class="footer-links">
+                    <a href="https://pixovia.pages.dev" target="_blank">Mian Page</a>
+                    <a href="https://pixovia.pages.dev/converter" target="_blank">Converter</a>
+                    <a href="https://pixovia.pages.dev/editor" target="_blank">Editor</a>
+                    <a href="https://pixovia.pages.dev/compressor" target="_blank">Compressor</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixovia Sports | Unlimited Live Streaming - Coming Soon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            margin: 0;
+        }
+        .display-font { font-family: 'Syncopate', sans-serif; }
+        
+        .hero-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(255, 255, 255, 0.03) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(204, 255, 0, 0.05) 0, transparent 50%);
+            z-index: -1;
+        }
+
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .card-stadium {
+            background: linear-gradient(145deg, #0f0f0f 0%, #050505 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-stadium:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .text-neon {
+            color: #ccff00;
+            text-shadow: 0 0 15px rgba(204, 255, 0, 0.3);
+        }
+
+        .btn-primary {
+            background: #ffffff;
+            color: #000000;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #ccff00;
+            transform: scale(1.02);
+        }
+
+        .ticker-text {
+            animation: scroll 40s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .coming-soon-badge {
+            animation: pulse-border 2s infinite;
+            border: 1px solid rgba(204, 255, 0, 0.3);
+        }
+
+        @keyframes pulse-border {
+            0% { border-color: rgba(204, 255, 0, 0.3); box-shadow: 0 0 0px rgba(204, 255, 0, 0); }
+            50% { border-color: rgba(204, 255, 0, 1); box-shadow: 0 0 10px rgba(204, 255, 0, 0.2); }
+            100% { border-color: rgba(204, 255, 0, 0.3); box-shadow: 0 0 0px rgba(204, 255, 0, 0); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="hero-mesh"></div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav fixed top-0 w-full z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img src="https://github.com/pixovia/store-files/releases/download/v1.0.0.0.0.0.0.0.3/icon-coloured-closeup.jpg" 
+                     alt="Pixovia" class="w-8 h-8 rounded-md">
+                <span class="display-font font-bold text-sm tracking-tighter">PIXOVIA <span class="text-gray-500">SPORTS</span></span>
+            </div>
+            <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">
+                <span class="text-neon">Launching Soon</span>
+                <a href="#" class="hover:text-white transition">Network</a>
+                <a href="#" class="hover:text-white transition">Rights</a>
+            </div>
+            <button class="text-[10px] font-bold border border-white/10 px-4 py-2 rounded-full hover:bg-white/5 transition uppercase tracking-widest">
+                System: Initializing
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-40 px-6 pb-32">
+        <div class="max-w-7xl mx-auto text-center lg:text-left">
+            
+            <!-- Hero Grid -->
+            <div class="grid lg:grid-cols-12 gap-16 items-center">
+                <div class="lg:col-span-7">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full coming-soon-badge text-[10px] font-bold uppercase tracking-[0.2em] text-[#ccff00] mb-8 mx-auto lg:mx-0">
+                        <span class="w-2 h-2 rounded-full bg-[#ccff00] animate-ping"></span>
+                        Coming Soon to Pixovia
+                    </div>
+                    <h1 class="display-font text-5xl md:text-8xl font-bold leading-none mb-8 tracking-tighter uppercase">
+                        LIVE SPORTS.<br>
+                        <span class="text-neon">COMPLETELY FREE.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-400 font-light leading-relaxed max-w-xl mb-12 mx-auto lg:mx-0">
+                        The ultimate stadium experience, delivered globally. Pixovia Sports is finalizing its worldwide broadcast network. Get ready for unlimited live action at zero cost.
+                    </p>
+                    
+                    <!-- Signup / Reservation -->
+                    <div class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto lg:mx-0">
+                        <input type="email" placeholder="Your email address" class="flex-grow px-6 py-4 rounded-xl bg-white/5 border border-white/10 focus:outline-none focus:border-[#ccff00]/50 transition text-white">
+                        <button class="btn-primary px-8 py-4 rounded-xl text-sm font-bold uppercase tracking-widest whitespace-nowrap">
+                            Reserve My Seat
+                        </button>
+                    </div>
+                    <p class="mt-4 text-[10px] text-gray-600 uppercase tracking-widest font-medium">No credit card required. Always free.</p>
+                </div>
+
+                <!-- Preview Column -->
+                <div class="lg:col-span-5">
+                    <div class="card-stadium p-8 rounded-3xl relative overflow-hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Network Status</span>
+                            <span class="text-neon text-[10px] font-bold uppercase tracking-widest">98% Ready</span>
+                        </div>
+                        
+                        <!-- Simulated Loading Bar -->
+                        <div class="w-full h-1 bg-white/5 rounded-full mb-8 overflow-hidden">
+                            <div class="h-full bg-[#ccff00] w-[98%] shadow-[0_0_10px_#ccff00]"></div>
+                        </div>
+
+                        <div class="aspect-video bg-black rounded-xl mb-6 flex flex-col items-center justify-center border border-white/5 group relative">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+                            <svg class="w-12 h-12 text-white/20 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="display-font text-[10px] tracking-widest text-gray-500">PREVIEW ENCRYPTED</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center p-3 rounded-lg bg-white/5 border border-white/5">
+                                <span class="text-xs font-bold uppercase text-gray-400">NBA Finals</span>
+                                <span class="text-[10px] font-bold text-[#ccff00]">STAGED</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 rounded-lg bg-white/5 border border-white/5">
+                                <span class="text-xs font-bold uppercase text-gray-400">Champions League</span>
+                                <span class="text-[10px] font-bold text-[#ccff00]">STAGED</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Coverage Section -->
+            <div class="mt-32 pt-16 border-t border-white/5">
+                <h3 class="display-font text-xs font-bold text-gray-500 uppercase tracking-[0.5em] mb-12 text-center lg:text-left">Unlimited Broadcast Access</h3>
+                <div class="grid md:grid-cols-4 gap-12">
+                    <div>
+                        <h4 class="display-font text-sm font-bold mb-3">Live Feed</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed uppercase tracking-wider">Zero-delay streaming for every major league worldwide.</p>
+                    </div>
+                    <div>
+                        <h4 class="display-font text-sm font-bold mb-3">Multi-Device</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed uppercase tracking-wider">Sync across web, mobile, and smart TVs seamlessly.</p>
+                    </div>
+                    <div>
+                        <h4 class="display-font text-sm font-bold mb-3">No Ads</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed uppercase tracking-wider">Pure stadium atmosphere without interruptions.</p>
+                    </div>
+                    <div>
+                        <h4 class="display-font text-sm font-bold mb-3">4K Quality</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed uppercase tracking-wider">Crystal clear resolution for every match, every play.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- News Ticker -->
+    <div class="fixed bottom-0 w-full glass-nav border-t border-white/5 py-4 overflow-hidden">
+        <div class="flex ticker-text whitespace-nowrap gap-12 text-[10px] font-bold uppercase tracking-[0.4em] text-gray-500/50">
+            <span>Pixovia Sports Live</span>
+            <span class="text-[#ccff00]">Launching Soon</span>
+            <span>Unlimited Access</span>
+            <span class="text-white">Powered by Pixovia LLC</span>
+            <span>Global Servers Initializing</span>
+            <span>UHD Quality</span>
+            <span>Every Match Free</span>
+            <span>Pixovia Sports Live</span>
+            <span class="text-[#ccff00]">Coming Soon</span>
+            <span>Free For Everyone</span>
+        </div>
+    </div>
+
+</body>
+</html>
