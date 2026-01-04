@@ -5,8 +5,9 @@ const Home = () => {
   return (
     <>
       <SEO 
-        title="Pixovia LLC - Digital Solutions"
-        description="Leading digital solutions provider. Access our Store for free apps, games, themes, and extensions, plus our Library service."
+        title="Pixovia LLC - Free Digital Ecosystem | Apps, Games, Movies, Music & More"
+        description="Pixovia LLC offers the world's largest free digital ecosystem. Download premium apps, games, themes & extensions. Stream unlimited movies, music, sports live. Access digital library, downloader tools & learning platform - all completely free."
+        keywords="free apps, free games, free movies, free music streaming, digital library, video downloader, online learning, sports streaming, browser themes, extensions, premium software free, Pixovia LLC"
         url="https://pixovia.pages.dev/"
       />
       <div className="antialiased" style={{
