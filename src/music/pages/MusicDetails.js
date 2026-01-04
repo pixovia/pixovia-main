@@ -26,7 +26,7 @@ function MusicDetails() {
 
   const handleContentClick = (file) => {
     if (file.file_url) {
-      window.open(`http://kkplayer.pages.dev/?url=${encodeURIComponent(file.file_url)}`, '_blank');
+      window.open(`https://pixovia.pages.dev/player/?url=${encodeURIComponent(file.file_url)}`, '_blank');
     }
   };
 

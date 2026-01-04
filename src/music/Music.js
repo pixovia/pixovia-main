@@ -1,6 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import MusicHome from './pages/MusicHome';
+import SongsPage from './pages/SongsPage';
+import AlbumsPage from './pages/AlbumsPage';
+import ArtistsPage from './pages/ArtistsPage';
 import AlbumPage from './pages/AlbumPage';
 import ArtistPage from './pages/ArtistPage';
 import PlayerPage from './pages/PlayerPage';
@@ -18,6 +21,9 @@ function Music() {
       />
       <Routes>
         <Route path="/" element={<MusicHome />} />
+        <Route path="/songs" element={<SongsPage />} />
+        <Route path="/albums" element={<AlbumsPage />} />
+        <Route path="/artists" element={<ArtistsPage />} />
         <Route path="/album/:id" element={<AlbumPage />} />
         <Route path="/artist/:name" element={<ArtistPage />} />
         <Route path="/player/:id" element={<PlayerPage />} />
