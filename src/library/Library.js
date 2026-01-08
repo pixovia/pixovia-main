@@ -10,6 +10,7 @@ import Files from './pages/Files';
 import FileDetails from './pages/FileDetails';
 import SearchResults from './pages/SearchResults';
 import Profile from './pages/Profile';
+import Adult from './pages/Adult';
 import './styles/Library.css';
 
 const Library = () => {
@@ -26,6 +27,7 @@ const Library = () => {
             <Route path="/file/:id" element={<FileDetails />} />
             <Route path="/search/:query" element={<SearchResults />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/adult" element={<Adult />} />
           </Routes>
         </main>
         <Toaster position="top-right" />
