@@ -34,19 +34,6 @@ export const moviesService = {
       .single();
     
     if (error) throw error;
-    
-    // Get content files if content_url contains file IDs
-    if (data && data.content_url) {
-      const fileIds = data.content_url.split(',').map(id => id.trim());
-      const { data: contentFiles, error: filesError } = await supabase
-        .from('files')
-        .select('*')
-        .in('id', fileIds);
-      
-      if (filesError) throw filesError;
-      data.content_files = contentFiles;
-    }
-    
     return data;
   },
 
@@ -72,7 +59,9 @@ export const sportsService = {
       .from('sports')
       .select(`
         *,
-        thumbnail_file:files!sports_thumbnail_fkey(*)
+        thumbnail_file:files!sports_thumbnail_id_fkey(*),
+        team1_logo_file:files!sports_team1_logo_id_fkey(*),
+        team2_logo_file:files!sports_team2_logo_id_fkey(*)
       `)
       .order('created_at', { ascending: false });
     
@@ -85,24 +74,30 @@ export const sportsService = {
       .from('sports')
       .select(`
         *,
-        thumbnail_file:files!sports_thumbnail_fkey(*)
+        thumbnail_file:files!sports_thumbnail_id_fkey(*),
+        team1_logo_file:files!sports_team1_logo_id_fkey(*),
+        team2_logo_file:files!sports_team2_logo_id_fkey(*)
       `)
       .eq('id', id)
       .single();
     
     if (error) throw error;
+    return data;
+  },
+
+  async searchSports(query) {
+    const { data, error } = await supabase
+      .from('sports')
+      .select(`
+        *,
+        thumbnail_file:files!sports_thumbnail_id_fkey(*),
+        team1_logo_file:files!sports_team1_logo_id_fkey(*),
+        team2_logo_file:files!sports_team2_logo_id_fkey(*)
+      `)
+      .or(`title.ilike.%${query}%,team1.ilike.%${query}%,team2.ilike.%${query}%,type.ilike.%${query}%`)
+      .order('created_at', { ascending: false });
     
-    if (data && data.content_url) {
-      const fileIds = data.content_url.split(',').map(id => id.trim());
-      const { data: contentFiles, error: filesError } = await supabase
-        .from('files')
-        .select('*')
-        .in('id', fileIds);
-      
-      if (filesError) throw filesError;
-      data.content_files = contentFiles;
-    }
-    
+    if (error) throw error;
     return data;
   }
 };
@@ -135,12 +130,11 @@ export const musicService = {
     
     if (error) throw error;
     
-    if (data && data.content_url) {
-      // For audio, content_url should be a single file ID
+    if (data && data.content_url && data.content_url.id) {
       const { data: audioFile, error: fileError } = await supabase
         .from('files')
         .select('*')
-        .eq('id', data.content_url.trim())
+        .eq('id', data.content_url.id)
         .single();
       
       if (fileError) throw fileError;
@@ -376,19 +370,6 @@ export const libraryService = {
       .single();
     
     if (error) throw error;
-    
-    // Get content files if content_url contains file IDs
-    if (data && data.content_url) {
-      const fileIds = data.content_url.split(',').map(id => id.trim());
-      const { data: contentFiles, error: filesError } = await supabase
-        .from('files')
-        .select('*')
-        .in('id', fileIds);
-      
-      if (filesError) throw filesError;
-      data.content_files = contentFiles;
-    }
-    
     return data;
   }
 };
