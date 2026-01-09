@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { moviesService } from '../../library/lib/supabase';
+import { moviesService, supabase } from '../../library/lib/supabase';
 
 function MovieDetails() {
   const { id } = useParams();
@@ -75,9 +75,26 @@ function MovieDetails() {
     }
   };
 
-  const handleContentClick = (file) => {
-    if (file.file_url) {
-      window.open(`https://pixovia.pages.dev/player/?url=${encodeURIComponent(file.file_url)}`, '_blank');
+  const handleContentClick = async (contentItem) => {
+    if (contentItem.url) {
+      window.open(contentItem.url, '_blank');
+    } else if (contentItem.id) {
+      try {
+        const { data: file, error } = await supabase
+          .from('files')
+          .select('file_url')
+          .eq('id', contentItem.id)
+          .single();
+        
+        if (error || !file?.file_url) {
+          console.error('File not found:', error);
+          return;
+        }
+        
+        window.open(`https://pixovia.pages.dev/player/?url=${encodeURIComponent(file.file_url)}`, '_blank');
+      } catch (err) {
+        console.error('Error fetching file:', err);
+      }
     }
   };
 
@@ -330,7 +347,7 @@ function MovieDetails() {
               )}
 
               {/* Watch Options */}
-              {movie.content_files && movie.content_files.length > 0 ? (
+              {movie.content_url && movie.content_url.length > 0 ? (
                 <div style={{
                   background: 'rgba(255, 255, 255, 0.03)',
                   backdropFilter: 'blur(10px)',
@@ -351,10 +368,10 @@ function MovieDetails() {
                     gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
                     gap: '1rem'
                   }}>
-                    {movie.content_files.map((file, index) => (
+                    {movie.content_url.map((contentItem, index) => (
                       <button
-                        key={file.id}
-                        onClick={() => handleContentClick(file)}
+                        key={index}
+                        onClick={() => handleContentClick(contentItem)}
                         style={{
                           background: '#ffffff',
                           color: '#000000',
@@ -381,7 +398,7 @@ function MovieDetails() {
                         }}
                       >
                         <span style={{ fontSize: '1.25rem' }}>▶️</span>
-                        {file.title || `Watch Option ${index + 1}`}
+                        {contentItem.title || `Watch Option ${index + 1}`}
                       </button>
                     ))}
                   </div>
