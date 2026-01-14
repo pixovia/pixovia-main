@@ -28,6 +28,7 @@ export async function onRequest(context) {
     { loc: `${baseUrl}/sports`, priority: '0.9', changefreq: 'hourly' },
     { loc: `${baseUrl}/learn`, priority: '0.8', changefreq: 'weekly' },
     { loc: `${baseUrl}/downloader`, priority: '0.7', changefreq: 'weekly' },
+    { loc: `${baseUrl}/mods`, priority: '0.7', changefreq: 'weekly' },
     { loc: `${baseUrl}/contact`, priority: '0.5', changefreq: 'monthly' },
     // Icons and images for Google indexing
     { loc: `${baseUrl}/icon-coloured-closeup.png`, priority: '0.3', changefreq: 'yearly' },
