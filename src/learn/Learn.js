@@ -8,11 +8,12 @@ function Learn() {
   return (
     <>
       <SEO 
-        title="Pixovia Learn - Free Educational Content"
-        description="Access free educational content, courses, and tutorials on Pixovia Learn."
-        keywords="free education, online courses, tutorials, learning"
-        canonicalUrl="https://pixovia.pages.dev/learn"
-      />
+  title="Pixovia Learn - Free Educational Content"
+  description="Access free educational content, courses, and tutorials on Pixovia Learn."
+  keywords="free education, online courses, tutorials, learning"
+  url="https://pixovia.pages.dev/learn"
+/>
+
       <Routes>
         <Route path="/" element={<LearnHome />} />
         <Route path="/:id" element={<LearnDetails />} />
