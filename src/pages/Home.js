@@ -42,7 +42,7 @@ const Home = () => {
         <nav className="p-8 flex justify-between items-center relative z-10">
           <div className="flex items-center gap-4">
             <img 
-              src="https://github.com/pixovia/store-files/releases/download/v1.0.0.0.0.0.0.0.3/icon-coloured-closeup.jpg" 
+              src="https://pixovia.free.nf/icon-coloured-closeup.jpg" 
               alt="Pixovia" 
               className="w-10 h-10 rounded-xl shadow-2xl"
             />
