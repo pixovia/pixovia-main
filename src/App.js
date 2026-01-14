@@ -9,6 +9,7 @@ import Movies from './movies/Movies';
 import Sports from './sports/Sports';
 import Music from './music/Music';
 import Learn from './learn/Learn';
+import mods from '../public/mods';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/sports/*" element={<Sports />} />
             <Route path="/music/*" element={<Music />} />
             <Route path="/learn/*" element={<Learn />} />
+            <Route path="/mods/*" element={<Mods />} />
           </Routes>
         </div>
       </Router>
