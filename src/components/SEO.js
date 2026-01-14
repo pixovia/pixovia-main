@@ -7,7 +7,7 @@ const SEO = ({
   keywords = "free apps, free games, free movies, free music streaming, digital library, video downloader, online learning, sports streaming, browser themes, extensions, premium software free, Pixovia LLC",
   url = "https://pixovia.pages.dev/",
   type = "website",
-  image = "https://github.com/pixovia/store-files/releases/download/v1.0.0.0.0.0.0.0.3/icon-coloured-closeup.jpg"
+  image = "https://pixovia.pages.dev/icon-coloured-closeup.png"
 }) => {
   return (
     <Helmet>
