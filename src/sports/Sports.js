@@ -9,11 +9,12 @@ function Sports() {
   return (
     <>
       <SEO 
-        title="Pixovia Sports Live - Free Live Sports Streaming"
-        description="Watch live sports for free. Football, basketball, cricket, and more sports streaming on Pixovia Sports."
-        keywords="live sports, sports streaming, football, basketball, cricket"
-        canonicalUrl="https://pixovia.pages.dev/sports"
-      />
+  title="Pixovia Sports Live - Free Live Sports Streaming"
+  description="Watch live sports for free. Football, basketball, cricket, and more sports streaming on Pixovia Sports."
+  keywords="live sports, sports streaming, football, basketball, cricket"
+  url="https://pixovia.pages.dev/sports"
+/>
+
       <Routes>
         <Route path="/" element={<SportsHome />} />
         <Route path="/type/:typeName" element={<SportsType />} />
