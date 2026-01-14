@@ -9,7 +9,7 @@ import Movies from './movies/Movies';
 import Sports from './sports/Sports';
 import Music from './music/Music';
 import Learn from './learn/Learn';
-import mods from '../mods/Mods';
+import Mods from './mods/Mods';
 
 function App() {
   return (
