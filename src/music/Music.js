@@ -14,11 +14,12 @@ function Music() {
   return (
     <>
       <SEO 
-        title="Pixovia Music - Free Music Streaming"
-        description="Listen to unlimited music for free. All genres, artists, and albums on Pixovia Music."
-        keywords="free music, music streaming, songs, albums, artists"
-        canonicalUrl="https://pixovia.pages.dev/music"
-      />
+  title="Pixovia Music - Free Music Streaming"
+  description="Listen to unlimited music for free. All genres, artists, and albums on Pixovia Music."
+  keywords="free music, music streaming, songs, albums, artists"
+  url="https://pixovia.pages.dev/music"
+/>
+
       <Routes>
         <Route path="/" element={<MusicHome />} />
         <Route path="/songs" element={<SongsPage />} />
