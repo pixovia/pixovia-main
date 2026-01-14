@@ -25,7 +25,7 @@ function App() {
             <Route path="/sports/*" element={<Sports />} />
             <Route path="/music/*" element={<Music />} />
             <Route path="/learn/*" element={<Learn />} />
-            <Route path="/mods/*" element={<Mods />} />
+            <Route path="/mods" element={<Mods />} />
           </Routes>
         </div>
       </Router>
