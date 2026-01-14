@@ -49,7 +49,7 @@ const SEO = ({
       <meta name="apple-mobile-web-app-title" content="Pixovia LLC" />
       <meta name="msapplication-TileColor" content="#0f172a" />
 
-      {/* Structured Data for Organization */}
+      {/* Organization Schema */}
       <script type="application/ld+json">{`
         {
           "@context": "https://schema.org",
@@ -67,7 +67,7 @@ const SEO = ({
         }
       `}</script>
 
-      {/* Breadcrumb Schema (helps for subpages) */}
+      {/* Breadcrumb Schema for Subpages */}
       <script type="application/ld+json">{`
         {
           "@context": "https://schema.org",
@@ -82,7 +82,7 @@ const SEO = ({
             {
               "@type": "ListItem",
               "position": 2,
-              "name": "${title.replace("Pixovia LLC — ", "").split("|")[0].trim()}",
+              "name": "${title.replace("Pixovia LLC - ", "").split("|")[0].trim()}",
               "item": "${url}"
             }
           ]
