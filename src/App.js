@@ -11,7 +11,7 @@ import Music from './music/Music';
 import Learn from './learn/Learn';
 import Mods from './mods/Mods';
 import Malayalidino from './malayalidino/Malayalidino';
-import Mods from './tv/Tv';
+import Tv from './tv/Tv';
 
 function App() {
   return (
