@@ -11,6 +11,7 @@ import Music from './music/Music';
 import Learn from './learn/Learn';
 import Mods from './mods/Mods';
 import Malayalidino from './malayalidino/Malayalidino';
+import Mods from './tv/Tv';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/learn/*" element={<Learn />} />
             <Route path="/mods" element={<Mods />} />
             <Route path="/malayalidino" element={<Malayalidino />} />
+            <Route path="/tv" element={<Tv />} />
           </Routes>
         </div>
       </Router>
