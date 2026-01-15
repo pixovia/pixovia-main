@@ -141,7 +141,7 @@ const Home = () => {
             </a>
 
             {/* 5. MalayaliDino */}
-            <a href="/games/dino" className="service-card p-8 rounded-3xl block" style={{
+            <a href="/malayalidino" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
               backdropFilter: 'blur(15px)',
