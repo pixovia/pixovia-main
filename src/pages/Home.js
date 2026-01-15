@@ -72,7 +72,7 @@ const Home = () => {
         <main className="max-w-7xl mx-auto px-6 pb-32 relative z-10">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             
-            {/* Store */}
+            {/* 1. Store */}
             <a href="/store/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -81,41 +81,15 @@ const Home = () => {
               position: 'relative',
               overflow: 'hidden'
             }}>
-              <span className="badge-free" style={{
-                fontSize: '10px',
-                fontWeight: 800,
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-                background: '#ffffff',
-                color: '#000000',
-                padding: '2px 8px',
-                borderRadius: '4px',
-                marginBottom: '12px',
-                display: 'inline-block'
-              }}>All Platforms</span>
-              <div className="icon-box" style={{
-                width: '56px',
-                height: '56px',
-                background: 'rgba(255, 255, 255, 0.9)',
-                borderRadius: '14px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '24px',
-                padding: '12px',
-                transition: 'transform 0.3s ease'
-              }}>
-                <img src="https://cdn-icons-png.flaticon.com/512/2697/2697432.png" alt="Store" style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain'
-                }} />
+              <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>All Platforms</span>
+              <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
+                <img src="https://cdn-icons-png.flaticon.com/512/2697/2697432.png" alt="Store" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
               <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Store</h3>
               <p className="text-gray-400 text-sm leading-relaxed font-light">Free apps, games, browser themes, and extensions for all platforms. Download premium software at no cost.</p>
             </a>
 
-            {/* Library */}
+            {/* 2. Library */}
             <a href="/library/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -124,41 +98,15 @@ const Home = () => {
               position: 'relative',
               overflow: 'hidden'
             }}>
-              <span className="badge-free" style={{
-                fontSize: '10px',
-                fontWeight: 800,
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-                background: '#ffffff',
-                color: '#000000',
-                padding: '2px 8px',
-                borderRadius: '4px',
-                marginBottom: '12px',
-                display: 'inline-block'
-              }}>Open Source</span>
-              <div className="icon-box" style={{
-                width: '56px',
-                height: '56px',
-                background: 'rgba(255, 255, 255, 0.9)',
-                borderRadius: '14px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '24px',
-                padding: '12px',
-                transition: 'transform 0.3s ease'
-              }}>
-                <img src="https://cdn-icons-png.flaticon.com/512/264/264745.png" alt="Library" style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain'
-                }} />
+              <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>Open Source</span>
+              <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
+                <img src="https://cdn-icons-png.flaticon.com/512/264/264745.png" alt="Library" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
               <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Library</h3>
               <p className="text-gray-400 text-sm leading-relaxed font-light">Resource center for developers and tech enthusiasts. Upload, share, and discover exclusive digital files.</p>
             </a>
 
-            {/* Movies */}
+            {/* 3. Movies */}
             <a href="/movies/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -167,41 +115,49 @@ const Home = () => {
               position: 'relative',
               overflow: 'hidden'
             }}>
-              <span className="badge-free" style={{
-                fontSize: '10px',
-                fontWeight: 800,
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-                background: '#ffffff',
-                color: '#000000',
-                padding: '2px 8px',
-                borderRadius: '4px',
-                marginBottom: '12px',
-                display: 'inline-block'
-              }}>No Ads</span>
-              <div className="icon-box" style={{
-                width: '56px',
-                height: '56px',
-                background: 'rgba(255, 255, 255, 0.9)',
-                borderRadius: '14px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '24px',
-                padding: '12px',
-                transition: 'transform 0.3s ease'
-              }}>
-                <img src="https://cdn-icons-png.flaticon.com/512/412/412887.png" alt="Movies" style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain'
-                }} />
+              <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>No Ads</span>
+              <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
+                <img src="https://cdn-icons-png.flaticon.com/512/412/412887.png" alt="Movies" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
               <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Movies</h3>
-              <p className="text-gray-400 text-sm leading-relaxed font-light">Watch unlimited movies in high definition. All genres, latest releases, and timeless classics for free.</p>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Watch unlimited movies in high definition. All genres, latest releases, and classics for free.</p>
             </a>
 
-            {/* Sports Live */}
+            {/* 4. TV */}
+            <a href="/tv/" className="service-card p-8 rounded-3xl block" style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(15px)',
+              transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>Live Channels</span>
+              <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
+                <img src="https://cdn-icons-png.flaticon.com/512/1025/1025101.png" alt="TV" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">TV</h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Access 1000+ live television channels globally. News, entertainment, and documentaries in real-time.</p>
+            </a>
+
+            {/* 5. MalayaliDino */}
+            <a href="/games/dino" className="service-card p-8 rounded-3xl block" style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(15px)',
+              transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>Instant Play</span>
+              <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
+                <img src="https://static.wikia.nocookie.net/creatures-tycoon/images/e/e3/Chrome_Dino.png/revision/latest/thumbnail/width/360/height/450?cb=20220325131021" alt="MalayaliDino" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">MalayaliDino</h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Experience the classic runner with a local twist. Play and compete for the global high score.</p>
+            </a>
+
+            {/* 6. Sports */}
             <a href="/sports/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -210,34 +166,13 @@ const Home = () => {
               position: 'relative',
               overflow: 'hidden'
             }}>
-              <span className="badge-free bg-green-500 text-white" style={{
-                fontSize: '10px',
-                fontWeight: 800,
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-                padding: '2px 8px',
-                borderRadius: '4px',
-                marginBottom: '12px',
-                display: 'inline-block'
-              }}>Live</span>
-              <div className="icon-box" style={{
-                width: '56px',
-                height: '56px',
-                background: 'rgba(255, 255, 255, 0.9)',
-                borderRadius: '14px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '24px',
-                padding: '12px',
-                transition: 'transform 0.3s ease',
-                fontSize: '24px'
-              }}>⚽</div>
-              <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Sports Live</h3>
-              <p className="text-gray-400 text-sm leading-relaxed font-light">Watch live sports worldwide. Football, cricket, basketball, and every major event streamed in 4K.</p>
+              <span className="badge-free bg-green-500 text-white" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>Live</span>
+              <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease', fontSize: '24px' }}>⚽</div>
+              <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Sports</h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Watch live sports worldwide. Football, cricket, and major events streamed in 4K.</p>
             </a>
 
-            {/* Music */}
+            {/* 7. Music */}
             <a href="/music/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -246,36 +181,13 @@ const Home = () => {
               position: 'relative',
               overflow: 'hidden'
             }}>
-              <span className="badge-free" style={{
-                fontSize: '10px',
-                fontWeight: 800,
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-                background: '#ffffff',
-                color: '#000000',
-                padding: '2px 8px',
-                borderRadius: '4px',
-                marginBottom: '12px',
-                display: 'inline-block'
-              }}>Unlimited</span>
-              <div className="icon-box" style={{
-                width: '56px',
-                height: '56px',
-                background: 'rgba(255, 255, 255, 0.9)',
-                borderRadius: '14px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '24px',
-                padding: '12px',
-                transition: 'transform 0.3s ease',
-                fontSize: '24px'
-              }}>🎵</div>
+              <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>Unlimited</span>
+              <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease', fontSize: '24px' }}>🎵</div>
               <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Music</h3>
-              <p className="text-gray-400 text-sm leading-relaxed font-light">Stream unlimited tracks from your favorite artists. High-fidelity audio with zero subscription fees.</p>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Stream unlimited tracks from your favorite artists. High-fidelity audio with zero fees.</p>
             </a>
 
-            {/* Learn */}
+            {/* 8. Learn */}
             <a href="/learn/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -284,42 +196,16 @@ const Home = () => {
               position: 'relative',
               overflow: 'hidden'
             }}>
-              <span className="badge-free" style={{
-                fontSize: '10px',
-                fontWeight: 800,
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-                background: '#ffffff',
-                color: '#000000',
-                padding: '2px 8px',
-                borderRadius: '4px',
-                marginBottom: '12px',
-                display: 'inline-block'
-              }}>Knowledge</span>
-              <div className="icon-box" style={{
-                width: '56px',
-                height: '56px',
-                background: 'rgba(255, 255, 255, 0.9)',
-                borderRadius: '14px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '24px',
-                padding: '12px',
-                transition: 'transform 0.3s ease'
-              }}>
-                <img src="https://cdn-icons-png.flaticon.com/512/943/943406.png" alt="Learn" style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain'
-                }} />
+              <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>Knowledge</span>
+              <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
+                <img src="https://cdn-icons-png.flaticon.com/512/943/943406.png" alt="Learn" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
               <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Learn</h3>
-              <p className="text-gray-400 text-sm leading-relaxed font-light">Free educational platform. Courses, tutorials, and materials for every subject under the sun.</p>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Free educational platform. Courses, tutorials, and materials for every subject.</p>
             </a>
 
-            {/* Downloader */}
-            <a href="/downloader/" className="service-card p-8 rounded-3xl block lg:col-span-3" style={{
+            {/* 9. Downloader */}
+            <a href="/downloader/" className="service-card p-8 rounded-3xl block lg:col-span-1" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
               backdropFilter: 'blur(15px)',
@@ -328,44 +214,13 @@ const Home = () => {
               overflow: 'hidden'
             }}>
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div className="max-w-xl">
-                  <span className="badge-free" style={{
-                    fontSize: '10px',
-                    fontWeight: 800,
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    background: '#ffffff',
-                    color: '#000000',
-                    padding: '2px 8px',
-                    borderRadius: '4px',
-                    marginBottom: '12px',
-                    display: 'inline-block'
-                  }}>Universal</span>
-                  <div className="icon-box" style={{
-                    width: '56px',
-                    height: '56px',
-                    background: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '14px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '24px',
-                    padding: '12px',
-                    transition: 'transform 0.3s ease'
-                  }}>
-                    <img src="https://cdn-icons-png.flaticon.com/512/3720/3720168.png" alt="Downloader" style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'contain'
-                    }} />
+                <div>
+                  <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>Universal</span>
+                  <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3720/3720168.png" alt="Downloader" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                   </div>
                   <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Downloader</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed font-light">Extract and save media from YouTube, Facebook, Instagram, and 50+ other platforms instantly.</p>
-                </div>
-                <div className="hidden lg:flex gap-4">
-                  <span className="px-4 py-2 bg-white/5 rounded-lg text-[10px] font-bold uppercase tracking-widest text-gray-500">YT</span>
-                  <span className="px-4 py-2 bg-white/5 rounded-lg text-[10px] font-bold uppercase tracking-widest text-gray-500">FB</span>
-                  <span className="px-4 py-2 bg-white/5 rounded-lg text-[10px] font-bold uppercase tracking-widest text-gray-500">IG</span>
+                  <p className="text-gray-400 text-sm leading-relaxed font-light">Extract and save media from YouTube, Facebook, and Instagram instantly.</p>
                 </div>
               </div>
             </a>
