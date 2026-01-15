@@ -151,7 +151,7 @@ const Home = () => {
             }}>
               <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>Instant Play</span>
               <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
-                <img src="https://static.wikia.nocookie.net/creatures-tycoon/images/e/e3/Chrome_Dino.png/revision/latest/thumbnail/width/360/height/450?cb=20220325131021" alt="MalayaliDino" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Chromium_T-Rex-error-offline.svg/250px-Chromium_T-Rex-error-offline.svg.png" alt="MalayaliDino" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
               <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">MalayaliDino</h3>
               <p className="text-gray-400 text-sm leading-relaxed font-light">Experience the classic runner with a local twist. Play and compete for the global high score.</p>
