@@ -150,7 +150,7 @@
                     const groupMatch = line.match(/group-title="(.*?)"/);
                     currentChannel = {
                         name: nameMatch ? nameMatch[1] : 'Unknown',
-                        logo: logoMatch ? logoMatch[1] : 'default.jpg',
+                        logo: logoMatch ? logoMatch[1] : 'https://pixovia.free.nf/assets/tv-default.jpg',
                         group: groupMatch ? groupMatch[1] : 'General'
                     };
                 } else if (line.startsWith('http')) {
@@ -170,7 +170,7 @@
                 card.onclick = () => playChannel(channel);
                 card.innerHTML = `
                     <div class="w-full aspect-video mb-2 rounded bg-black flex items-center justify-center overflow-hidden">
-                        <img src="${channel.logo}" class="max-h-full" onerror="this.src='default.jpg'">
+                        <img src="${channel.logo}" class="max-h-full" onerror="this.src='https://pixovia.free.nf/assets/tv-default.jpg'">
                     </div>
                     <span class="text-xs font-medium line-clamp-1">${channel.name}</span>
                 `;
