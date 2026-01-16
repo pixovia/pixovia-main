@@ -83,7 +83,7 @@ const Home = () => {
             }}>
               <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>All Platforms</span>
               <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
-                <img src="https://cdn-icons-png.flaticon.com/512/2697/2697432.png" alt="Store" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <img src="/icons/store.png" alt="Store" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
               <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Store</h3>
               <p className="text-gray-400 text-sm leading-relaxed font-light">Free apps, games, browser themes, and extensions for all platforms. Download premium software at no cost.</p>
