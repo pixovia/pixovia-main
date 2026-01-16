@@ -42,7 +42,7 @@ const Home = () => {
         <nav className="p-8 flex justify-between items-center relative z-10">
           <div className="flex items-center gap-4">
             <img 
-              src="https://pixovia.free.nf/icon-coloured-closeup.jpg" 
+              src="https://pixovia.pages.dev/icon-coloured-closeup.jpg" 
               alt="Pixovia" 
               className="w-10 h-10 rounded-xl shadow-2xl"
             />
@@ -220,7 +220,7 @@ const Home = () => {
                     <img src="https://cdn-icons-png.flaticon.com/512/3720/3720168.png" alt="Downloader" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                   </div>
                   <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Downloader</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed font-light">Extract and save media from YouTube, Facebook, and Instagram instantly.</p>
+                  <p className="text-gray-400 text-sm leading-relaxed font-light">Extract and save media from YT, FB, and IG instantly.</p>
                 </div>
               </div>
             </a>
