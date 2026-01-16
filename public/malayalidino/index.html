@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malayali Dino by Pixovia LLC | Coming Soon to Pixovia TV</title>
+    <meta name="description" content="Official landing page for Malayali Dino. A groundbreaking production by Pixovia LLC coming soon to Pixovia TV. Stay tuned for the roar of the century.">
+    <meta name="keywords" content="Malayali Dino, Pixovia TV, Pixovia LLC, Malayalam Cinema, AI Dinosaurs Kerala, Malayali Dino Movie, Streaming Kerala">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pixovia.pages.dev/malayalidino">
+    <meta property="og:title" content="Malayali Dino - Coming Soon | Pixovia TV">
+    <meta property="og:description" content="Experience the prehistoric in the heart of Kerala. Pixovia LLC presents Malayali Dino.">
+    <meta property="og:image" content="https://pixovia.pages.dev/assets/dino-preview.jpg"> <style>
+        :root {
+            --primary-accent: #2ecc71; /* Jungle Green for Dino theme */
+            --bg-dark: #0a0a0a;
+            --text-light: #f5f5f5;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Video/Texture Overlay Effect */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), 
+                        url('https://images.unsplash.com/photo-1517926967795-31923c896943?auto=format&fit=crop&q=80'); /* Jungle placeholder */
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            filter: grayscale(40%);
+        }
+
+        .content {
+            padding: 2rem;
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        .brand-header {
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            color: var(--primary-accent);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 5rem);
+            margin: 0;
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .coming-soon-tag {
+            background: var(--primary-accent);
+            color: black;
+            padding: 5px 15px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+            transform: skewX(-15deg);
+        }
+
+        .description {
+            margin: 2rem 0;
+            font-size: 1.2rem;
+            color: #bbb;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        input {
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            width: 300px;
+            backdrop-filter: blur(5px);
+        }
+
+        button {
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            border: none;
+            background: var(--primary-accent);
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+        }
+
+        .back-link {
+            margin-top: 3rem;
+            text-decoration: none;
+            color: #666;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="content">
+        <div class="brand-header">Pixovia LLC Presents</div>
+        <h1>MALAYALI <br>DINO</h1>
+        <div class="coming-soon-tag">COMING SOON</div>
+        
+        <p class="description">
+            The prehistoric era meets the soul of Kerala. A unique cinematic experience brought to you exclusively by Pixovia TV.
+        </p>
+
+        <form class="cta-form" action="#">
+            <input type="email" placeholder="Enter your email for updates" required>
+            <button type="submit">Join the Waitlist</button>
+        </form>
+
+        <a href="https://pixovia.pages.dev" class="back-link">← Return to Pixovia TV Home</a>
+    </div>
+
+</body>
+</html>
