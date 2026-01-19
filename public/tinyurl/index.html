@@ -63,15 +63,13 @@ document.getElementById("makeBtn").addEventListener("click", async () => {
   } catch (err) {
     resultDiv.innerHTML = "<p style='color:red;'>Network error. Please try again.</p>";
   }
-  const apiURL = "https://api.allorigins.win/raw?url=" +
+const proxy = "https://api.allorigins.win/raw?url=" +
                encodeURIComponent("https://pixovia.free.nf/tiny/api.php");
 
-const res = await fetch(apiURL, {
+fetch(proxy, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ long_url: longUrl })
-});
-const data = await res.json();
+  body: JSON.stringify({ long_url })
 });
 });
 </script>
