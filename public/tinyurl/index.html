@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pixovia Short Link</title>
+<style>
+body { font-family: Arial, sans-serif; background:#f9f9f9; margin:0; padding:0; }
+.container { max-width:600px; margin:80px auto; background:white; padding:30px;
+  border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
+h2 { text-align:center; }
+input[type=url] {
+  width:100%; padding:10px; font-size:15px; border:1px solid #ccc;
+  border-radius:6px; margin-bottom:15px;
+}
+button {
+  background:#007bff; color:white; border:none; padding:10px 18px;
+  border-radius:6px; font-size:15px; cursor:pointer;
+}
+button:hover { background:#0056c1; }
+.result {
+  background:#e6ffed; border:1px solid #a3f7b5; padding:10px;
+  border-radius:6px; margin-top:20px; text-align:center;
+}
+a.short { font-weight:bold; color:#007bff; text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>🔗 Pixovia Tiny - Create Short Link</h2>
+  <input type="url" id="longUrl" placeholder="Enter long URL (https://...)" required>
+  <button id="makeBtn">Make Short</button>
+  <div id="result"></div>
+</div>
+
+<script>
+document.getElementById("makeBtn").addEventListener("click", async () => {
+  const longUrl = document.getElementById("longUrl").value.trim();
+  const resultDiv = document.getElementById("result");
+  resultDiv.innerHTML = "";
+
+  if (!longUrl) {
+    resultDiv.innerHTML = "<p style='color:red;'>Please enter a URL.</p>";
+    return;
+  }
+
+  try {
+    const res = await fetch("https://pixovia.free.nf/tiny/api.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ long_url: longUrl })
+    });
+    const data = await res.json();
+
+    if (data.short_url) {
+      resultDiv.innerHTML = `
+        <div class="result">
+          ✅ Your short link:<br>
+          <a href="${data.short_url}" class="short" target="_blank">${data.short_url}</a>
+        </div>`;
+    } else {
+      resultDiv.innerHTML = "<p style='color:red;'>Error: " + (data.error || "Server issue") + "</p>";
+    }
+  } catch (err) {
+    resultDiv.innerHTML = "<p style='color:red;'>Network error. Please try again.</p>";
+  }
+});
+</script>
+</body>
+</html>
