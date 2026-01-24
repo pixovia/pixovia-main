@@ -1,43 +1,53 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import React, { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Film, Gamepad, BookOpen, Music, Tv, Globe, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function PixoviaAboutPage() {
+  useEffect(() => {
+    // --- SEO + Meta Tags Setup ---
+    document.title = "About Pixovia LLC | Free Apps, Movies, Music, TV, Sports & Learning";
+
+    const metaTags = [
+      { name: "description", content: "Learn more about Pixovia LLC — a unified digital platform offering free and verified access to apps, games, movies, TV, sports, music, and learning materials. Safe, fast, and completely free for everyone." },
+      { name: "keywords", content: "Pixovia, Pixovia LLC, free apps, free movies, live TV, free sports streaming, free music, Pixovia Library, digital content, free learning platform, verified downloads" },
+      { name: "author", content: "Pixovia LLC" },
+      { property: "og:title", content: "About Pixovia LLC — Everything Digital, Completely Free" },
+      { property: "og:description", content: "Pixovia LLC brings together apps, games, movies, music, TV, sports, and learning in one trusted, free platform." },
+      { property: "og:url", content: "https://pixovia.pages.dev/about" },
+      { property: "og:type", content: "website" },
+      { name: "theme-color", content: "#4F46E5" }
+    ];
+
+    metaTags.forEach(tag => {
+      const meta = document.createElement("meta");
+      Object.keys(tag).forEach(key => meta.setAttribute(key, tag[key]));
+      document.head.appendChild(meta);
+    });
+
+    const linkTags = [
+      { rel: "canonical", href: "https://pixovia.pages.dev/about" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "https://pixovia.pages.dev/favicon-32x32.png" },
+      { rel: "icon", type: "image/png", sizes: "16x16", href: "https://pixovia.pages.dev/favicon-16x16.png" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "https://pixovia.pages.dev/apple-touch-icon.png" },
+      { rel: "manifest", href: "https://pixovia.pages.dev/site.webmanifest" }
+    ];
+
+    linkTags.forEach(link => {
+      const l = document.createElement("link");
+      Object.keys(link).forEach(key => l.setAttribute(key, link[key]));
+      document.head.appendChild(l);
+    });
+  }, []);
+
   const navigateTo = (url) => {
     window.open(url, "_blank");
   };
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
-      <Helmet>
-        <title>About Pixovia LLC | Free Apps, Movies, Music, TV, Sports & Learning</title>
-        <meta
-          name="description"
-          content="Learn more about Pixovia LLC — a unified digital platform offering free and verified access to apps, games, movies, TV, sports, music, and learning materials. Safe, fast, and completely free for everyone."
-        />
-        <meta
-          name="keywords"
-          content="Pixovia, Pixovia LLC, free apps, free movies, live TV, free sports streaming, free music, Pixovia Library, digital content, free learning platform, verified downloads"
-        />
-        <meta name="author" content="Pixovia LLC" />
-        <meta property="og:title" content="About Pixovia LLC — Everything Digital, Completely Free" />
-        <meta property="og:description" content="Pixovia LLC brings together apps, games, movies, music, TV, sports, and learning in one trusted, free platform." />
-        <meta property="og:url" content="https://pixovia.pages.dev/about" />
-        <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://pixovia.pages.dev/about" />
-
-        {/* Favicons */}
-        <link rel="icon" type="image/png" sizes="32x32" href="https://pixovia.pages.dev/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="https://pixovia.pages.dev/favicon-16x16.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="https://pixovia.pages.dev/apple-touch-icon.png" />
-        <link rel="manifest" href="https://pixovia.pages.dev/site.webmanifest" />
-        <meta name="theme-color" content="#4F46E5" />
-      </Helmet>
-
-      {/* HERO */}
+      {/* HERO SECTION */}
       <header className="bg-gradient-to-r from-indigo-600 to-indigo-400 text-white">
         <div className="max-w-6xl mx-auto px-6 py-20 lg:py-28">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
@@ -52,15 +62,12 @@ export default function PixoviaAboutPage() {
               </motion.h1>
 
               <p className="mt-4 text-lg lg:text-xl opacity-90 max-w-2xl">
-                Pixovia is a comprehensive digital ecosystem providing verified access to
-                games, apps, movies, music, TV, sports, and learning materials. Every
-                service is designed to be secure, ad-free, and open for everyone at no
-                cost.
+                Pixovia is a complete free digital platform offering verified apps, games, movies, music, TV, sports, and learning tools. Every content here is safe, trusted, and available without ads or payments.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
                 <Button className="px-5 py-3 bg-white text-indigo-600 hover:opacity-95" onClick={() => navigateTo('https://pixovia.pages.dev/store')}>
-                  Explore Services
+                  Explore Store
                 </Button>
                 <Button className="px-5 py-3 text-white border-white/40" onClick={() => navigateTo('https://pixovia.pages.dev/library')}>
                   Upload to Library
@@ -81,7 +88,7 @@ export default function PixoviaAboutPage() {
               <div className="rounded-2xl overflow-hidden shadow-2xl">
                 <img
                   src="https://pixovia.pages.dev/about-banner.jpg"
-                  alt="Pixovia services showcase including apps, movies, and music"
+                  alt="Pixovia services collage"
                   className="w-full h-96 object-cover"
                 />
               </div>
@@ -90,60 +97,22 @@ export default function PixoviaAboutPage() {
         </div>
       </header>
 
+      {/* MAIN CONTENT */}
       <main className="max-w-6xl mx-auto px-6 -mt-12">
         <section className="grid lg:grid-cols-3 gap-6">
-          <ServiceCard
-            title="Pixovia Store"
-            description="Download and explore thousands of verified free games, apps, browser themes, and extensions. Every item is scanned, tested, and hosted safely."
-            icon={<Gamepad size={20} />}
-            ctaLabel="Browse Store"
-            link="https://pixovia.pages.dev/store"
-          />
-          <ServiceCard
-            title="Pixovia Movies"
-            description="Stream high-quality movies instantly — ad-free, fast, and verified for safe playback."
-            icon={<Film size={20} />}
-            ctaLabel="Watch Movies"
-            link="https://pixovia.pages.dev/movies"
-          />
-          <ServiceCard
-            title="Pixovia Library"
-            description="Upload, share, and download any file (up to 2GB each) for free. Each file gets its own direct public link for instant sharing."
-            icon={<BookOpen size={20} />}
-            ctaLabel="Open Library"
-            link="https://pixovia.pages.dev/library"
-          />
-          <ServiceCard
-            title="Pixovia TV"
-            description="Watch free live TV channels anytime in your browser — no sign-up required."
-            icon={<Tv size={20} />}
-            ctaLabel="Open TV"
-            link="https://pixovia.pages.dev/tv"
-          />
-          <ServiceCard
-            title="Pixovia Sports"
-            description="Stream global sports live in HD with highlights and replays, free for all users."
-            icon={<Globe size={20} />}
-            ctaLabel="Watch Sports"
-            link="https://pixovia.pages.dev/sports"
-          />
-          <ServiceCard
-            title="Pixovia Music"
-            description="Enjoy millions of ad-free songs instantly — safe, high-quality, and fast."
-            icon={<Music size={20} />}
-            ctaLabel="Listen Now"
-            link="https://pixovia.pages.dev/music"
-          />
+          <ServiceCard title="Pixovia Store" description="Verified free games, apps, browser themes, and extensions. Safe and hosted at Pixovia Store." icon={<Gamepad size={20} />} link="https://pixovia.pages.dev/store" />
+          <ServiceCard title="Pixovia Movies" description="Stream movies instantly and ad-free with smooth playback and trusted hosting." icon={<Film size={20} />} link="https://pixovia.pages.dev/movies" />
+          <ServiceCard title="Pixovia Library" description="Upload, explore, and download all types of digital files up to 2GB, with free direct file URLs." icon={<BookOpen size={20} />} link="https://pixovia.pages.dev/library" />
+          <ServiceCard title="Pixovia TV" description="Watch live TV channels directly from your browser — fast, free, and reliable." icon={<Tv size={20} />} link="https://pixovia.pages.dev/tv" />
+          <ServiceCard title="Pixovia Sports" description="Stream high-quality live sports and highlights with zero subscription." icon={<Globe size={20} />} link="https://pixovia.pages.dev/sports" />
+          <ServiceCard title="Pixovia Music" description="All your music at one place — listen ad-free and on-demand anytime." icon={<Music size={20} />} link="https://pixovia.pages.dev/music" />
         </section>
 
         <section className="mt-12 grid lg:grid-cols-2 gap-8 items-center">
           <div>
             <h2 className="text-2xl font-bold">Our Promise</h2>
             <p className="mt-3 text-lg opacity-90">
-              Pixovia prioritizes accessibility, transparency, and safety. All uploads are
-              verified for authenticity and security. Each file hosted at
-              https://pixovia.pages.dev/library has a permanent direct link for worldwide
-              sharing and easy access.
+              Pixovia stands for open access, verified content, and community-driven innovation. Every file hosted in our Library has a permanent direct link like https://pixovia.pages.dev/file_name for free sharing worldwide.
             </p>
 
             <ul className="mt-6 space-y-3">
@@ -151,21 +120,21 @@ export default function PixoviaAboutPage() {
                 <CheckCircle className="mt-1" />
                 <div>
                   <strong>Free & Transparent</strong>
-                  <div className="opacity-80">Every Pixovia service is open-access — no subscriptions or restrictions.</div>
+                  <div className="opacity-80">All Pixovia services are 100% free with no hidden fees.</div>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <ShieldCheck className="mt-1" />
                 <div>
                   <strong>Verified Content</strong>
-                  <div className="opacity-80">All uploaded content undergoes security and copyright checks.</div>
+                  <div className="opacity-80">All files are checked for copyright and safety.</div>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircle className="mt-1" />
                 <div>
                   <strong>Community Driven</strong>
-                  <div className="opacity-80">Creators and users continuously grow Pixovia’s trusted collection.</div>
+                  <div className="opacity-80">Creators and users together build a trusted digital world.</div>
                 </div>
               </li>
             </ul>
@@ -180,11 +149,8 @@ export default function PixoviaAboutPage() {
               <CardContent>
                 <h3 className="text-xl font-semibold">Upload Guidelines</h3>
                 <p className="mt-2 opacity-90">
-                  Uploads are scanned for malware and checked for proper licensing. Each
-                  approved file receives a permanent link
-                  for instant global access and distribution.
+                  Every upload is verified for security and copyright. Once approved, you’ll receive a permanent direct link like https://pixovia.pages.dev/file_name for global access.
                 </p>
-
                 <div className="mt-4 grid gap-3">
                   <div className="flex items-center justify-between">
                     <div>
@@ -193,16 +159,14 @@ export default function PixoviaAboutPage() {
                     </div>
                     <div className="text-sm">Unlimited uploads</div>
                   </div>
-
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="font-medium">File types</div>
-                      <div className="opacity-80 text-sm">Documents, audio, video, and applications</div>
+                      <div className="opacity-80 text-sm">Documents, videos, audio, and apps</div>
                     </div>
-                    <div className="text-sm">Community & Staff reviewed</div>
+                    <div className="text-sm">Reviewed by staff</div>
                   </div>
                 </div>
-
                 <div className="mt-6">
                   <Button variant="ghost" onClick={() => navigateTo('https://pixovia.pages.dev/library')}>
                     Upload Now
@@ -213,22 +177,12 @@ export default function PixoviaAboutPage() {
           </div>
         </section>
 
-        <section className="mt-12">
-          <h3 className="text-xl font-semibold">Frequently Asked</h3>
-          <div className="mt-4 grid gap-3">
-            <FAQItem question="Is everything really free?" answer="Yes — every Pixovia service is 100% free and globally accessible." />
-            <FAQItem question="How are uploads verified?" answer="Each file is scanned for malware and reviewed for copyright and community safety before public release." />
-            <FAQItem question="Can I share direct links?" answer="Yes! Every upload in Pixovia Library generates a unique public that can be shared anywhere." />
-          </div>
-        </section>
-
         <footer className="mt-16 py-10 border-t">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
             <div>
               <strong>Pixovia LLC</strong>
               <div className="opacity-80 text-sm">Freedom • Creativity • Trust</div>
             </div>
-
             <div className="flex gap-4 items-center">
               <a className="text-sm opacity-90">Privacy</a>
               <a className="text-sm opacity-90">Terms</a>
@@ -241,7 +195,7 @@ export default function PixoviaAboutPage() {
   );
 }
 
-function ServiceCard({ title, description, icon, ctaLabel, link }) {
+function ServiceCard({ title, description, icon, link }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -256,21 +210,11 @@ function ServiceCard({ title, description, icon, ctaLabel, link }) {
           <div className="text-sm opacity-80">{description}</div>
         </div>
       </div>
-
       <div className="mt-4 self-start">
         <Button variant="link" className="px-0 py-0" onClick={() => window.open(link, '_blank')}>
-          {ctaLabel}
+          Visit {title.replace('Pixovia ', '')}
         </Button>
       </div>
     </motion.div>
-  );
-}
-
-function FAQItem({ question, answer }) {
-  return (
-    <details className="bg-white p-4 rounded-lg shadow-sm">
-      <summary className="cursor-pointer list-none font-medium">{question}</summary>
-      <div className="mt-2 text-sm opacity-90">{answer}</div>
-    </details>
   );
 }
