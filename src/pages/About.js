@@ -54,7 +54,7 @@ export default function PixoviaAboutPage() {
           <div>
             <h2 className="text-2xl font-bold">Our Promise</h2>
             <p className="mt-3 text-lg opacity-90">
-              Pixovia is built on accessibility, safety, and trust. Every file uploaded to our Library has a permanent link like https://pixovia.pages.dev/file_name for free global sharing.
+              Pixovia is built on accessibility, safety, and trust. Every file uploaded to our Library has a permanent link for free global sharing.
             </p>
             <ul className="mt-6 space-y-3">
               <li className="flex items-start gap-3">
@@ -87,7 +87,7 @@ export default function PixoviaAboutPage() {
           <div className="bg-white rounded-2xl shadow p-6">
             <h3 className="text-xl font-semibold">Upload Guidelines</h3>
             <p className="mt-2 opacity-90">
-              Every upload is verified for security and copyright. Once approved, you’ll get a direct link like https://pixovia.pages.dev/file_name to share freely.
+              Every upload is verified for security and copyright. Once approved, you’ll get a direct link to share freely.
             </p>
             <div className="mt-4 grid gap-3">
               <div className="flex items-center justify-between">
