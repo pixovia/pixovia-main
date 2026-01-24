@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Film, Gamepad, BookOpen, Music, Tv, Globe, ShieldCheck } from "lucide-react";
-import { motion } from "framer-motion";
 
 export default function PixoviaAboutPage() {
   useEffect(() => {
@@ -15,14 +14,9 @@ export default function PixoviaAboutPage() {
         <div className="max-w-6xl mx-auto px-6 py-20 lg:py-28">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
-              <motion.h1
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45 }}
-                className="text-4xl lg:text-5xl font-extrabold leading-tight"
-              >
+              <h1 className="text-4xl lg:text-5xl font-extrabold leading-tight">
                 Pixovia LLC — Everything Digital, Completely Free
-              </motion.h1>
+              </h1>
               <p className="mt-4 text-lg lg:text-xl opacity-90 max-w-2xl">
                 Pixovia is a free, all-in-one platform offering verified apps, games, movies, TV, music, sports, and learning tools. Every service is secure, ad-free, and open for everyone.
               </p>
@@ -151,7 +145,7 @@ export default function PixoviaAboutPage() {
 
 function ServiceCard({ title, description, icon, link }) {
   return (
-    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }} className="bg-white rounded-2xl shadow p-6 flex flex-col">
+    <div className="bg-white rounded-2xl shadow p-6 flex flex-col hover:shadow-lg transition-shadow duration-300">
       <div className="inline-flex items-center gap-3">
         <div className="bg-indigo-50 rounded-lg p-2">{icon}</div>
         <div>
@@ -164,6 +158,6 @@ function ServiceCard({ title, description, icon, link }) {
           Visit {title.replace('Pixovia ', '')}
         </a>
       </div>
-    </motion.div>
+    </div>
   );
 }
