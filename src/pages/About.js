@@ -48,6 +48,8 @@ export default function PixoviaAboutPage() {
           <ServiceCard title="Pixovia TV" description="Watch live TV channels in your browser instantly for free." icon={<Tv size={20} />} link="https://pixovia.pages.dev/tv" />
           <ServiceCard title="Pixovia Sports" description="Stream live sports and highlights at no cost." icon={<Globe size={20} />} link="https://pixovia.pages.dev/sports" />
           <ServiceCard title="Pixovia Music" description="Listen to ad-free songs and playlists anytime, anywhere." icon={<Music size={20} />} link="https://pixovia.pages.dev/music" />
+          <ServiceCard title="Pixovia WebHost" description="Truly free unlimited static web page hosting with instant free domain. Permanent, no ads, no paywall, no tracking, just pure code." icon={<Globe size={20} />} link="https://pixovia.pages.dev/webhost" />
+          <ServiceCard title="Pixovia Tiny" description="Free and permanent short URL service. Infinite creation, no account needed, no ads, no tracking." icon={<ShieldCheck size={20} />} link="https://pixovia.free.nf/tiny" />
         </section>
 
         <section className="mt-12 grid lg:grid-cols-2 gap-8 items-center">
