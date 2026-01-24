@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { CheckCircle, Film, Gamepad, BookOpen, Music, Tv, Globe, ShieldCheck } from "lucide-react";
 
 export default function PixoviaAboutPage() {
@@ -21,12 +19,8 @@ export default function PixoviaAboutPage() {
                 Pixovia is a free, all-in-one platform offering verified apps, games, movies, TV, music, sports, and learning tools. Every service is secure, ad-free, and open for everyone.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <a href="https://pixovia.pages.dev/store" target="_blank" rel="noopener noreferrer">
-                  <Button className="px-5 py-3 bg-white text-indigo-600 hover:opacity-95">Explore Store</Button>
-                </a>
-                <a href="https://pixovia.pages.dev/library" target="_blank" rel="noopener noreferrer">
-                  <Button className="px-5 py-3 text-white border-white/40">Upload to Library</Button>
-                </a>
+                <a href="https://pixovia.pages.dev/store" target="_blank" rel="noopener noreferrer" className="bg-white text-indigo-600 font-semibold px-5 py-3 rounded-lg hover:opacity-90">Explore Store</a>
+                <a href="https://pixovia.pages.dev/library" target="_blank" rel="noopener noreferrer" className="border border-white text-white font-semibold px-5 py-3 rounded-lg hover:bg-white hover:text-indigo-600">Upload to Library</a>
               </div>
               <div className="mt-8 flex gap-4 items-center">
                 <span className="inline-flex items-center gap-2 bg-white/10 px-3 py-2 rounded-full">
@@ -86,42 +80,34 @@ export default function PixoviaAboutPage() {
               </li>
             </ul>
             <div className="mt-6">
-              <a href="https://pixovia.pages.dev" target="_blank" rel="noopener noreferrer">
-                <Button className="px-6 py-3">Get Started — It's Free</Button>
-              </a>
+              <a href="https://pixovia.pages.dev" target="_blank" rel="noopener noreferrer" className="bg-indigo-600 text-white font-semibold px-6 py-3 rounded-lg hover:opacity-90">Get Started — It's Free</a>
             </div>
           </div>
 
-          <div>
-            <Card className="overflow-hidden">
-              <CardContent>
-                <h3 className="text-xl font-semibold">Upload Guidelines</h3>
-                <p className="mt-2 opacity-90">
-                  Every upload is verified for security and copyright. Once approved, you’ll get a direct link like https://pixovia.pages.dev/file_name to share freely.
-                </p>
-                <div className="mt-4 grid gap-3">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">File size</div>
-                      <div className="opacity-80 text-sm">Up to 2GB per file</div>
-                    </div>
-                    <div className="text-sm">Unlimited uploads</div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">File types</div>
-                      <div className="opacity-80 text-sm">Documents, videos, audio, and apps</div>
-                    </div>
-                    <div className="text-sm">Reviewed by staff</div>
-                  </div>
+          <div className="bg-white rounded-2xl shadow p-6">
+            <h3 className="text-xl font-semibold">Upload Guidelines</h3>
+            <p className="mt-2 opacity-90">
+              Every upload is verified for security and copyright. Once approved, you’ll get a direct link like https://pixovia.pages.dev/file_name to share freely.
+            </p>
+            <div className="mt-4 grid gap-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-medium">File size</div>
+                  <div className="opacity-80 text-sm">Up to 2GB per file</div>
                 </div>
-                <div className="mt-6">
-                  <a href="https://pixovia.pages.dev/library" target="_blank" rel="noopener noreferrer">
-                    <Button variant="ghost">Upload Now</Button>
-                  </a>
+                <div className="text-sm">Unlimited uploads</div>
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-medium">File types</div>
+                  <div className="opacity-80 text-sm">Documents, videos, audio, and apps</div>
                 </div>
-              </CardContent>
-            </Card>
+                <div className="text-sm">Reviewed by staff</div>
+              </div>
+            </div>
+            <div className="mt-6">
+              <a href="https://pixovia.pages.dev/library" target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline font-medium">Upload Now</a>
+            </div>
           </div>
         </section>
 
