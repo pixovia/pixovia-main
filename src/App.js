@@ -13,7 +13,7 @@ import Learn from './learn/Learn';
 import Mods from './mods/Mods';
 import Malayalidino from './malayalidino/Malayalidino';
 import Tv from './tv/Tv';
-import Tinyurl from './tinyurl/Tinyurl';
+import Tiny from './tiny/Tiny';
 import WebHost from './webhost/WebHost';
 
 function App() {
@@ -34,8 +34,8 @@ function App() {
             <Route path="/mods" element={<Mods />} />
             <Route path="/malayalidino" element={<Malayalidino />} />
             <Route path="/tv" element={<Tv />} />
-            <Route path="/tv" element={<WebHost />} />
-            <Route path="/webhost" element={<Tinyurl />} />
+            <Route path="/webhost" element={<WebHost />} />
+            <Route path="/tiny" element={<Tiny />} />
           </Routes>
         </div>
       </Router>
