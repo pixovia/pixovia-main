@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Optimization: Primary Keywords first -->
+    <title>Pixovia Webhost | 100% Free Hosting - No Ads - Unlimited Uploads</title>
+    <meta name="title" content="Pixovia Webhost | 100% Free Hosting - No Ads - Unlimited Uploads">
+    <meta name="description" content="Official Pixovia Webhost portal. Experience high-speed free cloud hosting with 100% uptime, unlimited uploads, and zero ads. Purely free web hosting with instant deployment.">
+    <meta name="keywords" content="Pixovia Webhost, Free Hosting No Ads, Unlimited Free Hosting, Cloud Hosting, PHP HTML Hosting, Pixovia Cloud, Instant Deploy Hosting">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://pixovia.pages.dev/webhost" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pixovia.pages.dev/webhost">
+    <meta property="og:title" content="Pixovia Webhost - Unlimited Free Hosting & No Ads">
+    <meta property="og:description" content="Deploy your websites instantly with Pixovia's 100% free cloud infrastructure. No premium plans, just performance.">
+    <meta property="og:image" content="https://pixovia.pages.dev/logo-coloured.jpg">
+
+    <!-- Full Favicon Suite -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#4f46e5">
+
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-glow: rgba(79, 70, 229, 0.4);
+            --bg-dark: #020617;
+            --card-bg: #0f172a;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-green: #10b981;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(80px);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 540px;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .main-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .header-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .logo-img {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 16px;
+        }
+
+        .badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin: 16px 0 12px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(to bottom, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+
+        .feature-item svg {
+            color: var(--accent-green);
+            flex-shrink: 0;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px -5px var(--primary-glow);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            background: #5d5ae6;
+            box-shadow: 0 15px 25px -5px var(--primary-glow);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+            text-decoration: underline;
+        }
+
+        .footer-note {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.8rem;
+            color: #475569;
+        }
+
+        @media (max-width: 480px) {
+            .main-card { padding: 30px 20px; }
+            h1 { font-size: 1.8rem; }
+            .features { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <div class="container">
+        <main class="main-card">
+            <header class="header-logo">
+                <img src="https://pixovia.pages.dev/logo-coloured.jpg" alt="Pixovia" class="logo-img">
+                <span class="badge">Purely Free • No Ads</span>
+            </header>
+
+            <h1>Pixovia Webhost</h1>
+            
+            <p class="description">
+                Experience high-performance cloud hosting without the premium price tag. Manage your projects on our optimized dedicated infrastructure node.
+            </p>
+
+            <div class="features">
+                <div class="feature-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    100% Uptime
+                </div>
+                <div class="feature-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    Unlimited Uploads
+                </div>
+                <div class="feature-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    No Ads/Tracking
+                </div>
+                <div class="feature-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    Instant Deploy
+                </div>
+            </div>
+
+            <a href="http://pixovia.free.nf/webhost" class="action-btn">
+                Launch Hosting Dashboard
+            </a>
+
+            <a href="https://pixovia.pages.dev" class="back-link">
+                &larr; Back to Pixovia LLC Main Page
+            </a>
+
+            <footer class="footer-note">
+                &copy; 2024 Pixovia Cloud Services. No Premium Plans Required.<br> 
+                Authorized Access Point for pixovia.pages.dev
+            </footer>
+        </main>
+    </div>
+
+</body>
+</html>
