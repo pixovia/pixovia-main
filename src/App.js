@@ -14,6 +14,7 @@ import Mods from './mods/Mods';
 import Malayalidino from './malayalidino/Malayalidino';
 import Tv from './tv/Tv';
 import Tinyurl from './tinyurl/Tinyurl';
+import WebHost from './webhost/WebHost';
 
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
             <Route path="/mods" element={<Mods />} />
             <Route path="/malayalidino" element={<Malayalidino />} />
             <Route path="/tv" element={<Tv />} />
-            <Route path="/tinyurl" element={<Tinyurl />} />
+            <Route path="/tv" element={<WebHost />} />
+            <Route path="/webhost" element={<Tinyurl />} />
           </Routes>
         </div>
       </Router>
