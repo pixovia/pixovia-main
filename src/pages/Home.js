@@ -123,7 +123,24 @@ const Home = () => {
               <p className="text-gray-400 text-sm leading-relaxed font-light">Watch unlimited movies in high definition. All genres, latest releases, and classics for free.</p>
             </a>
 
-            {/* 4. TV */}
+            {/* 4. WebHost */}
+            <a href="/webhost/" className="service-card p-8 rounded-3xl block" style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(15px)',
+              transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>Free</span>
+              <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
+                <img src="/icons/library.png" alt="Library" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">WebHost</h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Resource center for developers and tech enthusiasts. Upload, share, and discover exclusive digital files.</p>
+            </a>
+
+            {/* 5. TV */}
             <a href="/tv/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -140,7 +157,7 @@ const Home = () => {
               <p className="text-gray-400 text-sm leading-relaxed font-light">Access 1000+ live television channels globally. News, entertainment, and documentaries in real-time.</p>
             </a>
 
-            {/* 5. MalayaliDino */}
+            {/* 6. MalayaliDino */}
             <a href="/malayalidino" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -157,7 +174,7 @@ const Home = () => {
               <p className="text-gray-400 text-sm leading-relaxed font-light">Experience the classic runner with a local twist. Play and compete for the global high score.</p>
             </a>
 
-            {/* 6. Sports */}
+            {/* 7. Sports */}
             <a href="/sports/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -172,7 +189,24 @@ const Home = () => {
               <p className="text-gray-400 text-sm leading-relaxed font-light">Watch live sports worldwide. Football, cricket, and major events streamed in 4K.</p>
             </a>
 
-            {/* 7. Music */}
+            {/* 8. Tiny - URL Shortner */}
+            <a href="/tiny/" className="service-card p-8 rounded-3xl block" style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(15px)',
+              transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>Unlimited</span>
+              <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
+                <img src="/icons/library.png" alt="Library" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Tiny - URL Shortner</h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">Resource center for developers and tech enthusiasts. Upload, share, and discover exclusive digital files.</p>
+            </a>
+
+            {/* 9. Music */}
             <a href="/music/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -187,7 +221,7 @@ const Home = () => {
               <p className="text-gray-400 text-sm leading-relaxed font-light">Stream unlimited tracks from your favorite artists. High-fidelity audio with zero fees.</p>
             </a>
 
-            {/* 8. Learn */}
+            {/* 10. Learn */}
             <a href="/learn/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -204,7 +238,7 @@ const Home = () => {
               <p className="text-gray-400 text-sm leading-relaxed font-light">Free educational platform. Courses, tutorials, and materials for every subject.</p>
             </a>
 
-            {/* 9. Downloader */}
+            {/* 11. Downloader */}
             <a href="/downloader/" className="service-card p-8 rounded-3xl block lg:col-span-1" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
