@@ -3,157 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malayali Dino by Pixovia LLC | Coming Soon to Pixovia TV</title>
-    <meta name="description" content="Official landing page for Malayali Dino. A groundbreaking production by Pixovia LLC coming soon to Pixovia TV. Stay tuned for the roar of the century.">
-    <meta name="keywords" content="Malayali Dino, Pixovia TV, Pixovia LLC, Malayalam Cinema, AI Dinosaurs Kerala, Malayali Dino Movie, Streaming Kerala">
     
+    <!-- SEO Optimization -->
+    <title>Malayalidino | Fun Browser Dino Game with Kerala Influencer Voices</title>
+    <meta name="title" content="Malayalidino | Fun Browser Dino Game with Kerala Influencer Voices">
+    <meta name="description" content="Play Malayalidino, the ultimate browser dino game by Pixovia LLC. Experience fun gameplay featuring the voices of your favorite Kerala influencers and actors. 100% Free.">
+    <meta name="keywords" content="Malayalidino, Pixovia Game, Kerala Influencer Game, Malayali Dino Game, Browser Game Kerala, Fun Malayali Game, Pixovia LLC">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://pixovia.pages.dev/malayalidino" />
+
+    <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pixovia.pages.dev/malayalidino">
-    <meta property="og:title" content="Malayali Dino - Coming Soon | Pixovia TV">
-    <meta property="og:description" content="Experience the prehistoric in the heart of Kerala. Pixovia LLC presents Malayali Dino.">
-    <meta property="og:image" content="https://pixovia.pages.dev/assets/dino-preview.jpg"> <style>
+    <meta property="og:title" content="Malayalidino - The Funniest Malayali Browser Game">
+    <meta property="og:description" content="Jump and dodge with your favorite Kerala celebrity voices. Play Malayalidino by Pixovia LLC now!">
+    <meta property="og:image" content="https://pixovia.pages.dev/logo-coloured.jpg">
+
+    <!-- Full Favicon Suite -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#f59e0b">
+
+    <style>
         :root {
-            --primary-accent: #2ecc71; /* Jungle Green for Dino theme */
-            --bg-dark: #0a0a0a;
-            --text-light: #f5f5f5;
+            --primary: #f59e0b; /* Amber/Orange theme for Gaming */
+            --primary-glow: rgba(245, 158, 11, 0.4);
+            --bg-dark: #020617;
+            --card-bg: #0f172a;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
         }
 
-        body, html {
+        * { box-sizing: border-box; }
+
+        body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-dark);
-            color: var(--text-light);
+            color: var(--text-primary);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(80px);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 540px;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .main-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .header-logo {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
+            margin-bottom: 24px;
         }
 
-        /* Video/Texture Overlay Effect */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), 
-                        url('https://images.unsplash.com/photo-1517926967795-31923c896943?auto=format&fit=crop&q=80'); /* Jungle placeholder */
-            background-size: cover;
-            background-position: center;
-            z-index: -1;
-            filter: grayscale(40%);
+        .logo-img {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 16px;
         }
 
-        .content {
-            padding: 2rem;
-            max-width: 800px;
-            z-index: 1;
-        }
-
-        .brand-header {
-            font-size: 0.9rem;
-            letter-spacing: 4px;
-            color: var(--primary-accent);
+        .badge {
+            background: rgba(245, 158, 11, 0.1);
+            color: #fbbf24;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
-            margin-bottom: 1rem;
+            border: 1px solid rgba(245, 158, 11, 0.2);
         }
 
         h1 {
-            font-size: clamp(3rem, 10vw, 5rem);
-            margin: 0;
-            font-weight: 900;
-            text-transform: uppercase;
-            line-height: 1;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .coming-soon-tag {
-            background: var(--primary-accent);
-            color: black;
-            padding: 5px 15px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 10px;
-            transform: skewX(-15deg);
+            font-size: 2.2rem;
+            margin: 16px 0 12px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(to bottom, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .description {
-            margin: 2rem 0;
-            font-size: 1.2rem;
-            color: #bbb;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
         }
 
-        .cta-form {
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
+            align-items: center;
             gap: 10px;
+            color: var(--text-primary);
+        }
+
+        .feature-item svg {
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            margin-top: 2rem;
+            width: 100%;
+            background: var(--primary);
+            color: #000;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px -5px var(--primary-glow);
         }
 
-        input {
-            padding: 1rem 1.5rem;
-            border-radius: 5px;
-            border: 1px solid #333;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            width: 300px;
-            backdrop-filter: blur(5px);
-        }
-
-        button {
-            padding: 1rem 2rem;
-            border-radius: 5px;
-            border: none;
-            background: var(--primary-accent);
-            color: black;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
+        .action-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+            background: #fbbf24;
+            box-shadow: 0 15px 25px -5px var(--primary-glow);
         }
 
         .back-link {
-            margin-top: 3rem;
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--text-secondary);
             text-decoration: none;
-            color: #666;
-            font-size: 0.8rem;
-            transition: color 0.3s;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+            font-weight: 500;
         }
 
         .back-link:hover {
-            color: white;
+            color: var(--text-primary);
+            text-decoration: underline;
+        }
+
+        .footer-note {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.8rem;
+            color: #475569;
+        }
+
+        @media (max-width: 480px) {
+            .main-card { padding: 30px 20px; }
+            h1 { font-size: 1.8rem; }
+            .features { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="overlay"></div>
+    <div class="bg-glow"></div>
 
-    <div class="content">
-        <div class="brand-header">Pixovia LLC Presents</div>
-        <h1>MALAYALI <br>DINO</h1>
-        <div class="coming-soon-tag">COMING SOON</div>
-        
-        <p class="description">
-            The prehistoric era meets the soul of Kerala. A unique cinematic experience brought to you exclusively by Pixovia TV.
-        </p>
+    <div class="container">
+        <main class="main-card">
+            <header class="header-logo">
+                <img src="https://pixovia.pages.dev/logo-coloured.jpg" alt="Pixovia" class="logo-img">
+                <span class="badge">Gaming • Entertainment</span>
+            </header>
 
-        <form class="cta-form" action="#">
-            <input type="email" placeholder="Enter your email for updates" required>
-            <button type="submit">Join the Waitlist</button>
-        </form>
+            <h1>Malayalidino</h1>
+            
+            <p class="description">
+                The ultimate browser dino game with a Malayali twist! Dodge obstacles while hearing the hilarious voices of Kerala's top influencers and actors.
+            </p>
 
-        <a href="https://pixovia.pages.dev" class="back-link">← Return to Pixovia TV Home</a>
+            <div class="features">
+                <div class="feature-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M9 20v-10M6 20v-4M15 20v-8M18 20v-12"/></svg>
+                    Fun Voices
+                </div>
+                <div class="feature-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M9 20v-10M6 20v-4M15 20v-8M18 20v-12"/></svg>
+                    Influencer Clips
+                </div>
+                <div class="feature-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M9 20v-10M6 20v-4M15 20v-8M18 20v-12"/></svg>
+                    Truly Free
+                </div>
+                <div class="feature-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M9 20v-10M6 20v-4M15 20v-8M18 20v-12"/></svg>
+                    Unlimited Fun
+                </div>
+            </div>
+
+            <!-- Replace with your actual game link -->
+            <a href="http://pixovia.free.nf/malayalidino" class="action-btn">
+                START PLAYING NOW
+            </a>
+
+            <a href="https://pixovia.pages.dev" class="back-link">
+                &larr; Back to Pixovia LLC Main Page
+            </a>
+
+            <footer class="footer-note">
+                &copy; 2024 Pixovia LLC. All Sounds Property of Respectful Owners.<br> 
+                Authorized Access Point for pixovia.pages.dev
+            </footer>
+        </main>
     </div>
 
 </body>
