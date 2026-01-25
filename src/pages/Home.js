@@ -134,7 +134,7 @@ const Home = () => {
             }}>
               <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>Infrastructure Node</span>
               <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
-                <img src="/icons/webhost.jpg" alt="WebHost" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <img src="/icons/webhost.png" alt="WebHost" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
               <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">WebHost</h3>
               <p className="text-gray-400 text-sm leading-relaxed font-light">100% Free high-performance cloud hosting. No ads, unlimited uploads, and instant deployment for your web projects.</p>
@@ -200,7 +200,7 @@ const Home = () => {
             }}>
               <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#ffffff', color: '#000000', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block' }}>Instant & Unlimited</span>
               <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
-                <img src="/icons/tiny.jpg" alt="Library" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <img src="/icons/tiny.png" alt="Library" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
               <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Tiny - URL Shortner</h3>
               <p className="text-gray-400 text-sm leading-relaxed font-light">Truly free URL shortener with no limits. Shorten links instantly without any signup or signin. Permanent and secure.</p>
