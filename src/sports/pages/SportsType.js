@@ -43,7 +43,7 @@ function SportsType() {
       { property: 'og:description', content: `Watch all ${decodedType} matches live and free on Pixovia Sports by Pixovia LLC. No ads, no subscriptions. Stream ${decodedType}.` },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: `https://pixovia.pages.dev/sports/type/${encodeURIComponent(decodedType)}` },
-      { property: 'og:image', content: 'https://github.com/pixovia/store-files/releases/download/v1.0.0.0.0.0.0.0.3/icon-coloured-closeup.jpg' },
+      { property: 'og:image', content: 'https://pixovia.pages.dev/logo-coloured.jpg' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: `${decodedType} Live Matches - Free Streaming by Pixovia LLC` },
       { name: 'twitter:description', content: `Watch all ${decodedType} matches live and free on Pixovia Sports by Pixovia LLC.` }
@@ -112,7 +112,7 @@ function SportsType() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <img 
-              src="https://github.com/pixovia/store-files/releases/download/v1.0.0.0.0.0.0.0.3/icon-coloured-closeup.jpg"
+              src="https://pixovia.pages.dev/logo-coloured.jpg"
               alt="Pixovia"
               style={{ width: '2rem', height: '2rem', borderRadius: '0.375rem' }}
             />
