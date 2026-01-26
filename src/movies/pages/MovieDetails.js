@@ -29,7 +29,7 @@ function MovieDetails() {
       { property: 'og:description', content: `Watch ${movieTitle} free online on Pixovia Movies by Pixovia LLC. HD quality streaming with no ads, no subscriptions.` },
       { property: 'og:type', content: 'video.movie' },
       { property: 'og:url', content: `https://pixovia.pages.dev/movies/${movie?.id || ''}` },
-      { property: 'og:image', content: movie?.thumbnail_file?.file_url || 'https://github.com/pixovia/store-files/releases/download/v1.0.0.0.0.0.0.0.3/icon-coloured-closeup.jpg' },
+      { property: 'og:image', content: movie?.thumbnail_file?.file_url || 'https://pixovia.pages.dev/logo-coloured.jpg' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: `${movieTitle} - Watch Free Online` },
       { name: 'twitter:description', content: `Watch ${movieTitle} free online on Pixovia Movies by Pixovia LLC.` }
@@ -203,7 +203,7 @@ function MovieDetails() {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <img 
-            src="https://github.com/pixovia/store-files/releases/download/v1.0.0.0.0.0.0.0.3/icon-coloured-closeup.jpg"
+            src="https://pixovia.pages.dev/logo-coloured.jpg"
             alt="Pixovia Logo"
             style={{ width: '2.5rem', height: '2.5rem', borderRadius: '0.5rem', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}
           />
