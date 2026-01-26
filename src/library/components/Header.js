@@ -57,7 +57,7 @@ const Header = () => {
           fontWeight: 'bold'
         }}>
           <img 
-            src="https://github.com/pixovia/store-files/releases/download/v1.0.0.0.0.0.0.0.3/icon-coloured-closeup.jpg" 
+            src="https://pixovia.pages.dev/icon-coloured-closeup.jpg" 
             alt="Pixovia" 
             style={{ width: '32px', height: '32px', borderRadius: '6px' }}
             referrerPolicy="no-referrer"
