@@ -25,7 +25,7 @@ function SportsHome() {
       { property: 'og:description', content: 'Watch live sports matches completely free on Pixovia Sports by Pixovia LLC. Premier League, Champions League, NBA and more. No ads, no subscriptions.' },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: 'https://pixovia.pages.dev/sports/' },
-      { property: 'og:image', content: 'https://github.com/pixovia/store-files/releases/download/v1.0.0.0.0.0.0.0.3/icon-coloured-closeup.jpg' },
+      { property: 'og:image', content: 'https://pixovia.pages.dev/logo-coloured.jpg' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: 'Pixovia Sports by Pixovia LLC - Free Live Sports Streaming' },
       { name: 'twitter:description', content: 'Watch live sports matches completely free on Pixovia Sports by Pixovia LLC. Premier League, Champions League, NBA and more.' }
@@ -137,7 +137,7 @@ function SportsHome() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <img 
-              src="https://github.com/pixovia/store-files/releases/download/v1.0.0.0.0.0.0.0.3/icon-coloured-closeup.jpg"
+              src="https://pixovia.pages.dev/logo-coloured.jpg"
               alt="Pixovia"
               style={{ width: '2rem', height: '2rem', borderRadius: '0.375rem' }}
             />
