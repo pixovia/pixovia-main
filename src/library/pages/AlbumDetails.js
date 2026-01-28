@@ -145,7 +145,7 @@ const AlbumDetails = () => {
     } else if (fileType.includes('exe')) {
       iconUrl = 'https://cdn-icons-png.flaticon.com/512/29/29614.png';
     } else {
-      iconUrl = 'https://via.placeholder.com/200x200/333/fff?text=FILE';
+      iconUrl = 'https://cdn-icons-png.flaticon.com/512/702/702820.png';
     }
     
     return (
