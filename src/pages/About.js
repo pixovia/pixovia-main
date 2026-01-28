@@ -13,7 +13,7 @@ export default function PixoviaAboutPage() {
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div>
               <h1 className="text-4xl lg:text-5xl font-extrabold leading-tight">
-                Pixovia LLC — Everything Digital, Completely Free
+                About Pixovia LLC — Everything Digital, Completely Free
               </h1>
               <p className="mt-4 text-lg lg:text-xl opacity-90 max-w-2xl">
                 Pixovia is a free, all-in-one platform offering verified apps, games, movies, TV, music, sports, and learning tools. Every service is secure, ad-free, and open for everyone.
