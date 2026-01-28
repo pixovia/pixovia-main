@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import MoviesHome from './pages/MoviesHome';
 import MovieDetails from './pages/MovieDetails';
-import SEO from '../components/SEO';
+import SEO from './lib/SEO';
 
 function Movies() {
   return (
