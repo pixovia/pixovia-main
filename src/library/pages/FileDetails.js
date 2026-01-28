@@ -80,10 +80,10 @@ const FileDetails = () => {
     const type = fileType.toLowerCase();
     if (type.includes('image')) return '🖼️';
     if (type.includes('video')) return '🎥';
-    if (type.includes('audio')) return '🎵';
+    if (type.includes('audio')) return 'https://cdn-icons-png.flaticon.com/512/1977/1977285.png';
     if (type.includes('zip') || type.includes('rar')) return '📦';
     if (type.includes('exe')) return '⚙️';
-    if (type.includes('apk')) return '📱';
+    if (type.includes('apk')) return '<img src="https://cdn-icons-png.flaticon.com/512/28/28869.png">';
     return '📄';
   };
 
