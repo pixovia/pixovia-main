@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- PRIMARY SEO TAGS -->
+    <title>Pixovia World Chatroom | Free Public Chat & Media Sharing</title>
+    <meta name="title" content="Pixovia World Chatroom | Free Public Chat & Media Sharing">
+    <meta name="description" content="Connect instantly with Pixovia World Chatroom. A 100% free, public chat platform supporting anonymous guest login, high-speed file uploads, images, GIFs, and videos. Join the global conversation now.">
+    <meta name="keywords" content="Pixovia, Pixovia World, Chatroom, Free Chat, Public Chat, Guest Chat, Anonymous Chat, Share Videos, Share GIFs, Global Chat, No Registration Chat">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="author" content="Pixovia">
+    <link rel="canonical" href="https://pixovia.pages.dev/chatroom" />
+
+    <!-- OPEN GRAPH / FACEBOOK -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pixovia.pages.dev/chatroom">
+    <meta property="og:title" content="Pixovia World Chatroom - Connect Universally">
+    <meta property="og:description" content="The world's largest open media chat. Share images, videos, and GIFs instantly with no registration required.">
+    <meta property="og:image" content="https://pixovia.pages.dev/icon-coloured-closeup.jpg">
+
+    <!-- TWITTER -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://pixovia.pages.dev/chatroom">
+    <meta property="twitter:title" content="Pixovia World Chatroom">
+    <meta property="twitter:description" content="Join the free public chatroom at Pixovia World. Guest login available. Supporting all media uploads.">
+    <meta property="twitter:image" content="https://pixovia.pages.dev/icon-coloured-closeup.jpg">
+
+    <!-- STRUCTURED DATA (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Pixovia World Chatroom",
+      "url": "https://pixovia.pages.dev/chatroom",
+      "description": "A free public chatroom for global communication with media sharing support.",
+      "applicationCategory": "CommunicationApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "image": "https://pixovia.pages.dev/icon-coloured-closeup.jpg",
+      "featureList": "Anonymous Chat, Guest Login, Video Sharing, GIF Support, Image Uploads, 100% Free"
+    }
+    </script>
+    
+    <!-- Favicon and App Icons -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            scroll-behavior: smooth;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+            z-index: -1;
+        }
+
+        .badge-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-card border-b border-slate-800" role="navigation" aria-label="Main Navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-3">
+                    <img src="https://pixovia.pages.dev/icon-coloured-closeup.jpg" alt="Pixovia World Logo" class="h-10 w-10 rounded-lg shadow-lg">
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold tracking-tight leading-none">PIXOVIA <span class="text-blue-400">WORLD</span></span>
+                        <span class="text-[10px] text-blue-400 font-bold uppercase tracking-widest mt-1">Global Public Network</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#" class="hover:text-blue-400 transition">Home</a>
+                    <a href="#features" class="hover:text-blue-400 transition">Features</a>
+                    <a href="#media" class="hover:text-blue-400 transition">Media Support</a>
+                </div>
+                <div>
+                    <button onclick="enterChat()" aria-label="Join Chat Now" class="bg-blue-600 hover:bg-blue-500 px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105 shadow-lg shadow-blue-900/20">
+                        Join Free
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="relative pt-32 pb-20 px-4 min-h-screen flex items-center justify-center">
+            <div class="hero-glow" aria-hidden="true"></div>
+            <div class="max-w-4xl text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-bold uppercase tracking-widest badge-pulse">
+                    <span class="w-2 h-2 rounded-full bg-blue-400"></span> 100% Free & Always Public
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+                    The World's Largest <br>
+                    <span class="gradient-text">Open Media Chat</span>
+                </h1>
+                <p class="text-lg text-slate-400 mb-10 max-w-2xl mx-auto">
+                    No subscription. No account. Just open public rooms where you can share <strong class="text-white">Images, GIFs, and Videos</strong> with anyone, anywhere, instantly.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="enterChat()" class="group relative bg-white text-slate-900 font-bold py-4 px-10 rounded-xl transition-all hover:bg-blue-50 overflow-hidden shadow-2xl shadow-white/10">
+                        <span class="relative z-10 flex items-center gap-2">
+                            Start Guest Chat <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                        </span>
+                    </button>
+                    <div class="flex items-center gap-2 text-slate-500 text-sm py-4">
+                        <i class="fas fa-unlock text-blue-400" aria-hidden="true"></i> Fully Accessible to All
+                    </div>
+                </div>
+
+                <!-- Media Badge Strip -->
+                <div class="mt-12 flex flex-wrap justify-center gap-6 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                    <div class="flex items-center gap-2"><i class="fas fa-image" aria-hidden="true"></i> Images</div>
+                    <div class="flex items-center gap-2"><i class="fas fa-film" aria-hidden="true"></i> Videos</div>
+                    <div class="flex items-center gap-2"><i class="fas fa-file-arrow-up" aria-hidden="true"></i> Any File</div>
+                    <div class="flex items-center gap-2"><i class="fas fa-bolt" aria-hidden="true"></i> GIFs</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Features Grid -->
+        <section id="features" class="py-24 bg-slate-900/50">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold mb-4">Unlimited Public Chat Features</h2>
+                    <p class="text-slate-400">The most feature-rich anonymous chat experience on the web.</p>
+                    <div class="w-20 h-1 bg-blue-600 mx-auto rounded-full mt-4"></div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Feature 1: Free -->
+                    <article class="glass-card p-6 rounded-2xl hover:bg-slate-800/80 transition-all border-l-4 border-blue-500">
+                        <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4 text-blue-400">
+                            <i class="fas fa-hand-holding-dollar" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2">Completely Free</h3>
+                        <p class="text-slate-400 text-sm">Every feature is unlocked by default. No hidden fees or "Pro" tiers for our users.</p>
+                    </article>
+
+                    <!-- Feature 2: Public -->
+                    <article class="glass-card p-6 rounded-2xl hover:bg-slate-800/80 transition-all border-l-4 border-purple-500">
+                        <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4 text-purple-400">
+                            <i class="fas fa-users" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2">Always Public</h3>
+                        <p class="text-slate-400 text-sm">Join the global conversation. Our rooms are open to everyone, making it easy to meet new people.</p>
+                    </article>
+
+                    <!-- Feature 3: File Uploads -->
+                    <article class="glass-card p-6 rounded-2xl hover:bg-slate-800/80 transition-all border-l-4 border-emerald-500">
+                        <div class="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-4 text-emerald-400">
+                            <i class="fas fa-cloud-arrow-up" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2">Rich File Uploads</h3>
+                        <p class="text-slate-400 text-sm">Upload documents, zips, or scripts. Share your work or resources directly in the chat.</p>
+                    </article>
+
+                    <!-- Feature 4: Media Support -->
+                    <article id="media" class="glass-card p-6 rounded-2xl hover:bg-slate-800/80 transition-all border-l-4 border-orange-500">
+                        <div class="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center mb-4 text-orange-400">
+                            <i class="fas fa-play" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2">Img, GIF, & Video</h3>
+                        <p class="text-slate-400 text-sm">Full multimedia preview support. Play videos and view high-res images directly in the feed.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-800" role="contentinfo">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <img src="https://pixovia.pages.dev/icon-coloured-closeup.jpg" alt="Pixovia Footer Logo" class="h-8 w-8 rounded">
+                <span class="font-bold opacity-80 uppercase tracking-tighter">Pixovia World Chat</span>
+            </div>
+            <div class="text-slate-500 text-sm">
+                &copy; 2026 Pixovia World. All rights reserved. <a href="#" class="hover:text-blue-400 ml-2">Privacy Policy</a>
+            </div>
+            <div class="flex gap-6 text-slate-400">
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                <a href="#" aria-label="Github"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Redirect Logic -->
+    <script>
+        function enterChat() {
+            window.location.href = '/chatroom/chat/';
+        }
+
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(15, 23, 42, 0.95)';
+            } else {
+                nav.style.background = 'rgba(30, 41, 59, 0.7)';
+            }
+        });
+    </script>
+</body>
+</html>
