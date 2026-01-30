@@ -157,7 +157,26 @@ const Home = () => {
               <p className="text-gray-400 text-sm leading-relaxed font-light">Access 1000+ live television channels globally. News, entertainment, and documentaries in real-time.</p>
             </a>
 
-            {/* 6. MalayaliDino */}
+            {/* 6. Chatroom */}
+            <a href="/chatroom/" className="service-card p-8 rounded-3xl block" style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(15px)',
+              transition: 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#3b82f6', // Blue background for distinctioncolor: '#ffffff', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block'  }}>Public & Free</span>
+              <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
+                <img src="/icons/chatroom.png" alt="Chatroom" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 uppercase tracking-tight">Chatroom</h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-light">
+                Global real-time messaging with no registration. Share images, GIFs, and videos instantly in a completely open public community.
+              </p>
+            </a>
+
+            {/* 7. MalayaliDino */}
             <a href="/malayalidino" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -174,7 +193,7 @@ const Home = () => {
               <p className="text-gray-400 text-sm leading-relaxed font-light">Experience the classic runner with a local twist. Play and compete for the global high score.</p>
             </a>
 
-            {/* 7. Sports */}
+            {/* 8. Sports */}
             <a href="/sports/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -189,7 +208,7 @@ const Home = () => {
               <p className="text-gray-400 text-sm leading-relaxed font-light">Watch live sports worldwide. Football, cricket, and major events streamed in 4K.</p>
             </a>
 
-            {/* 8. Tiny - URL Shortner */}
+            {/* 9. Tiny - URL Shortner */}
             <a href="/tiny/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -206,7 +225,7 @@ const Home = () => {
               <p className="text-gray-400 text-sm leading-relaxed font-light">Truly free URL shortener with no limits. Shorten links instantly without any signup or signin. Permanent and secure.</p>
             </a>
 
-            {/* 9. Music */}
+            {/* 10. Music */}
             <a href="/music/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -221,7 +240,7 @@ const Home = () => {
               <p className="text-gray-400 text-sm leading-relaxed font-light">Stream unlimited tracks from your favorite artists. High-fidelity audio with zero fees.</p>
             </a>
 
-            {/* 10. Learn */}
+            {/* 11. Learn */}
             <a href="/learn/" className="service-card p-8 rounded-3xl block" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -238,7 +257,7 @@ const Home = () => {
               <p className="text-gray-400 text-sm leading-relaxed font-light">Free educational platform. Courses, tutorials, and materials for every subject.</p>
             </a>
 
-            {/* 11. Downloader */}
+            {/* 12. Downloader */}
             <a href="/downloader/" className="service-card p-8 rounded-3xl block lg:col-span-1" style={{
               background: 'rgba(255, 255, 255, 0.02)',
               border: '1px solid rgba(255, 255, 255, 0.05)',
