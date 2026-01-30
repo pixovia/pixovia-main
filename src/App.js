@@ -15,6 +15,7 @@ import Malayalidino from './malayalidino/Malayalidino';
 import Tv from './tv/Tv';
 import Tiny from './tiny/Tiny';
 import WebHost from './webhost/WebHost';
+import Chatroom from './chatroom/Chatroom';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/tv" element={<Tv />} />
             <Route path="/webhost" element={<WebHost />} />
             <Route path="/tiny" element={<Tiny />} />
+            <Route path="/chatroom" element={<Chatroom />} />
           </Routes>
         </div>
       </Router>
