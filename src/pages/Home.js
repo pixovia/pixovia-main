@@ -166,7 +166,7 @@ const Home = () => {
               position: 'relative',
               overflow: 'hidden'
             }}>
-              <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#3b82f6', // Blue background for distinctioncolor: '#ffffff', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block'  }}>Public & Free</span>
+              <span className="badge-free" style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', background: '#3b82f6', color: '#ffffff', padding: '2px 8px', borderRadius: '4px', marginBottom: '12px', display: 'inline-block'  }}>Public & Free</span>
               <div className="icon-box" style={{ width: '56px', height: '56px', background: 'rgba(255, 255, 255, 0.9)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', padding: '12px', transition: 'transform 0.3s ease' }}>
                 <img src="/icons/chatroom.png" alt="Chatroom" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
               </div>
