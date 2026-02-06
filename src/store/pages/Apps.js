@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { appsService } from '../lib/supabase';
 import AppCard from '../components/AppCard';
+import { useSEO } from '../lib/useSEO';
 import toast from 'react-hot-toast';
 
 const Apps = () => {
