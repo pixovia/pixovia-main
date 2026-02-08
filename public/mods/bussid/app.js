@@ -42,7 +42,7 @@ async function fetchMods() {
   const { data, error } = await supabaseClient
     .from("bussid_mods")
     .select("*")
-    .order("name", { ascending: true });
+    .order("created_at", { ascending: false }); // newest first
 
   if (error) {
     console.error("Supabase Error:", error);
