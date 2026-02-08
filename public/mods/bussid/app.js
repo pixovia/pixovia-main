@@ -1,5 +1,5 @@
 /* ============================================
-   VoltNexis FileHost — BUSSID Mods Hub
+   Voltxis FileHost — BUSSID Mods Hub
    app.js (Supabase Powered)
 ============================================ */
 
@@ -89,7 +89,7 @@ function renderMods() {
     let creator = mod.creator || "Unknown Creator";
     let avatar =
       mod.creator_avatar ||
-      "https://voltnexis.github.io/assets/default-avatar.png";
+      "https://cdn-icons-png.flaticon.com/512/6388/6388000.png";
 
     let card = document.createElement("div");
     card.className = "mod-card";
