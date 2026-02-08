@@ -7,10 +7,10 @@
    SUPABASE CONFIG
 ----------------------------- */
 
-const SUPABASE_URL = "https://yspnibvfsbawwesveoji.supabase.co";
+const SUPABASE_URL = "https://hjgmvkwiqihorwaynlrb.supabase.co";
 
 const SUPABASE_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzcG5pYnZmc2Jhd3dlc3Zlb2ppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA0MjE3NTksImV4cCI6MjA4NTk5Nzc1OX0.UldM-ltUAIo1cf8ppA0FYQp2DICutCVshB1r3Ek4M1o";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqZ212a3dpcWlob3J3YXlubHJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1NTc2NTAsImV4cCI6MjA4MjEzMzY1MH0.C_3izEOMhdxTfnj85OSmg_5Ol-CIi4PyR70p4JRUkSY";
 
 const supabaseClient = supabase.createClient(
   SUPABASE_URL,
