@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Upload BUSSID Mod — VoltNexis FileHost</title>
+  <meta name="description" content="Submit your BUSSID mod and livery upload to VoltNexis FileHost. Mods are reviewed before appearing as Verified downloads." />
+  <meta name="keywords" content="upload bussid mod, submit bussid mods, bussid mod creator, voltnexis upload, bussid livery upload" />
+  <meta name="author" content="VoltNexis FileHost" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://voltnexis.github.io/filehost/bussid/mods/upload/" />
+    
+  <!-- OpenGraph Preview -->
+  <meta property="og:title" content="Upload BUSSID Mod — VoltNexis FileHost" />
+  <meta property="og:description" content="Upload your BUSSID mod submission. Mods are published only after review by VoltNexis FileHost." />
+  <meta property="og:image" content="https://voltnexis.github.io/assets/logo-new.webp" />
+  <meta property="og:url" content="https://voltnexis.github.io/filehost/bussid/mods/upload/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Upload BUSSID Mod — VoltNexis FileHost" />
+  <meta name="twitter:description" content="Submit your mod and livery to VoltNexis FileHost. Verified status is granted after review." />
+  <meta name="twitter:image" content="https://voltnexis.github.io/assets/logo-new.webp" />
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#38bdf8" />
+
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-flex">
+    <img src="https://voltnexis.github.io/assets/logo-new.webp" class="logo">
+    <a href="https://voltnexis.github.io/filehost" class="site-title">
+      VoltNexis FileHost
+    </a>
+
+    <a class="header-link" href="../index.html">← Back</a>
+  </div>
+</header>
+
+<main class="container mod-page">
+
+  <div class="mod-detail-card">
+    <h1>📤 Upload BUSSID Mod</h1>
+    <p class="muted">
+      Submitted mods will be reviewed before appearing as Verified.
+    </p>
+
+    <form id="uploadForm" class="upload-form">
+
+      <input required id="name" placeholder="Mod Name">
+
+      <textarea required id="description"
+        placeholder="Mod Description"></textarea>
+
+      <input required id="cover" placeholder="Cover Image URL">
+
+      <input required id="download" placeholder="Mod Download Link">
+
+      <input required id="liverydownload"
+        placeholder="Livery PNG Link">
+
+      <input id="creator" placeholder="Creator Name (optional)">
+
+      <input id="creator_avatar"
+        placeholder="Creator Avatar URL (optional)">
+
+      <input id="creator_url"
+        placeholder="Creator Page URL (optional)">
+
+      <textarea id="screenshots"
+        placeholder="Screenshots JSON Array
+Example:
+[
+  &quot;https://img1.webp&quot;,
+  &quot;https://img2.webp&quot;
+]"></textarea>
+
+      <button class="btn primary" type="submit">
+        Submit Mod
+      </button>
+
+      <p id="statusMsg" class="status"></p>
+    </form>
+  </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://yspnibvfsbawwesveoji.supabase.co";
+const SUPABASE_KEY = "YOUR_ANON_KEY_HERE";
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const form = document.getElementById("uploadForm");
+const statusMsg = document.getElementById("statusMsg");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  statusMsg.textContent = "Uploading...";
+
+  let screenshotsValue = [];
+
+  try {
+    if (document.getElementById("screenshots").value.trim()) {
+      screenshotsValue = JSON.parse(
+        document.getElementById("screenshots").value
+      );
+    }
+  } catch {
+    statusMsg.textContent =
+      "❌ Screenshots must be valid JSON array.";
+    return;
+  }
+
+  const modData = {
+    name: document.getElementById("name").value,
+    description: document.getElementById("description").value,
+    cover: document.getElementById("cover").value,
+    download: document.getElementById("download").value,
+    liverydownload: document.getElementById("liverydownload").value,
+
+    creator: document.getElementById("creator").value || "Anonymous",
+    creator_avatar:
+      document.getElementById("creator_avatar").value ||
+      "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+
+    creator_url:
+      document.getElementById("creator_url").value || "#",
+
+    screenshots: screenshotsValue,
+
+    // ✅ always false
+    is_verified: false
+  };
+
+  const { error } = await supabaseClient
+    .from("bussid_mods")
+    .insert([modData]);
+
+  if (error) {
+    statusMsg.textContent = "❌ Upload failed: " + error.message;
+  } else {
+    statusMsg.textContent =
+      "✅ Submitted successfully! Awaiting review.";
+    form.reset();
+  }
+});
+</script>
+
+</body>
+</html>

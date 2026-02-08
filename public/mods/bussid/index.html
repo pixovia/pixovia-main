@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BUSSID Mods Download Hub — VoltNexis FileHost</title>
+  <meta name="description" content="Discover and download the best BUSSID mods with premium next-gen UI. Verified creators, high-quality liveries, screenshots, and direct downloads only on VoltNexis FileHost." />
+  <meta name="keywords" content="BUSSID mods, bussid mod download, bussid livery png, buss simulator indonesia mods, voltnexis filehost, bussid truck mods, bussid bus mods, verified bussid mods" />
+  <meta name="author" content="VoltNexis FileHost" />
+  <meta name="robots" content="index, follow" />
+    
+  <link rel="canonical" href="https://voltnexis.github.io/filehost/bussid/mods/" />
+    
+  <meta property="og:title" content="BUSSID Mods Hub — VoltNexis FileHost" />
+  <meta property="og:description" content="Download BUSSID mods, liveries, and creator uploads in one next-gen premium platform by VoltNexis FileHost." />
+  <meta property="og:image" content="https://voltnexis.github.io/assets/logo-new.webp" />
+  <meta property="og:url" content="https://voltnexis.github.io/filehost/bussid/mods/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card Preview -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BUSSID Mods Download Hub — VoltNexis FileHost" />
+  <meta name="twitter:description"  content="Explore verified BUSSID mods, screenshots, liveries, and direct downloads on VoltNexis FileHost." />
+  <meta name="twitter:image" content="https://voltnexis.github.io/assets/logo-new.webp" />
+
+  <!-- Theme Color (Mobile Browser Top Bar) -->
+  <meta name="theme-color" content="#38bdf8" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Premium Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- VN BRAND HEADER (Required) -->
+  <header class="site-header">
+    <div class="container header-flex">
+      <img src="https://voltnexis.github.io/assets/logo-new.webp" alt="VoltNexis" class="logo">
+      <a href="https://voltnexis.github.io/filehost" class="site-title">VoltNexis FileHost</a>
+
+      <a class="header-link" href="https://voltnexis.github.io/filehost/bussid/mods/">
+        BUSSID Mods
+      </a>
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1>BUSSID Mods Hub</h1>
+      <p>
+        The next‑gen discovery platform for BUS Simulator Indonesia mods.
+        Verified creators, premium previews, and instant downloads — powered by VoltNexis.
+      </p>
+
+      <!-- Search + Filter -->
+      <div class="controls">
+        <input id="searchBox" class="search" placeholder="Search mods, buses, trucks..." />
+
+        <select id="verifiedFilter" class="filter">
+          <option value="all">All Mods</option>
+          <option value="verified">Verified Only</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- MODS GRID -->
+  <section class="mods-section">
+    <div class="container">
+      <h2 class="section-title">🔥 All Mods</h2>
+      <div id="modsGrid" class="mods-grid"></div>
+
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    © <span id="year"></span> VoltNexis FileHost • BUSSID Mods Hub
+  </footer>
+
+
+  <!-- Supabase + App Logic -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
+
+
