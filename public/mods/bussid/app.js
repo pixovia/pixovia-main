@@ -127,7 +127,7 @@ function renderMods() {
 ----------------------------- */
 
 function openMod(id) {
-  window.location.href = `../mod/?id=${id}`;
+  window.location.href = `detail/?id=${id}`;
 }
 
 /* -----------------------------
