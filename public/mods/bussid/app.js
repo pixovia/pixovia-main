@@ -75,8 +75,9 @@ function renderMods() {
 
     let matchesVerified =
       filter === "all" ||
-      (filter === "verified" && mod.is_verified === true);
-
+      (filter === "verified" && mod.is_verified === true) ||
+      (["bus", "car", "bike", "map", "truck", "helicopter"].includes(filter) && mod.category === filter);
+     
     return matchesSearch && matchesVerified;
   });
 
