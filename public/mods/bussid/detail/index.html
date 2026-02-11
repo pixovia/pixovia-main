@@ -22,7 +22,7 @@
 
   <!-- Theme -->
   <meta name="theme-color" content="#38bdf8" />
-  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="https://pixovia.pages.dev/mods/bussid/styles.css" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -148,6 +148,35 @@
 
     // Make viewer accessible
     window.__openViewer = openViewer;
+      
+    // -----------------------------
+    // SCREENSHOTS SYSTEM
+    // -----------------------------
+    function renderDownloadButtons(downloadObj) {
+
+      // If empty or invalid
+      if (!downloadObj || typeof downloadObj !== "object") {
+        return `<p class="muted">No downloads available.</p>`;
+      }
+
+      let buttonsHTML = "";
+
+      // Loop JSONB entries
+      Object.entries(downloadObj).forEach(([label, url], index) => {
+    
+        // First button primary, others secondary
+        const btnClass = index === 0 ? "btn primary" : "btn secondary";
+
+        buttonsHTML += `
+          <a class="${btnClass}" href="${url}" target="_blank">
+            ⬇ ${label}
+          </a>
+        `;
+      });
+
+      return buttonsHTML;
+    }
+
 
     // -----------------------------
     // LOAD MOD DATA
@@ -159,8 +188,9 @@
       }
 
       const { data, error } = await supabaseClient
-        .from("bussid_mods")
+        .from("game_mods")
         .select("*")
+        .eq("game", "bussid")
         .eq("id", modId)
         .single();
 
@@ -308,13 +338,7 @@
             </div>
 
             <div class="download-buttons">
-              <a class="btn primary" href="${data.download}" target="_blank">
-                ⬇ Download Mod
-              </a>
-
-              <a class="btn secondary" href="${data.liverydownload}" target="_blank">
-                🎨 Download Livery
-              </a>
+              ${renderDownloadButtons(data.download)}
             </div>
           </div>
         </div>
@@ -376,6 +400,7 @@
          document.querySelector(".gallery-overlay").remove();
       }
     }
+    
 
     loadMod();
   </script>
