@@ -40,8 +40,9 @@ let allMods = [];
 async function fetchMods() {
 
   const { data, error } = await supabaseClient
-    .from("bussid_mods")
+    .from("game_mods")
     .select("*")
+    .eq("game", "bussid")
     .order("created_at", { ascending: false }); // newest first
 
   if (error) {
