@@ -1,5 +1,5 @@
 /* ============================================
-   Pixovia FileHost — GTA 3 Mods Hub
+   Pixovia FileHost — GTA 4 Mods Hub
    app.js (Supabase Powered)
 ============================================ */
 
@@ -42,7 +42,7 @@ async function fetchMods() {
   const { data, error } = await supabaseClient
     .from("game_mods")
     .select("*")
-    .eq("game", "gta3")
+    .eq("game", "gta4")
     .order("created_at", { ascending: false }); // newest first
 
   if (error) {
