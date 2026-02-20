@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loading GTA 5 Mod... — Pixovia Mods by Pixovia LLC</title>
+  <meta id="metaDesc" name="description" content="Loading GTA 5 mod details from Pixovia Mods..." />
+  <meta id="metaKeywords" name="keywords" content="GTA 5 mods, Pixovia Mods, gta 5, los santos, franklin, trevor, michael" />
+
+  <!-- OpenGraph -->
+  <meta id="ogTitle" property="og:title" content="GTA 5 Mod — Pixovia Mods" />
+  <meta id="ogDesc" property="og:description" content="Download GTA 5 mods with screenshots and authenticity." />
+  <meta id="ogImage" property="og:image" content="https://pixovia.pages.dev/logo-coloured.jpg" />
+  <meta id="ogURL" property="og:url" content="https://pixovia.pages.dev/mods/gta/5/detail" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter -->
+  <meta id="twTitle" name="twitter:title" content="GTA 5 Mod — Pixovia Mods" />
+  <meta id="twDesc" name="twitter:description" content="Download GTA 5 mods from Pixovia Mods." />
+  <meta id="twImage" name="twitter:image" content="https://pixovia.pages.dev/logo-coloured.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#38bdf8" />
+  <link rel="stylesheet" href="../styles.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-flex">
+      <img src="https://pixovia.pages.dev/icon-coloured-closeup.jpg" class="logo">
+      <a href="https://pixovia.pages.dev/mods" class="site-title">
+        Pixovia Mods
+      </a>
+
+      <a class="header-link" href="../">← Back to Mods</a>
+    </div>
+  </header>
+
+
+  <!-- MOD DETAIL -->
+  <main class="container mod-page">
+    <div id="modContainer" class="mod-detail-card">
+      <p class="loading">Loading mod details...</p>
+    </div>
+  </main>
+
+
+  <footer class="footer">
+    © <span id="year"></span> Pixovia Mods • GTA 5 Mod Detail Page
+  </footer>
+
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    let allScreenshots = [];
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // -----------------------------
+    // SUPABASE CONFIG
+    // -----------------------------
+    const SUPABASE_URL = "https://hjgmvkwiqihorwaynlrb.supabase.co";
+    const SUPABASE_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqZ212a3dpcWlob3J3YXlubHJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1NTc2NTAsImV4cCI6MjA4MjEzMzY1MH0.C_3izEOMhdxTfnj85OSmg_5Ol-CIi4PyR70p4JRUkSY";
+
+    const supabaseClient = supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    // -----------------------------
+    // GET MOD ID FROM URL
+    // -----------------------------
+    const params = new URLSearchParams(window.location.search);
+    const modId = params.get("id");
+
+    const container = document.getElementById("modContainer");
+
+    // -----------------------------
+    // DESCRIPTION LIMIT SYSTEM
+    // -----------------------------
+    function createDescription(desc) {
+      if (!desc) return "<p class='muted'>No description.</p>";
+
+      const limit = window.innerWidth < 700 ? 120 : 260;
+
+      if (desc.length <= limit) {
+        return `<p class="mod-desc">${desc}</p>`;
+      }
+
+      return `
+        <p class="mod-desc" id="descText">
+          ${desc.slice(0, limit)}...
+        </p>
+        <button class="more-btn" id="moreBtn">More</button>
+      `;
+    }
+
+    // -----------------------------
+    // IMAGE VIEWER (Fullscreen)
+    // -----------------------------
+    function openViewer(src) {
+      const overlay = document.createElement("div");
+      overlay.className = "viewer-overlay";
+
+      overlay.innerHTML = `
+        <div class="viewer-box">
+          <img src="${src}" />
+        </div>
+      `;
+
+      overlay.onclick = () => overlay.remove();
+      document.body.appendChild(overlay);
+    }
+
+    // -----------------------------
+    // GALLERY GRID OVERLAY
+    // -----------------------------
+    function openGallery(images) {
+      const overlay = document.createElement("div");
+      overlay.className = "gallery-overlay";
+
+      overlay.innerHTML = `
+        <div class="gallery-box">
+          <h2>All Screenshots</h2>
+
+          <div class="gallery-grid">
+            ${images.map(img => `
+              <img src="${img}" onclick="window.__openViewer('${img}')">
+            `).join("")}
+          </div>
+
+          <button class="close-btn">Close</button>
+        </div>
+      `;
+
+      overlay.querySelector(".close-btn").onclick = () => overlay.remove();
+      document.body.appendChild(overlay);
+    }
+
+    // Make viewer accessible
+    window.__openViewer = openViewer;
+      
+    // -----------------------------
+    // SCREENSHOTS SYSTEM
+    // -----------------------------
+    function renderDownloadButtons(downloadObj) {
+
+      // If empty or invalid
+      if (!downloadObj || typeof downloadObj !== "object") {
+        return `<p class="muted">No downloads available.</p>`;
+      }
+
+      let buttonsHTML = "";
+
+      // Loop JSONB entries
+      Object.entries(downloadObj).forEach(([label, url], index) => {
+    
+        // First button primary, others secondary
+        const btnClass = index === 0 ? "btn primary" : "btn secondary";
+
+        buttonsHTML += `
+          <a class="${btnClass}" href="${url}" target="_blank">
+            ⬇ ${label}
+          </a>
+        `;
+      });
+
+      return buttonsHTML;
+    }
+
+
+    // -----------------------------
+    // LOAD MOD DATA
+    // -----------------------------
+    async function loadMod() {
+      if (!modId) {
+        container.innerHTML = "<h2>Mod Not Found</h2><p>No ID provided.</p>"; 
+        return;
+      }
+
+      const { data, error } = await supabaseClient
+        .from("game_mods")
+        .select("*")
+        .eq("game", "gta5")
+        .eq("id", modId)
+        .single();
+
+      if (error || !data) {
+        container.innerHTML =
+          "<h2>Mod Not Found</h2><p>This mod does not exist.</p>";
+        return;
+      }
+
+      // -----------------------------
+      // SCREENSHOTS SYSTEM
+      // -----------------------------
+      let screenshots = Array.isArray(data.screenshots)
+        ? data.screenshots
+        : [];
+
+      let screenshotsHTML = "";
+      allScreenshots = screenshots;
+
+      // Mobile max 4 system
+      if (window.innerWidth < 600 && screenshots.length > 4) {
+        let firstFour = screenshots.slice(0, 4);
+        let extraCount = screenshots.length - 3;
+
+        screenshotsHTML = firstFour.map((img, index) => {
+          if (index === 3) {
+            return `
+              <div class="shot-more" onclick="openGallery()">
+                <img src="${img}" class="screenshot">
+                <span>+${extraCount}</span>
+              </div>
+            `;
+          }
+
+          return `<img src="${img}" class="screenshot" onclick="openViewer('${img}')">`;
+        }).join("");
+      }
+      
+
+      // Desktop normal full grid
+      else {
+        screenshotsHTML = screenshots.map(img => `
+          <img src="${img}" class="screenshot" onclick="openViewer('${img}')">
+        `).join("");
+      }
+      // Title
+      document.title = `${data.name} Mod Download — Pixovia Mods`;
+
+      // Clean description snippet (max 140 chars)
+      // ✅ Safe description fallback
+      const fullDesc = data.description || "No description provided.";
+
+      // Clean description snippet (max 140 chars)
+      const shortDesc =
+        fullDesc.length > 140
+          ? fullDesc.substring(0, 140) + "..."
+          : fullDesc;
+        
+      // Meta Description
+      document.getElementById("metaDesc").setAttribute(
+        "content",
+        `Download ${data.name} GTA San Andreas mod for free, screenshots and direct links on Pixovia Mods. ${shortDesc}`
+      );
+
+      // Keywords (auto-generated)
+      document.getElementById("metaKeywords").setAttribute(
+        "content",
+        `${data.name} GTA SA mod, ${data.name} download, gta sa free mods, gta san andreas mod, Pixovia Mods`
+      );
+
+      // OpenGraph Title
+      document.getElementById("ogTitle").setAttribute(
+        "content",
+        `${data.name} — GTA SA Mod Download`
+      );
+
+      // OpenGraph Description
+      document.getElementById("ogDesc").setAttribute(
+        "content",
+        shortDesc
+      );
+
+      // OpenGraph Image (bus cover preview)
+      document.getElementById("ogImage").setAttribute(
+        "content",
+        data.cover
+      );
+
+      // Dynamic URL
+      document.getElementById("ogURL").setAttribute(
+        "content",
+        window.location.href
+      );
+
+      // Twitter Title
+      document.getElementById("twTitle").setAttribute(
+        "content",
+        `${data.name} — Pixovia Mods`
+      );
+
+      // Twitter Description
+      document.getElementById("twDesc").setAttribute(
+        "content",
+        shortDesc
+      );
+
+      // Twitter Image
+      document.getElementById("twImage").setAttribute(
+        "content",
+        data.cover
+      );
+
+      // -----------------------------
+      // MAIN PAGE OUTPUT
+      // -----------------------------
+      container.innerHTML = `
+        <div class="mod-hero">
+          <div class="cover-wrapper">
+              <img src="${data.cover}" class="mod-cover">
+
+              ${
+                data.is_verified
+                  ? `<div class="verified-badge">
+                       ✔ Verified
+                     </div>`
+                  : ""
+              }
+         </div>
+
+          <div class="mod-info">
+            <h1>
+              ${data.name}
+            </h1>
+
+            ${createDescription(data.description)}
+
+            <div class="creator-box">
+              <img src="${data.creator_avatar}" class="creator-avatar">
+              <div>
+                <p class="creator-name">${data.creator}</p>
+                <a class="creator-link" href="${data.creator_url}" target="_blank">
+                  Visit Creator
+                </a>
+              </div>
+            </div>
+
+            <div class="download-buttons">
+              ${renderDownloadButtons(data.download)}
+            </div>
+          </div>
+        </div>
+
+        <div class="screenshots-section">
+          <h2>📸 Screenshots</h2>
+
+          <div class="screenshots-grid">
+            ${screenshotsHTML || "<p class='muted'>No screenshots uploaded.</p>"}
+          </div>
+        </div>
+      `;
+
+      // -----------------------------
+      // MORE BUTTON FUNCTION
+      // -----------------------------
+      const moreBtn = document.getElementById("moreBtn");
+      if (moreBtn) {
+        let expanded = false;
+
+        moreBtn.onclick = () => {
+          const descText = document.getElementById("descText");
+
+          if (!expanded) {
+            descText.innerText = data.description;
+            moreBtn.innerText = "Less";
+          } else {
+            descText.innerText =
+              data.description.slice(0, 180) + "...";
+            moreBtn.innerText = "More";
+          }
+
+          expanded = !expanded;
+        };
+      }
+    }
+    function openGallery() {
+      let galleryHTML = allScreenshots
+        .map(
+          (img) =>
+            `<img src="${img}" class="gallery-img" onclick="openViewer('${img}')">`
+        )
+        .join("");
+
+      // Popup Overlay
+      document.body.innerHTML += `
+        <div class="gallery-overlay" onclick="closeGallery(event)">
+          <div class="gallery-box">
+            <h2>📸 All Screenshots</h2>
+            <div class="gallery-grid">
+              ${galleryHTML}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    function closeGallery(e) {
+      if (e.target.classList.contains("gallery-overlay")) {
+         document.querySelector(".gallery-overlay").remove();
+      }
+    }
+    
+
+    loadMod();
+  </script>
+
+</body>
+</html>
