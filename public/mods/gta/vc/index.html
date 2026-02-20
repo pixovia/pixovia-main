@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GTA VC Mods Download Hub — Pixovia Mods</title>
+  <meta name="description" content="Discover and download the best GTA VC mods with premium next-gen UI. Verified creators, high-quality real images, screenshots, and direct downloads only on Pixovia Mods." />
+  <meta name="keywords" content="GTA VC mods, gta vc mod download, gta vc free mod, gta vice city mods, pixovia mods, gta vc all mods, gta vc rockstar mods, verified gtavc mods" />
+  <meta name="author" content="Pixovia Mods" />
+  <meta name="robots" content="index, follow" />
+    
+  <link rel="canonical" href="https://pixovia.pages.dev/mods/gta/vc/" />
+    
+  <meta property="og:title" content="GTA VC Mods Hub — Pixovia Mods" />
+  <meta property="og:description" content="Download GTA VC mods, and creator uploads in one next-gen premium platform by Pixovia Mods." />
+  <meta property="og:image" content="https://pixovia.pages.dev/logo-coloured.jpg" />
+  <meta property="og:url" content="https://pixovia.pages.dev/mods/gta/vc" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card Preview -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="GTA VC Mods Download Hub — Pixovia Mods" />
+  <meta name="twitter:description"  content="Explore verified GTA VC mods, screenshots, and direct downloads on Pixovia Mods." />
+  <meta name="twitter:image" content="https://pixovia.pages.dev/logo-coloured.jpg" />
+
+  <!-- Theme Color (Mobile Browser Top Bar) -->
+  <meta name="theme-color" content="#38bdf8" />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Premium Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- VN BRAND HEADER (Required) -->
+  <header class="site-header">
+    <div class="container header-flex">
+      <img src="https://pixovia.pages.dev/icon-coloured-closeup.jpg" alt="Pixovia" class="logo">
+      <a href="https://pixovia.pages.dev/mods" class="site-title">Pixovia Mods</a>
+
+      <a class="header-link" href="https://pixovia.pages.dev/mods/gta/vc/">
+        GTA VC Mods
+      </a>
+    </div>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1>GTA VC Mods Hub</h1>
+      <p>
+        The next‑gen discovery platform for GTA Vice City mods.
+        Verified creators, premium previews, and instant downloads — powered by Pixovia LLC.
+      </p>
+
+      <!-- Search + Filter -->
+      <div class="controls">
+        <input id="searchBox" class="search" placeholder="Search mods, buses, trucks..." />
+
+        <select id="verifiedFilter" class="filter">
+          <option value="all">All Mods</option>
+          <option value="verified">Verified Only</option>
+          <option value="bus">Bus</option>
+          <option value="map">Maps</option>
+          <option value="truck">Trucks</option>
+          <option value="car">Cars</option>
+          <option value="bike">Bikes</option>
+          <option value="helicopter">Helicopter</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- MODS GRID -->
+  <section class="mods-section">
+    <div class="container">
+      <h2 class="section-title">🔥 All Mods</h2>
+      <div id="modsGrid" class="mods-grid"></div>
+
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    © <span id="year"></span> Pixovia Mods • GTA VC Mods Hub
+  </footer>
+
+
+  <!-- Supabase + App Logic -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
