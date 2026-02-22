@@ -50,7 +50,7 @@
     </nav>
 
     <script type="module">
-        import { batchesData } from 'batches/batchesdb.js';
+        import { batchesData } from './batches/batchesdb.js';
 
         function renderEnrolled() {
     const enrolledIds = JSON.parse(localStorage.getItem('enrolledBatches') || "[]");
@@ -112,4 +112,5 @@
         renderEnrolled();
     </script>
 </body>
+
 </html>
