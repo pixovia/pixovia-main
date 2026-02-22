@@ -13,16 +13,16 @@ export const banners = [
 export const batchesData = [
     {
         id: "batch_001",
-        exam: "KEAM",
+        exam: "JEE",
         class: "12th",
         type: "Online",
-        title: "KEAM - ENDGAME [2026]",
-        tagline: "Targeted Crash Batch For KEAM 2026 Aspirants",
-        logo: "https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/70ef6932-68cc-41f4-9114-5b1f96968cff.jpg",
-        start: "10 Feb 2026",
+        title: "SUPER KINGS - JEE STATE [2026]",
+        tagline: "Targeted batch for Class 12 JEE 2026 Aspirants",
+        logo: "https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/907d6ddd-0630-4d3e-ac48-7d5e607d1800.jpg",
+        start: "03 Apr, 2025",
         end: "30 Apr 2026",
-        features: "Live Lectures | Tests & many more",
-        orgPrice: 6713,
+        features: "Live Lectures | Recorded Lectures | Tests & many more",
+        orgPrice: 24205,
         nowPrice: 0
     },
     {
@@ -38,5 +38,20 @@ export const batchesData = [
         features: "Live Lectures | Recorded Lectures | DPPs",
         orgPrice: 5058,
         nowPrice: 0
+    },
+    {
+        id: "batch_003",
+        exam: "KEAM",
+        class: "12th",
+        type: "Online",
+        title: "KEAM - ENDGAME [2026]",
+        tagline: "Targeted Crash Batch For KEAM 2026 Aspirants",
+        logo: "https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/70ef6932-68cc-41f4-9114-5b1f96968cff.jpg",
+        start: "10 Feb 2026",
+        end: "30 Apr 2026",
+        features: "Live Lectures | Tests & many more",
+        orgPrice: 6713,
+        nowPrice: 0
     }
+
 ];
