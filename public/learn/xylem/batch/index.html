@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMRP - JEE Phase 2 [2026]</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide-static/0.321.0/lucide.min.js"></script>
+    <style>
+        :root {
+            --primary: #00a4b4;
+            --bg-gray: #f8f9fa;
+            --text-main: #333;
+            --text-light: #666;
+            --border: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: var(--bg-gray);
+            color: var(--text-main);
+        }
+
+        /* Header Tabs */
+        .nav-container {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .batch-title {
+            padding: 20px 0 10px 0;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .tab {
+            padding: 12px 0;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        h2 { font-size: 18px; margin-top: 0; }
+
+        /* Batch Details List */
+        .details-list { list-style: none; padding: 0; }
+        .details-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+        .icon-circle {
+            width: 32px;
+            height: 32px;
+            background: #f0f7f8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Teachers Grid */
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .teacher-card {
+            text-align: center;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .teacher-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 4px;
+            background: #eee;
+        }
+        .teacher-name { font-weight: bold; margin-top: 8px; font-size: 14px; }
+        .teacher-sub { font-size: 12px; color: var(--text-light); }
+
+        /* Sidebar Banner */
+        .promo-banner {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .promo-banner img { width: 100%; display: block; }
+
+        /* Schedule Icons */
+        .schedule-row {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        .schedule-box {
+            min-width: 100px;
+            text-align: center;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .schedule-box img { width: 40px; height: 40px; object-fit: cover; border-radius: 50%; }
+
+        @media (max-width: 768px) {
+            .main-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-container">
+    <div class="batch-title">
+        <span style="margin-right:15px; cursor:pointer;">&lsaquo;</span>
+        LMRP - JEE PHASE 2 [2026]
+    </div>
+    <div class="tabs">
+        <div class="tab active">Description</div>
+        <div class="tab" onclick="window.location.href='https://gemini.google.com/'">All classes</div>
+        <div class="tab">Tests</div>
+        <div class="tab">Announcement</div>
+        <div class="tab">Community</div>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="left-col">
+        <div class="card">
+            <h2>This Batch Includes</h2>
+            <div style="background: #e6f6f7; padding: 15px; border-radius: 8px; width: fit-content; text-align: center; margin-bottom: 20px;">
+                <span style="color: var(--primary); font-size: 24px; font-weight: bold;">50+</span><br>
+                <small>Live Lectures</small>
+            </div>
+
+            <div class="details-list">
+                <div class="details-item">
+                    <div class="icon-circle">📅</div>
+                    <div><strong>Duration:</strong><br><small>15 February 2026 - 30 June 2026</small></div>
+                </div>
+                <div class="details-item">
+                    <div class="icon-circle">⏳</div>
+                    <div><strong>Validity:</strong><br><small>Till JEE Phase 2 2026</small></div>
+                </div>
+                <div class="details-item">
+                    <div class="icon-circle">⭐</div>
+                    <div>Recording of all Live lectures will be available</div>
+                </div>
+                <div class="details-item">
+                    <div class="icon-circle">📚</div>
+                    <div><strong>Subjects:</strong><br><small>Physics, Chemistry, Mathematics</small></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div style="display:flex; justify-content: space-between;">
+                <h2>Know Your Teachers</h2>
+                <a href="#" style="color:var(--primary); text-decoration:none; font-size:14px;">View all</a>
+            </div>
+            <div class="teachers-grid">
+                <div class="teacher-card">
+                    <img src="https://static.pw.live/64254d66be2a390018e6d348/d5ba1406-c946-4137-965f-5d039ca83c82.png" class="teacher-img">
+                    <div class="teacher-name">FM SIR</div>
+                    <div class="teacher-sub">PHYSICS (18 Yr Exp)</div>
+                </div>
+                <div class="teacher-card">
+                    <img src="https://static.pw.live/64254d66be2a390018e6d348/a82068ce-d840-48de-82be-88ccce5dc928.jpeg" class="teacher-img">
+                    <div class="teacher-name">AD SIR</div>
+                    <div class="teacher-sub">PHYSICS (7 Yr Exp)</div>
+                </div>
+                <div class="teacher-card">
+                    <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/7f540976-87bf-4e7d-8838-80acf8d03e87.png" class="teacher-img">
+                    <div class="teacher-name">SL SIR</div>
+                    <div class="teacher-sub">PHYSICS (20 Yr Exp)</div>
+                </div>
+                <div class="teacher-card">
+                    <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/ff8c9589-b664-485f-b7bf-7a11adc8e7d6.png" class="teacher-img">
+                    <div class="teacher-name">MST SIR</div>
+                    <div class="teacher-sub">PHYSICS (8 Yr Exp)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Check Your Schedules</h2>
+            <div class="schedule-row">
+                <div class="schedule-box">
+                    <img src="https://d2bps9p1kiy4ka.cloudfront.net/64254d66be2a390018e6d348/8afbd1e5-72eb-46d5-84d7-2646a194ebf1.jpeg" alt="Notices">
+                    <div style="font-size: 12px; margin-top: 5px;">NOTICES</div>
+                </div>
+                <div class="schedule-box">
+                    <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/5dd7548b-8826-4b5e-b20d-063f09b7db39.jpg" alt="Physics">
+                    <div style="font-size: 12px; margin-top: 5px;">PHYSICS</div>
+                </div>
+                <div class="schedule-box">
+                    <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/d6e09998-3b3a-4481-a3f5-17de15bb18f6.jpg" alt="Chemistry">
+                    <div style="font-size: 12px; margin-top: 5px;">CHEMISTRY</div>
+                </div>
+                <div class="schedule-box">
+                    <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/74cad993-4125-45f9-adcc-17b900352579.jpeg" alt="Maths">
+                    <div style="font-size: 12px; margin-top: 5px;">MATHS</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="right-col">
+        <div class="promo-banner">
+            <img src="https://www.xylem.live/assets/banner.jpg" alt="JEE 2026 Crash Course">
+            <div style="padding: 15px; background: white;">
+                <h3 style="margin:0; font-size: 16px;">Targeted batch for JEE Main Phase 2</h3>
+                <p style="font-size: 12px; color: var(--text-light);">Malayalam</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

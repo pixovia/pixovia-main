@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Library - Dynamic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .category-pill.active { background-color: #f0fdfa; border-color: #0d9488; color: #0d9488; }
+        .topic-card:hover { border-color: #0d9488; transform: translateY(-2px); }
+    </style>
+</head>
+<body class="flex flex-col lg:flex-row min-h-screen bg-white">
+
+    <aside class="w-64 border-r border-gray-100 hidden lg:flex flex-col sticky top-0 h-screen p-4">
+        <div class="mb-8 p-2">
+            <img src="../../logo.jpg" alt="Xylem" class="h-15 mb-2">
+        </div>
+        <nav class="space-y-1">
+            <a href="../../index.html" class="flex items-center space-x-3 p-3 text-gray-600 hover:bg-gray-50 rounded-xl"><i class="fa-regular fa-pen-to-square"></i> <span>Study</span></a>
+            <a href="../../batches/index.html" class="flex items-center space-x-3 p-3 text-gray-600 hover:bg-gray-50 rounded-xl"><img src="https://www.xylem.live/assets/hamburger/batches.svg"><span>Batches</span></a>
+            <a href="../index.html" class="flex items-center space-x-3 p-3 text-teal-600 bg-teal-50 font-semibold rounded-xl"><i class="fa-solid fa-book-open"></i> <span>Library</span></a>
+            <a href="#" class="flex items-center space-x-3 p-3 text-gray-600 hover:bg-gray-50 rounded-xl"><i class="fa-solid fa-cart-shopping"></i> <span>Xylem Store</span></a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 pb-20">
+        <div class="flex items-center p-4 lg:px-12 mt-4">
+            <button onclick="window.history.back()" class="text-gray-600 text-sm font-medium"><i class="fa-solid fa-chevron-left mr-2"></i> Back</button>
+        </div>
+
+        <div class="px-4 lg:px-12">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+                <div class="flex items-center space-x-4">
+                    <img src="https://www.xylem.live/assets/batches-new/Physics.svg" class="w-14 h-14">
+                    <h1 class="text-2xl font-bold text-gray-800">Physics</h1>
+                </div>
+                <div class="relative w-full lg:w-80">
+                    <input type="text" id="searchBar" placeholder="Search topics..." class="w-full pl-4 pr-10 py-2 border rounded-xl text-sm border-gray-200 outline-none focus:border-teal-500">
+                    <i class="fa-solid fa-magnifying-glass absolute right-4 top-3 text-gray-400"></i>
+                </div>
+            </div>
+
+            <div id="streamTabs" class="flex space-x-2 overflow-x-auto no-scrollbar pb-4 mb-6">
+                </div>
+
+            <div id="contentArea" class="space-y-8">
+                </div>
+        </div>
+    </main>
+
+    <script>
+        const libraryData = {
+            "PYQ": [
+                { 
+                    chapter: "Ch-01 General Physics", 
+                    topics: ["Units and Dimensions"] 
+                },
+                { 
+                    id: "61cafc2508a36b01dd26e515",
+                    chapter: "Ch-02 Kinematics", 
+                    topics: ["Basic Definitions"] 
+                },
+                { 
+                    chapter: "Ch-03 Laws of Motion", 
+                    topics: ["Newton's Laws"] 
+                },
+                { 
+                    chapter: "Ch-04 Work, Power and Energy", 
+                    topics: ["Work Done and Power"] 
+                },
+                { 
+                    chapter: "Ch-05 Centre of Mass", 
+                    topics: ["Centre of Mass"] 
+                },
+                { 
+                    chapter: "Ch-06 Rotation", 
+                    topics: ["Moment of Inertia"] 
+                },
+                { 
+                    chapter: "Ch-07 Gravitation", 
+                    topics: ["Gravitational Force and g"] 
+                },
+                { 
+                    chapter: "Ch-08 Simple Harmonic Motion", 
+                    topics: ["Energy in Simple Harmonic Motion"] 
+                },
+                { 
+                    chapter: "Ch-09 Properties of Matter", 
+                    topics: ["Elasticity"] 
+                },
+                { 
+                    chapter: "Ch-10 Wave Motion", 
+                    topics: ["Wave Pulse and Travelling Wave"] 
+                },
+                { 
+                    chapter: "Ch-11 Heat and Thermodynamics", 
+                    topics: ["Calorimetry"] 
+                },
+                { 
+                    chapter: "Ch-12 Optics", 
+                    topics: ["Reflection of Light"] 
+                },
+                { 
+                    chapter: "Ch-13 Current Electricity", 
+                    topics: ["Equivalent Resistance, Drift Velocity, Resistivity and Conductivity", "Kirchhoff's Laws and Combination of Batteries"] 
+                },
+                { 
+                    chapter: "Ch-14 Electrostatics", 
+                    topics: ["Electrostatics Force and Field Strength"] 
+                },
+                { 
+                    chapter: "Ch-15 Magnetics", 
+                    topics: ["Magnetic Force and Path of Charged Particle in Uniform Fields"] 
+                },
+                { 
+                    chapter: "Ch-16 Electromagnetic Induction and Alternating Current", 
+                    topics: ["Magnetic Flux and Induced EMF by Change in Flux"] 
+                },
+                { 
+                    chapter: "Ch-17 Modern Physics", 
+                    topics: ["Bohr's Atomic Model"] 
+                }
+            ],
+            "12th Modules (2023-24)": [
+                { 
+                    chapter: "Ch-01 Electrostatics", 
+                    topics: ["Coulomb's Law", "Electric Field", "Gauss Law", "Electric Potential"] 
+                }
+            ],
+            "11th Modules 1": [
+                { 
+                    chapter: "Ch-01 Units", 
+                    topics: ["Measurement", "Standard Units"] 
+                }
+            ],
+            "11th Modules 2": [
+                { 
+                    chapter: "Ch-01 Units", 
+                    topics: ["Measurement", "Standard Units"] 
+                }
+            ],
+            "11th Modules 3": [
+                { 
+                    chapter: "Ch-01 Units", 
+                    topics: ["Measurement", "Standard Units"] 
+                }
+            ]
+        };
+
+        let currentStream = "PYQ";
+
+        function renderTabs() {
+            const container = document.getElementById('streamTabs');
+            container.innerHTML = Object.keys(libraryData).map(stream => `
+                <button onclick="changeStream('${stream}')" 
+                    class="category-pill shrink-0 px-4 py-1.5 border rounded-lg text-xs font-semibold transition-all
+                    ${stream === currentStream ? 'active border-teal-600 text-teal-600 bg-teal-50' : 'border-gray-200 text-gray-500'}">
+                    ${stream}
+                </button>
+            `).join('');
+        }
+
+        function changeStream(stream) {
+            currentStream = stream;
+            renderTabs();
+            renderContent();
+        }
+
+        function renderContent(filter = "") {
+            const container = document.getElementById('contentArea');
+            const data = libraryData[currentStream];
+            
+            container.innerHTML = data.map((ch, chIdx) => {
+                const filteredTopics = ch.topics.filter(t => t.toLowerCase().includes(filter.toLowerCase()));
+                if (filteredTopics.length === 0) return '';
+
+                return `
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-800 mb-4">${ch.chapter}</h2>
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                            ${filteredTopics.map((topic, index) => `
+                                <div onclick="location.href='../../dpp/${ch.id}'" 
+                                     class="topic-card border border-gray-100 rounded-xl overflow-hidden shadow-sm cursor-pointer transition-all
+                                     ${index >= 2 ? 'hidden sm:block topic-extra-' + chIdx : ''}">
+                                    <div class="p-3 bg-white min-h-[60px] border-l-4 border-teal-500">
+                                        <p class="text-[11px] font-bold text-gray-700 leading-tight">Topic-${String(index+1).padStart(2, '0')} ${topic}</p>
+                                    </div>
+                                    <div class="p-2 bg-gray-50 border-t border-gray-50 text-teal-600 text-[10px]">
+                                        <i class="fa-solid fa-list-check"></i>
+                                    </div>
+                                </div>
+                            `).join('')}
+                            
+                            ${filteredTopics.length > 2 ? `
+                                <button onclick="toggleTopics(${chIdx})" id="btn-${chIdx}" 
+                                    class="sm:hidden col-span-2 py-2 text-teal-600 text-xs font-bold border border-dashed border-teal-200 rounded-lg">
+                                    See More Topics +
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleTopics(idx) {
+            const extraTopics = document.querySelectorAll('.topic-extra-' + idx);
+            const btn = document.getElementById('btn-' + idx);
+            extraTopics.forEach(t => t.classList.toggle('hidden'));
+            btn.innerText = btn.innerText.includes('More') ? 'See Less -' : 'See More Topics +';
+        }
+
+        document.getElementById('searchBar').addEventListener('input', (e) => {
+            renderContent(e.target.value);
+        });
+
+        // Initialize
+        renderTabs();
+        renderContent();
+    </script>
+</body>
+</html>

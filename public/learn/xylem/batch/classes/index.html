@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMRP - JEE Phase 2 [2026]</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide-static/0.321.0/lucide.min.js"></script>
+    <style>
+        :root {
+            --primary: #00a4b4;
+            --bg-gray: #f4f7f8;
+            --text-main: #1a1a1a;
+            --text-light: #666;
+            --border: #eaeff0;
+            --white: #ffffff;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            background-color: var(--bg-gray);
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        /* Responsive Navigation */
+        .nav-container {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .back-btn { margin-right: 15px; cursor: pointer; font-size: 24px; }
+
+        .tabs-wrapper {
+            display: flex;
+            padding: 0 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .tabs-wrapper::-webkit-scrollbar { display: none; }
+
+        .tab {
+            padding: 12px 15px;
+            white-space: nowrap;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: 0.2s;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Content Areas */
+        .tab-content { display: none; padding: 15px; max-width: 1200px; margin: 0 auto; }
+        .tab-content.active { display: block; }
+
+        /* Grid Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .sidebar { order: -1; } /* Banner on top for mobile */
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+        }
+
+        /* Subjects / Schedule Styling */
+        .subject-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .subject-item:active { transform: scale(0.98); }
+        .subject-img { width: 50px; height: 50px; border-radius: 8px; margin-right: 15px; object-fit: cover; }
+
+        /* Faculty Grid */
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+        .faculty-card {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+        .faculty-img { width: 100%; border-radius: 8px; background: #f0f0f0; }
+
+        /* Banner Styling */
+        .side-banner {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .side-banner img { width: 100%; display: block; }
+
+        /* Test Items */
+        .test-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary);
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-container">
+    <div class="header-top">
+        <span class="back-btn">‹</span>
+        LMRP - JEE PHASE 2 [2026]
+    </div>
+    <div class="tabs-wrapper">
+        <div class="tab" onclick="openTab(event, 'description')">Description</div>
+        <div class="tab  active">All classes</div>
+        <div class="tab" onclick="openTab(event, 'tests')">Tests</div>
+        <div class="tab" onclick="openTab(event, 'announcement')">Announcement</div>
+        <div class="tab" onclick="openTab(event, 'community')">Community</div>
+    </div>
+</div>
+    <div id="all-classes">
+    <h3>Select Subject</h3>
+    <div class="subject-item" onclick="redirectTo('physics-url')">
+        <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/5dd7548b-8826-4b5e-b20d-063f09b7db39.jpg" class="subject-img">
+        <div><strong>Physics</strong><br><small>6 Chapters</small></div>
+    </div>
+    <div class="subject-item" onclick="redirectTo('chemistry-url')">
+        <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/d6e09998-3b3a-4481-a3f5-17de15bb18f6.jpg" class="subject-img">
+        <div><strong>Chemistry</strong><br><small>6 Chapters</small></div>
+    </div>
+    <div class="subject-item" onclick="redirectTo('maths-url')">
+        <img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/74cad993-4125-45f9-adcc-17b900352579.jpeg" class="subject-img">
+        <div><strong>Mathematics</strong><br><small>6 Chapters</small></div>
+    </div>
+</div>
+
+
+ 
+</div>
+
+</body>
+</html>

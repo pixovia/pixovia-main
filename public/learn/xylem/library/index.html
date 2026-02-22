@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Zone - Dual Column Mobile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #fcfcfc; }
+        .card-shadow { box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="flex flex-col lg:flex-row min-h-screen pb-20 lg:pb-0">
+
+    <aside class="w-full lg:w-64 bg-white border-b lg:border-r border-gray-100 flex flex-col">
+        <div class="p-6 border-b hidden lg:block">
+             <img src="../logo.jpg" alt="Xylem" class="h-15 mb-2">
+        </div>
+        
+        <div class="lg:hidden flex items-center justify-between p-4 bg-white sticky top-0 z-10">
+            <i class="fa-solid fa-bars text-gray-500 text-xl"></i>
+            
+            <button class="bg-[#00a3ad] text-white text-[10px] px-3 py-1.5 rounded-full font-bold">How it works</button>
+        </div>
+
+        <nav class="space-y-1">
+            <a href="../index.html"class="flex items-center space-x-3 p-3 text-gray-600 hover:bg-gray-50 rounded-xl"> <i class="fa-regular fa-pen-to-square"></i> <span>Study</span></a>
+            <a href="../batches/index.html" class="flex items-center space-x-3 p-3 text-gray-600 hover:bg-gray-50 rounded-xl"><img src="https://www.xylem.live/assets/hamburger/batches.svg"><span>Batches</span></a>
+            <a href="#" class="flex items-center space-x-3 p-3 text-teal-600 bg-teal-50 font-semibold rounded-xl"><i class="fa-solid fa-book-open"></i> <span>Library</span></a>
+            <a href="#" class="flex items-center space-x-3 p-3 text-gray-600 hover:bg-gray-50 rounded-xl"><i class="fa-solid fa-cart-shopping"></i> <span>Xylem Store</span></a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 p-4 lg:p-10">
+        <div class="hidden lg:flex justify-between items-center mb-10">
+            <div class="text-sm font-medium text-gray-500">Home / <span class="text-gray-900">Library</span></div>
+        </div>
+
+        <h2 class="text-lg lg:text-xl font-bold text-gray-800 mb-6 px-1">JEE ZONE</h2>
+
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-6">
+            
+            <div class="bg-white rounded-2xl p-4 lg:p-6 flex flex-col lg:flex-row items-center lg:items-center border border-gray-100 card-shadow hover:border-teal-200 transition-all cursor-pointer" onclick="window.location.href='jeephysics/index.html'">
+                <div class="w-14 h-14 lg:w-16 lg:h-16 mb-3 lg:mb-0 lg:mr-4">
+                    <img src="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/473ee593-d702-40a9-bd52-deae1c36d216.png" class="w-full h-full object-contain">
+                </div>
+                <div class="text-center lg:text-left">
+                    <h3 class="text-sm lg:text-base font-bold text-gray-800">Physics</h3>
+                    <p class="text-[9px] text-gray-400 font-bold uppercase hidden lg:block">JEE ZONE</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 lg:p-6 flex flex-col lg:flex-row items-center lg:items-center border border-gray-100 card-shadow hover:border-teal-200 transition-all cursor-pointer">
+                <div class="w-14 h-14 lg:w-16 lg:h-16 mb-3 lg:mb-0 lg:mr-4">
+                    <img src="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/c9e1a9fb-c505-491f-9766-f07989479a39.png" class="w-full h-full object-contain" onclick="window.location.href='jee/physics/'">
+                </div>
+                <div class="text-center lg:text-left">
+                    <h3 class="text-sm lg:text-base font-bold text-gray-800">Chemistry</h3>
+                    <p class="text-[9px] text-gray-400 font-bold uppercase hidden lg:block">JEE ZONE</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 lg:p-6 flex flex-col lg:flex-row items-center lg:items-center border border-gray-100 card-shadow hover:border-teal-200 transition-all cursor-pointer" onclick="window.location.href='jee/physics/'">
+                <div class="w-14 h-14 lg:w-16 lg:h-16 mb-3 lg:mb-0 lg:mr-4">
+                    <img src="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/6ae96b63-00c9-4687-8a0b-897a074460cb.png" class="w-full h-full object-contain">
+                </div>
+                <div class="text-center lg:text-left">
+                    <h3 class="text-sm lg:text-base font-bold text-gray-800">Mathematics</h3>
+                    <p class="text-[9px] text-gray-400 font-bold uppercase hidden lg:block">JEE ZONE</p>
+                </div>
+            </div>
+
+        </div>
+
+        <h2 class="text-lg lg:text-xl font-bold text-gray-800 mb-6 px-1">NEET ZONE</h2>
+
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-6">
+            
+            <div class="bg-white rounded-2xl p-4 lg:p-6 flex flex-col lg:flex-row items-center lg:items-center border border-gray-100 card-shadow hover:border-teal-200 transition-all cursor-pointer" onclick="window.location.href='neet/physics/'">
+                <div class="w-14 h-14 lg:w-16 lg:h-16 mb-3 lg:mb-0 lg:mr-4">
+                    <img src="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/473ee593-d702-40a9-bd52-deae1c36d216.png" class="w-full h-full object-contain">
+                </div>
+                <div class="text-center lg:text-left">
+                    <h3 class="text-sm lg:text-base font-bold text-gray-800">Physics</h3>
+                    <p class="text-[9px] text-gray-400 font-bold uppercase hidden lg:block">NEET ZONE</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 lg:p-6 flex flex-col lg:flex-row items-center lg:items-center border border-gray-100 card-shadow hover:border-teal-200 transition-all cursor-pointer" onclick="window.location.href='neet/chemistry/'">
+                <div class="w-14 h-14 lg:w-16 lg:h-16 mb-3 lg:mb-0 lg:mr-4">
+                    <img src="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/c9e1a9fb-c505-491f-9766-f07989479a39.png" class="w-full h-full object-contain">
+                </div>
+                <div class="text-center lg:text-left">
+                    <h3 class="text-sm lg:text-base font-bold text-gray-800">Chemistry</h3>
+                    <p class="text-[9px] text-gray-400 font-bold uppercase hidden lg:block">NEET ZONE</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 lg:p-6 flex flex-col lg:flex-row items-center lg:items-center border border-gray-100 card-shadow hover:border-teal-200 transition-all cursor-pointer" onclick="window.location.href='neet/biology/'">
+                <div class="w-14 h-14 lg:w-16 lg:h-16 mb-3 lg:mb-0 lg:mr-4">
+                    <img src="https://d2bps9p1kiy4ka.cloudfront.net/5eb393ee95fab7468a79d189/f9692e29-33fc-4bba-90f2-bf7268cbd2de.png" class="w-full h-full object-contain">
+                </div>
+                <div class="text-center lg:text-left">
+                    <h3 class="text-sm lg:text-base font-bold text-gray-800">Biology</h3>
+                    <p class="text-[9px] text-gray-400 font-bold uppercase hidden lg:block">NEET ZONE</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 flex justify-around items-center py-2 z-20">
+        <div class="flex flex-col items-center p-2 text-gray-400" onclick="location.href='../index.html'">
+            <i class="fa-regular fa-pen-to-square text-lg"></i>
+            <span class="text-[9px] mt-1 font-medium">Study</span>
+        </div>
+        <div class="flex flex-col items-center p-2 text-gray-400" onclick="location.href='../batches/index.html'">
+            <img src="https://www.xylem.live/assets/hamburger/batches.svg">
+            <span class="text-[9px] mt-1 font-medium">Batches</span>
+        </div>
+        <div class="flex flex-col items-center p-2 text-gray-400">
+            <i class="fa-solid fa-cart-shopping text-lg"></i>
+            <span class="text-[9px] mt-1 font-medium">Xylem Store</span>
+        </div>
+        <div class="flex flex-col items-center p-2 text-teal-600">
+            <i class="fa-solid fa-book-open text-lg"></i>
+            <span class="text-[9px] mt-1 font-bold">Library</span>
+        </div>
+    </nav>
+
+    <script>
+    // Select elements
+    const menuBtn = document.querySelector('.fa-bars');
+    const sidebar = document.querySelector('aside nav');
+
+    // Initially hide the nav on mobile
+    sidebar.classList.add('hidden', 'lg:block');
+
+    // Toggle the sidebar when hamburger is clicked
+    menuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hidden');
+    });
+</script>
+
+
+</body>
+</html>

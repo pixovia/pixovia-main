@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batches - Xylem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #fcfcfc; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="pb-24 lg:pb-0 lg:flex">
+
+    <aside class="w-64 border-r border-gray-100 hidden lg:flex flex-col sticky top-0 h-screen p-4">
+        <div class="mb-8 p-2">
+            <img src="../logo.jpg" alt="Xylem" class="h-15 mb-2">
+        </div>
+        <nav class="space-y-1">
+            <a href="../index.html"class="flex items-center space-x-3 p-3 text-gray-600 hover:bg-gray-50 rounded-xl"> <i class="fa-regular fa-pen-to-square"></i> <span>Study</span></a>
+            <a href="#" class="flex items-center space-x-3 p-3 text-teal-600 bg-teal-50 font-semibold rounded-xl"><img src="https://www.xylem.live/assets/hamburger/batches.svg"><span>Batches</span></a>
+            <a href="../library/index.html" class="flex items-center space-x-3 p-3 text-gray-600 hover:bg-gray-50 rounded-xl"><i class="fa-solid fa-book-open"></i> <span>Library</span></a>
+            <a href="#" class="flex items-center space-x-3 p-3 text-gray-600 hover:bg-gray-50 rounded-xl"><i class="fa-solid fa-cart-shopping"></i> <span>Xylem Store</span></a>
+        </nav>
+    </aside>
+
+    <main class="flex-1">
+        <div class="lg:hidden flex items-center justify-between p-4 bg-white border-b">
+            <i class="fa-solid fa-bars text-gray-600"></i>
+            
+        </div>
+
+        <div class="p-4 lg:px-10 lg:pt-10 flex gap-2">
+            <div class="relative flex-1">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
+                <input type="text" id="searchInput" placeholder="Search for batches..." class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-teal-500 text-sm">
+            </div>
+            <button class="bg-[#00a3ad] text-white px-6 py-2 rounded-xl font-bold text-sm hidden lg:block">Study</button>
+        </div>
+
+        <div class="px-4 lg:px-10 overflow-x-auto no-scrollbar flex space-x-4">
+            <a href="https://xylem.live/offers/edufest" class="shrink-0 w-[85%] lg:w-[600px]"><img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/f5a5ce2d-3645-4874-9816-add955a89de3.jpg" class="rounded-2xl shadow-sm"></a>
+            <a href="https://xylem.live/parent-app" class="shrink-0 w-[85%] lg:w-[600px]"><img src="https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/530fbe1c-1ea5-4e38-a228-e7beef2ea480.jpeg" class="rounded-2xl shadow-sm"></a>
+        </div>
+
+        <div class="p-4 lg:px-10 flex items-center space-x-4 overflow-x-auto no-scrollbar border-b lg:border-none">
+            <button class="flex items-center space-x-1 text-sm font-bold border rounded-lg px-3 py-1"><i class="fa-solid fa-sliders"></i> <span>Filter</span></button>
+            <button class="text-sm font-bold text-teal-600 border-b-2 border-teal-600 pb-1 px-2 shrink-0">All</button>
+            <button class="text-sm font-medium text-gray-400 px-2 shrink-0">Online</button>
+            <button class="text-sm font-medium text-gray-400 px-2 shrink-0">Paid</button>
+            <button class="text-sm font-medium text-gray-400 px-2 shrink-0">Offline</button>
+        </div>
+
+        <div class="px-4 lg:px-10 py-4"><p class="text-sm font-bold text-gray-800" id="batchCount">0 Batches available</p></div>
+
+        <div id="batchGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 lg:px-10 pb-10">
+            </div>
+    </main>
+
+    <nav class="lg:hidden fixed bottom-0 w-full bg-white border-t flex justify-around py-3">
+        <div class="text-center text-gray-400" onclick="location.href='../index.html'"><i class="fa-solid fa-pen-to-square text-lg"></i><p class="text-[9px]">Study</p></div>
+        <div class="text-center text-teal-600"><img src="https://www.xylem.live/assets/hamburger/batches.svg"><p class="text-[9px] font-bold">Batches</p></div>
+        <div class="text-center text-gray-400"><i class="fa-solid fa-cart-shopping text-lg"></i><p class="text-[9px]">Store</p></div>
+        <div class="text-center text-gray-400" onclick="location.href='../library/index.html'"><i class="fa-solid fa-book-open text-lg"></i><p class="text-[9px]">Library</p></div>
+    </nav>
+
+    <script type="module">
+        import { batchesData } from './batchesdb.js';
+
+        const grid = document.getElementById('batchGrid');
+        const countText = document.getElementById('batchCount');
+        const searchInput = document.getElementById('searchInput');
+
+        function renderBatches(filterTerm = "") {
+            // Get enrolled IDs from storage
+            const enrolled = JSON.parse(localStorage.getItem('enrolledBatches') || "[]");
+            
+            // Filter out enrolled and search match
+            const availableBatches = batchesData.filter(b => 
+                !enrolled.includes(b.id) && 
+                (b.title.toLowerCase().includes(filterTerm.toLowerCase()) || 
+                 b.exam.toLowerCase().includes(filterTerm.toLowerCase()))
+            );
+
+            countText.innerText = `${availableBatches.length} Batches available`;
+            
+            grid.innerHTML = availableBatches.map(batch => `
+                <div class="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm flex flex-col">
+                    <div class="p-4 flex justify-between items-start">
+                        <h3 class="font-bold text-gray-800 leading-tight">${batch.title}</h3>
+                        <i class="fa-solid fa-share-nodes text-gray-400"></i>
+                    </div>
+                    <div class="relative px-4">
+                        <img src="${batch.logo}" class="w-full h-44 object-cover rounded-xl">
+                        <div class="absolute bottom-2 left-6 bg-white/90 px-2 py-0.5 rounded text-[10px] font-bold text-red-600">Malayalam</div>
+                    </div>
+                    <div class="p-4 space-y-3 flex-1">
+                        <div class="flex items-start space-x-2">
+                            <i class="fa-solid fa-user-graduate text-gray-400 mt-1 text-xs"></i>
+                            <p class="text-xs text-gray-600 font-medium">${batch.tagline}</p>
+                        </div>
+                        <div class="flex items-center space-x-2 text-[11px] text-gray-500">
+                            <i class="fa-regular fa-calendar"></i>
+                            <span>Starts on <b>${batch.start}</b> • Ends on <b>${batch.end}</b></span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-[11px] text-gray-500">
+                            <i class="fa-regular fa-star"></i>
+                            <span>${batch.features}</span>
+                        </div>
+                    </div>
+                    <div class="px-4 pb-4 border-t pt-4 bg-gray-50/30">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-baseline space-x-2">
+                                <span class="text-lg font-bold text-teal-600">₹${batch.nowPrice}</span>
+                                <span class="text-xs text-gray-400 line-through">₹${batch.orgPrice}</span>
+                            </div>
+                            <div class="bg-green-100 text-green-700 text-[10px] px-2 py-1 rounded-full font-bold">
+                                <i class="fa-solid fa-tag mr-1"></i> Discount of 30% applied
+                            </div>
+                        </div>
+                        <button onclick="enrollNow('${batch.id}')" class="w-full bg-[#00a3ad] text-white py-3 rounded-xl font-bold hover:bg-[#008a94] transition-colors">
+                            ENROLL NOW
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.enrollNow = (id) => {
+            const enrolled = JSON.parse(localStorage.getItem('enrolledBatches') || "[]");
+            enrolled.push(id);
+            localStorage.setItem('enrolledBatches', JSON.stringify(enrolled));
+            alert("Enrolled Successfully!");
+            renderBatches(searchInput.value);
+        };
+
+        searchInput.addEventListener('input', (e) => renderBatches(e.target.value));
+
+        // Initial Load
+        renderBatches();
+    </script>
+</body>
+</html>

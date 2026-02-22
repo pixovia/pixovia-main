@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPP Practice - LMRP JEE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #fcfcfc; }
+        .tab-active { color: #00a3ad; border-bottom: 3px solid #00a3ad; }
+        .option-box.selected { border-color: #00a3ad; background-color: #f0fdfa; }
+        .option-box.selected .circle { border-color: #00a3ad; background-color: #00a3ad; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="bg-white p-4 flex items-center border-b sticky top-0 z-50">
+        <button onclick="history.back()" class="mr-4 text-gray-700"><i class="fa-solid fa-arrow-left"></i></button>
+        <h1 class="font-extrabold text-gray-800 text-sm uppercase tracking-tight">Practice DPP</h1>
+    </header>
+
+    <main class="p-4 max-w-2xl mx-auto">
+        
+        <div id="resultScreen" class="hidden">
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 text-center">
+                <div class="relative inline-flex items-center justify-center mb-6">
+                    <svg class="w-32 h-32 transform -rotate-90">
+                        <circle cx="64" cy="64" r="58" stroke="currentColor" stroke-width="8" fill="transparent" class="text-gray-100" />
+                        <circle cx="64" cy="64" r="58" stroke="currentColor" stroke-width="8" fill="transparent" stroke-dasharray="364.4" id="scoreCircle" class="text-teal-500" />
+                    </svg>
+                    <div class="absolute text-center">
+                        <span id="finalScore" class="text-3xl font-black text-gray-800">0</span>
+                        <p class="text-[10px] font-bold text-gray-400 uppercase">Score</p>
+                    </div>
+                </div>
+                
+                <h2 class="text-xl font-black text-gray-800 uppercase italic">Great Effort!</h2>
+                <p class="text-gray-400 text-xs font-bold mt-1" id="scoreSubtitle">You answered 0 out of 15 correctly</p>
+
+                <div class="mt-8 space-y-3">
+                    <button onclick="openVideoModal()" class="w-full py-4 bg-gray-50 text-[#00a3ad] rounded-2xl font-black text-xs uppercase tracking-widest border border-dashed border-teal-200">
+                        <i class="fa-solid fa-circle-play mr-2"></i> Watch Video Solution
+                    </button>
+                    <button onclick="restartDPP()" class="w-full py-4 bg-[#00a3ad] text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-teal-100">
+                        Again Attempt
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="practiceScreen">
+            <div id="questionContainer" class="space-y-6">
+                </div>
+            
+            <button onclick="calculateResult()" class="w-full mt-10 mb-10 py-4 bg-[#00a3ad] text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-lg shadow-teal-100">
+                Submit Practice
+            </button>
+        </div>
+    </main>
+
+    <div id="videoModal" class="fixed inset-0 bg-black/80 z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-xl rounded-3xl overflow-hidden">
+            <div class="p-4 border-b flex justify-between items-center">
+                <span class="font-bold text-xs text-gray-400 uppercase">Video Solution</span>
+                <button onclick="closeVideoModal()" class="text-gray-800 font-bold">Close</button>
+            </div>
+            <div class="aspect-video">
+                <iframe id="ytFrame" class="w-full h-full" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DPP_KEY = "dpp_result_jee_01";
+        
+        const questionsData = [
+            { id: 1, url: "https://static.pw.live/5eb393ee95fab7468a79d189/32972cb6-be56-4d15-9f0e-4950b32c53d6.PNG", text: "", options: ["Option A", "Option B", "Option C", "Option D"], crct: 0, video: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
+            { id: 2, url: "https://static.pw.live/5eb393ee95fab7468a79d189/23b7bd7e-e5c2-4297-b114-c72c38debc3b.PNG", text: "", options: ["Option A", "Option B", "Option C", "Option D"], crct: 2, video: "https://www.youtube.com/embed/z4pBy97zW2s" },
+            { id: 3, url: "https://static.pw.live/5eb393ee95fab7468a79d189/23b7bd7e-e5c2-4297-b114-c72c38debc3b.PNG", text: "", options: ["Option A", "Option B", "Option C", "Option D"], crct: 1, video: "https://www.youtube.com/embed/3S-i3Dq1A18" },
+            { id: 4, url: "https://static.pw.live/5eb393ee95fab7468a79d189/746fd79a-6fbc-483a-aeb0-a72f22ebcd14.PNG", text: "", options: ["Option A", "Option B", "Option C", "Option D"], crct: 3, video: "https://www.youtube.com/embed/tgbNymZ7vqY" },
+            // Adding dummy slots for up to 15 questions
+            ...Array.from({length: 11}, (_, i) => ({
+                id: i + 5,
+                url: "", 
+                text: "Which of the following represents a fundamental quantity?",
+                options: ["Velocity", "Mass", "Force", "Momentum"],
+                crct: 1,
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            }))
+        ];
+
+        let userSelections = {};
+
+        function renderQuestions() {
+            const container = document.getElementById('questionContainer');
+            container.innerHTML = questionsData.map((q, qIdx) => `
+                <div class="bg-white rounded-3xl p-5 border border-gray-100 shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-0.5 rounded uppercase">Question ${q.id}</span>
+                    </div>
+                    ${q.url ? `<img src="${q.url}" class="w-full rounded-xl mb-6">` : `<p class="text-sm font-bold text-gray-800 mb-6">${q.text}</p>`}
+                    
+                    <div class="grid gap-3">
+                        ${q.options.map((opt, oIdx) => `
+                            <div onclick="selectOption(${qIdx}, ${oIdx})" id="q${qIdx}o${oIdx}" class="option-box flex items-center p-4 border border-gray-100 rounded-2xl cursor-pointer transition-all">
+                                <div class="circle w-4 h-4 rounded-full border-2 border-gray-200 mr-3 flex items-center justify-center">
+                                    <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+                                </div>
+                                <span class="text-xs font-bold text-gray-700">${opt}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectOption(qIdx, oIdx) {
+            userSelections[qIdx] = oIdx;
+            // Clear previous UI
+            for(let i=0; i<4; i++) {
+                document.getElementById(`q${qIdx}o${i}`).classList.remove('selected');
+            }
+            // Set new UI
+            document.getElementById(`q${qIdx}o${oIdx}`).classList.add('selected');
+        }
+
+        function calculateResult() {
+            let correctCount = 0;
+            questionsData.forEach((q, idx) => {
+                if(userSelections[idx] === q.crct) correctCount++;
+            });
+
+            const data = { score: correctCount, total: questionsData.length };
+            localStorage.setItem(DPP_KEY, JSON.stringify(data));
+            showResult(data);
+        }
+
+        function showResult(data) {
+            document.getElementById('practiceScreen').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('hidden');
+            document.getElementById('finalScore').innerText = data.score;
+            document.getElementById('scoreSubtitle').innerText = `You answered ${data.score} out of ${data.total} correctly`;
+            
+            // Adjust circular progress bar (Full dash is 364.4)
+            const dashOffset = 364.4 - (364.4 * (data.score / data.total));
+            document.getElementById('scoreCircle').style.strokeDashoffset = dashOffset;
+        }
+
+        function restartDPP() {
+            localStorage.removeItem(DPP_KEY);
+            userSelections = {};
+            document.getElementById('resultScreen').classList.add('hidden');
+            document.getElementById('practiceScreen').classList.remove('hidden');
+            renderQuestions();
+        }
+
+        function openVideoModal() {
+            document.getElementById('ytFrame').src = questionsData[0].video; // Shows first video for demo
+            document.getElementById('videoModal').classList.remove('hidden');
+        }
+
+        function closeVideoModal() {
+            document.getElementById('videoModal').classList.add('hidden');
+            document.getElementById('ytFrame').src = "";
+        }
+
+        // Initialize: check for previous result
+        const saved = localStorage.getItem(DPP_KEY);
+        if(saved) {
+            showResult(JSON.parse(saved));
+        } else {
+            renderQuestions();
+        }
+    </script>
+</body>
+</html>

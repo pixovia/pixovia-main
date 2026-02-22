@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPP Engine - Xylem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; overflow: hidden; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        
+        /* Navigation Button States */
+        .q-btn-none { background: white; border: 1px solid #e2e8f0; color: #64748b; }
+        .q-btn-current { border: 2px solid #00a3ad; color: #00a3ad; font-weight: 800; background: #f0fdfa; }
+        .q-btn-correct { background: #10b981; border-color: #10b981; color: white; }
+        .q-btn-wrong { background: #ef4444; border-color: #ef4444; color: white; }
+
+        /* Option Box States */
+        .option-box { transition: all 0.2s; border-width: 2px; cursor: pointer; }
+        .option-box.selected { border-color: #00a3ad; background-color: #f0fdfa; }
+        .option-box.correct-reveal { border-color: #10b981; background-color: #ecfdf5; pointer-events: none; }
+        .option-box.wrong-reveal { border-color: #ef4444; background-color: #fef2f2; pointer-events: none; }
+        
+        #scoreCircle { transition: stroke-dashoffset 1s ease-in-out; }
+    </style>
+</head>
+<body class="h-screen flex flex-col lg:flex-row">
+
+    <aside id="desktopPalette" class="hidden lg:flex flex-col w-80 bg-white border-l order-2 p-6 overflow-y-auto">
+        <h2 class="font-black text-gray-800 text-xs mb-4 uppercase tracking-widest">Question Palette</h2>
+        <div class="grid grid-cols-5 gap-3" id="desktopGrid"></div>
+        <div class="mt-auto pt-6 border-t">
+            <button onclick="finishDPP()" class="w-full py-4 bg-[#00a3ad] text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-teal-100">
+                Finish Practice
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-full overflow-hidden">
+        
+        <header class="bg-white p-4 flex items-center justify-between border-b shrink-0">
+            <div class="flex items-center">
+                <button onclick="history.back()" class="mr-3 text-gray-600"><i class="fa-solid fa-chevron-left"></i></button>
+                <h1 class="font-bold text-gray-800 text-xs uppercase">DPP Practice</h1>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div id="timer" class="text-[10px] font-black text-teal-600 bg-teal-50 px-2 py-1 rounded-md">00:00</div>
+                <button onclick="finishDPP()" class="lg:hidden bg-[#00a3ad] text-white px-3 py-1 rounded-md text-[10px] font-black uppercase">Finish</button>
+            </div>
+        </header>
+
+        <div id="practiceArea" class="flex-1 flex flex-col overflow-hidden">
+            <div class="lg:hidden bg-white border-b p-3 overflow-x-auto flex space-x-2 no-scrollbar shrink-0" id="mobileGrid"></div>
+            
+            <div class="flex-1 overflow-y-auto p-4 lg:p-10" id="questionDisplay"></div>
+
+            <footer class="bg-white border-t p-4 flex items-center justify-between shrink-0">
+                <div class="flex space-x-2">
+                    <button onclick="changeQue(-1)" class="w-10 h-10 border rounded-xl flex items-center justify-center text-gray-400"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button onclick="changeQue(1)" class="w-10 h-10 border rounded-xl flex items-center justify-center text-gray-400"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div id="actionArea"></div>
+            </footer>
+        </div>
+
+        <div id="resultScreen" class="hidden flex-1 overflow-y-auto p-6 flex items-center justify-center bg-white">
+            <div class="text-center max-w-sm w-full">
+                <div class="relative inline-flex items-center justify-center mb-8">
+                    <svg class="w-40 h-40 transform -rotate-90">
+                        <circle cx="80" cy="80" r="70" stroke="#f1f5f9" stroke-width="12" fill="transparent" />
+                        <circle cx="80" cy="80" r="70" stroke="#00a3ad" stroke-width="12" fill="transparent" 
+                                stroke-dasharray="440" stroke-dashoffset="440" id="scoreCircle" stroke-linecap="round" />
+                    </svg>
+                    <div class="absolute text-center">
+                        <span id="resScore" class="text-4xl font-black text-gray-800">0</span>
+                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Score</p>
+                    </div>
+                </div>
+                <h2 class="text-2xl font-black text-gray-800 uppercase italic tracking-tighter">Practice Complete!</h2>
+                <p id="resSubtitle" class="text-gray-400 text-xs font-bold mt-2 uppercase">Score: 0 / 15</p>
+                <div class="mt-10 space-y-3">
+                    <button onclick="reAttempt()" class="w-full py-4 bg-[#00a3ad] text-white rounded-2xl font-black text-xs uppercase shadow-lg shadow-teal-100">
+                        Again Attempt
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="videoModal" class="fixed inset-0 bg-black/95 z-[200] hidden flex flex-col">
+        <div class="p-6 flex justify-end"><button onclick="closeVideo()" class="text-white text-4xl">&times;</button></div>
+        <div class="flex-1 flex items-center justify-center p-4">
+            <div class="w-full max-w-4xl aspect-video rounded-3xl overflow-hidden bg-black">
+                <iframe id="ytPlayer" class="w-full h-full" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = "dpp_save_01";
+        const questions = [
+            { id: 1, url: "https://static.pw.live/5eb393ee95fab7468a79d189/8e9ac6c4-e8f3-4947-8e1c-264060d42c4d.PNG", options: ["A", "B", "C", "D"], crct: 1},
+            { id: 2, url: "https://static.pw.live/5eb393ee95fab7468a79d189/136bf4ee-b79a-496e-a769-b7a29676edda.PNG", options: ["A", "B", "C", "D"], crct: 2}
+            
+        ];
+
+        let currentIndex = 0;
+        let selections = Array(15).fill(null);
+        let submitted = Array(15).fill(false);
+        let states = Array(15).fill('none');
+
+        function init() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) showResult(JSON.parse(saved));
+            else renderQuestion();
+        }
+
+        function renderGrids() {
+            const mGrid = document.getElementById('mobileGrid');
+            const dGrid = document.getElementById('desktopGrid');
+            const html = (i) => {
+                let s = states[i];
+                if (currentIndex === i && s === 'none') s = 'current';
+                return `<button onclick="jumpTo(${i})" class="q-btn-${s} min-w-[38px] h-[38px] rounded-xl text-[11px] font-bold shrink-0 transition-all">${i+1}</button>`;
+            };
+            if(mGrid) mGrid.innerHTML = questions.map((_, i) => html(i)).join('');
+            if(dGrid) dGrid.innerHTML = questions.map((_, i) => html(i)).join('');
+        }
+
+        function renderQuestion() {
+            const q = questions[currentIndex];
+            const qDisp = document.getElementById('questionDisplay');
+            const action = document.getElementById('actionArea');
+            
+            qDisp.innerHTML = `
+                <div class="max-w-3xl mx-auto">
+                    <p class="text-[10px] font-black text-gray-400 mb-3 uppercase tracking-widest">Question ${q.id} of 15</p>
+                    ${q.url ? `<img src="${q.url}" class="w-full rounded-2xl border bg-white p-4 mb-6 shadow-sm">` : 
+                    `<div class="p-8 bg-white border rounded-2xl mb-6 font-bold text-gray-700">${q.text}</div>`}
+                    <div class="grid gap-3">
+                        ${q.options.map((opt, i) => {
+                            let rev = "";
+                            if (submitted[currentIndex]) {
+                                if (i === q.crct) rev = "correct-reveal";
+                                else if (i === selections[currentIndex]) rev = "wrong-reveal";
+                            }
+                            return `<div onclick="selectOpt(${i})" class="option-box ${selections[currentIndex] === i ? 'selected' : ''} ${rev} flex items-center p-4 border rounded-2xl">
+                                <span class="w-7 h-7 rounded-full border flex items-center justify-center mr-4 text-[11px] font-black bg-gray-50 uppercase">${String.fromCharCode(65+i)}</span>
+                                <span class="text-[13px] font-bold text-gray-700">${opt}</span>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>`;
+
+            action.innerHTML = !submitted[currentIndex] ? 
+                `<button onclick="submitQue()" class="bg-gray-900 text-white px-8 py-2.5 rounded-xl font-bold text-xs uppercase tracking-widest ${selections[currentIndex] === null ? 'opacity-30 pointer-events-none' : ''}">Submit</button>` :
+                `<button onclick="openVideo()" class="text-[#00a3ad] font-black text-xs uppercase flex items-center"><i class="fa-solid fa-play-circle mr-2 text-xl"></i> Solution</button>`;
+            renderGrids();
+        }
+
+        window.selectOpt = (i) => { if (!submitted[currentIndex]) { selections[currentIndex] = i; renderQuestion(); } };
+        window.submitQue = () => { if (selections[currentIndex] !== null) { submitted[currentIndex] = true; states[currentIndex] = (selections[currentIndex] === questions[currentIndex].crct) ? 'correct' : 'wrong'; renderQuestion(); } };
+        window.jumpTo = (i) => { currentIndex = i; renderQuestion(); };
+        window.changeQue = (dir) => { let n = currentIndex + dir; if (n >= 0 && n < 15) { currentIndex = n; renderQuestion(); } };
+
+        window.finishDPP = () => {
+            const score = states.filter(s => s === 'correct').length;
+            const res = { score, total: 15 };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(res));
+            showResult(res);
+        };
+
+        function showResult(res) {
+            document.getElementById('practiceArea').classList.add('hidden');
+            document.getElementById('desktopPalette').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('hidden');
+            document.getElementById('resScore').innerText = res.score;
+            document.getElementById('resSubtitle').innerText = `Score: ${res.score} / ${res.total}`;
+            setTimeout(() => { document.getElementById('scoreCircle').style.strokeDashoffset = 440 - (440 * (res.score / res.total)); }, 200);
+        }
+
+        window.reAttempt = () => { localStorage.removeItem(STORAGE_KEY); location.reload(); };
+        window.openVideo = () => { document.getElementById('ytPlayer').src = questions[currentIndex].video; document.getElementById('videoModal').classList.remove('hidden'); };
+        window.closeVideo = () => { document.getElementById('videoModal').classList.add('hidden'); document.getElementById('ytPlayer').src = ""; };
+
+        let time = 0;
+        setInterval(() => {
+            time++;
+            const m = Math.floor(time/60).toString().padStart(2,'0'), s = (time%60).toString().padStart(2,'0');
+            const el = document.getElementById('timer'); if(el) el.innerText = `${m}:${s}`;
+        }, 1000);
+
+        init();
+    </script>
+</body>
+</html>
