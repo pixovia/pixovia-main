@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eduport Player</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9fafb;
+    }
+    .video-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .quality-btn {
+      background-color: #f3f4f6;
+      color: #374151;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    .quality-btn:hover {
+      background-color: #e5e7eb;
+    }
+    .quality-btn.active {
+      background-color: #3b82f6;
+      color: white;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col items-center">
+
+  <!-- Header -->
+  <header class="w-full max-w-5xl flex items-center justify-between px-4 py-4 bg-white border-b shadow-sm rounded-b-3xl mb-6">
+    <div class="flex items-center space-x-3">
+      <img src="https://media.licdn.com/dms/image/v2/D560BAQEJe_G69SfZXA/company-logo_200_200/company-logo_200_200/0/1731746328968?e=2147483647&v=beta&t=i6VRtIcoqeb3nRbsqcj4KPnMuQ5AB_f81Ww18jQUGXQ"
+           class="w-8 h-8 rounded-full object-cover" />
+      <div class="w-px h-5 bg-gray-300"></div>
+      <img src="https://pixovia.pages.dev/icon-coloured-closeup.jpg"
+           class="w-8 h-8 rounded-full object-cover" />
+      <span class="text-gray-800 font-semibold text-lg ml-1">Learn</span>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="w-full max-w-4xl p-4 space-y-6">
+    <!-- Video -->
+    <div class="video-container" id="player-wrapper"></div>
+
+    <!-- Quality Controls -->
+    <div id="quality-controls" class="flex justify-center flex-wrap gap-2">
+      <button class="quality-btn" data-quality="240p">240p</button>
+      <button class="quality-btn" data-quality="360p">360p</button>
+      <button class="quality-btn active" data-quality="480p">480p</button>
+      <button class="quality-btn" data-quality="720p">720p</button>
+    </div>
+
+    <!-- Notes + Quiz -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <a href="https://assets.eduport.app/media/video/attachment/P2BFT_M1_T1_V11127125144scmlcb.pdf"
+         target="_blank"
+         class="flex items-center justify-center w-full sm:w-auto bg-blue-50 text-blue-700 font-semibold px-6 py-3 rounded-xl hover:bg-blue-100 transition">
+        <i class="fa-solid fa-paperclip mr-2"></i> Download Notes
+      </a>
+      <button onclick="window.location.href='https://eduport.app/quiz'"
+              class="w-full sm:w-auto bg-[#FF6D33] hover:bg-[#E65A22] text-white font-bold px-10 py-3 rounded-xl shadow-lg shadow-orange-200 transition-all active:scale-95">
+        Proceed to Quiz
+      </button>
+    </div>
+  </main>
+
+<script>
+  const playerWrapper = document.getElementById('player-wrapper');
+  const qualityButtons = document.querySelectorAll('.quality-btn');
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const id = urlParams.get('id');
+  const noteURL = urlParams.get('note');
+  const quizURL = urlParams.get('quiz');
+
+  let currentQuality = '480p';
+  let hlsInstance = null;
+
+  const noteButton = document.querySelector('a[href*="pdf"]');
+  const quizButton = document.querySelector('button[onclick*="quiz"]');
+
+  // Set note and quiz links dynamically
+  if (noteURL && noteButton) {
+    noteButton.href = noteURL;
+  }
+  if (quizURL && quizButton) {
+    quizButton.onclick = () => (window.location.href = quizURL);
+  }
+
+  // Function to load HLS video
+  function loadHLS(videoId, quality) {
+    playerWrapper.innerHTML = '';
+    const video = document.createElement('video');
+    video.controls = true;
+    video.autoplay = true;
+    video.className = 'w-full h-full';
+    playerWrapper.appendChild(video);
+
+    const src = `https://assets.eduport.app/studio/migrated/hls/${videoId}/${quality}_h264/video.m3u8`;
+
+    if (Hls.isSupported()) {
+      if (hlsInstance) hlsInstance.destroy();
+      hlsInstance = new Hls();
+      hlsInstance.loadSource(src);
+      hlsInstance.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+    }
+  }
+
+  // Initial Load
+  if (id) {
+    loadHLS(id, currentQuality);
+  } else {
+    playerWrapper.innerHTML =
+      '<div class="flex items-center justify-center h-full text-white text-lg">❌ No video ID provided.</div>';
+    document.getElementById('quality-controls').classList.add('hidden');
+  }
+
+  // Handle Quality Change
+  qualityButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      qualityButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentQuality = btn.dataset.quality;
+      if (id) loadHLS(id, currentQuality);
+    });
+  });
+</script>
+</body>
+</html>
