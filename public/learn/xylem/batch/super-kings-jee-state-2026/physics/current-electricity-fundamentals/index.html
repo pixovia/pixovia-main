@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamentals of Current Electricity - Xylem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .sidebar-item:hover { background-color: #e0f7fa; color: #00acc1; }
+        .active-sidebar { background-color: #e0f7fa; color: #00acc1; border-right: 4px solid #00acc1; }
+        
+        .tab-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab-btn.active {
+            color: #00acc1;
+            border-bottom-color: #00acc1;
+            background-color: #f0fdfa;
+        }
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .content-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .video-thumb {
+            aspect-ratio: 16/9;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            background: #00acc1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            padding-left: 3px;
+        }
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #b2ebf2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <!-- Sidebar (Desktop) -->
+    <aside class="hidden md:flex flex-col w-64 bg-white border-r border-gray-200 sticky top-0 h-screen">
+        <div class="p-6">
+            <img src="https://pixovia.pages.dev/learn/xylem/logo.jpg">
+        </div>
+         <nav class="mt-4">
+            <div class="px-6 py-2 text-xs font-semibold text-slate-400 uppercase">Menu</div>
+            <a href="https://pixovia.pages.dev/learn/xylem/" class="flex items-center px-6 py-3 text-slate-600 hover:bg-slate-50">
+                <i class="fa-regular fa-pen-to-square"></i>&nbsp; Study
+            </a>
+            <a href="https://pixovia.pages.dev/learn/xylem/batches" class="flex items-center px-6 py-3 text-slate-600 hover:bg-slate-50">
+                <img src="https://www.xylem.live/assets/hamburger/batches.svg"> Batches
+            </a>
+            <a href="https://pixovia.pages.dev/learn/xylem/library" class="flex items-center px-6 py-3 text-slate-600 hover:bg-slate-50">
+                <i class="fa-solid fa-book-open"></i>&nbsp; Library
+            </a>
+            <a href="#" class="flex items-center px-6 py-3 text-slate-600 hover:bg-slate-50">
+                <i class="fa-solid fa-cart-shopping"></i>&nbsp; Xylem Store
+            </a>
+        </nav>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col">
+        <!-- Header -->
+        <header class="bg-white border-b border-gray-100 px-4 md:px-8 py-3 flex items-center justify-between sticky top-0 z-50">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-gray-700 hover:bg-gray-100 p-2 rounded-full transition">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </a>
+                <h1 class="text-sm md:text-lg font-bold text-gray-800 uppercase truncate max-w-[300px] md:max-w-none">
+                    FUNDAMENTALS OF CURRENT ELECTRICITY
+                </h1>
+            </div>
+            
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="bg-white border-b border-gray-100 flex overflow-x-auto no-scrollbar px-4 md:px-8">
+            <button onclick="switchTab('lectures')" id="tab-lectures" class="tab-btn active">Lectures</button>
+            <button onclick="switchTab('notes')" id="tab-notes" class="tab-btn">Notes</button>
+            <button onclick="switchTab('dpps')" id="tab-dpps" class="tab-btn">DPPs</button>
+        </div>
+        
+        <!-- Content Area -->
+        <div class="p-4 md:p-8 max-w-7xl mx-auto w-full">
+            
+            <!-- Lectures Grid -->
+            <div id="content-lectures" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              <!-- Video 1 -->
+              <a href="player/?part=2"
+                 class="content-card flex flex-row sm:flex-col items-center sm:items-stretch gap-3 sm:gap-0">
+                <!-- Thumbnail -->
+                <div class="video-thumb aspect-video sm:aspect-[16/9] w-2/5 sm:w-full bg-cover bg-center rounded-lg"
+                     style="background-image: url('https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/0c37342e-266c-47ed-ad30-6a541f791216.png')">
+                  <div class="play-overlay"><div class="play-btn"><i class="fa-solid fa-play"></i></div></div>
+                </div>
+
+                <!-- Content -->
+                <div class="flex-1 p-2 sm:p-4">
+                  <div class="flex justify-between items-start mb-1 sm:mb-2">
+                    <h3 class="text-xs font-bold text-gray-800 uppercase leading-tight">
+                      FUNDAMENTALS OF CURRENT ELECTRICITY [P2]
+                    </h3>
+                  </div>
+                  <div class="flex flex-wrap items-center text-[10px] text-gray-500 gap-2 sm:gap-3 mt-1 sm:mt-0">
+                    <span>6 April, 2025</span>
+                    <span class="flex items-center"><i class="fa-regular fa-clock mr-1"></i>00:49:32</span>
+                  </div>
+                </div>
+              </a>
+
+              <!-- Video 2 -->
+              <a href="player/?part=1"
+                 class="content-card flex flex-row sm:flex-col items-center sm:items-stretch gap-3 sm:gap-0">
+                <!-- Thumbnail -->
+                <div class="video-thumb aspect-video sm:aspect-[16/9] w-2/5 sm:w-full bg-cover bg-center rounded-lg"
+                     style="background-image: url('https://static.pw.live/5eb393ee95fab7468a79d189/ADMIN/eba21353-26cd-4abf-bcce-afeeff9389ea.png')">
+                  <div class="play-overlay"><div class="play-btn"><i class="fa-solid fa-play"></i></div></div>
+                </div>
+            
+                <!-- Content -->
+                <div class="flex-1 p-2 sm:p-4">
+                  <div class="flex justify-between items-start mb-1 sm:mb-2">
+                    <h3 class="text-xs font-bold text-gray-800 uppercase leading-tight">
+                                  FUNDAMENTALS OF CURRENT ELECTRICITY [P1]
+                    </h3>
+                  </div>
+                  <div class="flex flex-wrap items-center text-[10px] text-gray-500 gap-2 sm:gap-3 mt-1 sm:mt-0">
+                    <span>5 April, 2025</span>
+                    <span class="flex items-center"><i class="fa-regular fa-clock mr-1"></i>01:11:44</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Notes Section (Hidden by default) -->
+            <div id="content-notes" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              <a href="https://example.com/notes/p2.pdf"
+                 class="content-card flex flex-col sm:flex-col lg:flex-col items-center sm:items-center p-6 text-center sm:text-center hover:bg-cyan-50">
+                <div class="flex flex-row sm:flex-col items-center sm:items-center text-left sm:text-center w-full sm:w-auto">
+                  <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-3 sm:mr-0 sm:mb-4">
+                    <i class="fa-solid fa-file-pdf text-red-500 text-2xl sm:text-3xl"></i>
+                  </div>
+                  <div class="flex flex-col sm:block">
+                    <h3 class="text-xs font-bold text-gray-800 uppercase leading-tight">FUNDAMENTALS OF CURRENT ELECTRICITY [P2]</h3>
+                    <p class="text-[10px] text-gray-500 mt-1 sm:mt-2">06 Apr, 2025</p>
+                  </div>
+                </div>
+              </a>
+
+              <a href="https://example.com/notes/p1.pdf"
+                 class="content-card flex flex-col sm:flex-col lg:flex-col items-center sm:items-center p-6 text-center sm:text-center hover:bg-cyan-50">
+                <div class="flex flex-row sm:flex-col items-center sm:items-center text-left sm:text-center w-full sm:w-auto">
+                  <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-3 sm:mr-0 sm:mb-4">
+                    <i class="fa-solid fa-file-pdf text-red-500 text-2xl sm:text-3xl"></i>
+                  </div>
+                  <div class="flex flex-col sm:block">
+                    <h3 class="text-xs font-bold text-gray-800 uppercase leading-tight">FUNDAMENTALS OF CURRENT ELECTRICITY [P1]</h3>
+                    <p class="text-[10px] text-gray-500 mt-1 sm:mt-2">05 Apr, 2025</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- DPP Section (Hidden by default) -->
+            <div id="content-dpps" class="hidden">
+                <div class="bg-white rounded-xl border border-gray-100 p-6 flex flex-col md:flex-row items-center justify-between gap-2">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-clipboard-list text-blue-500 text-xl"></i>
+                        </div>
+                        <div onclick="window.location.href=''">
+                            <h3 class="text-sm font-bold text-gray-800">SUBJECTWISE EXAM FUNDAMENTALS OF CURRENT ELECTRICITY [2025-26]</h3>
+                            <div class="flex gap-4 mt-1 text-[10px] text-gray-500">
+                                <span><i class="fa-regular fa-file-lines mr-1"></i> 50 Questions</span>
+                                <span><i class="fa-solid fa-award mr-1"></i> 200 Marks</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function switchTab(tabId) {
+            // Hide all contents
+            ['lectures', 'notes', 'dpps', 'dpp-pdfs', 'dpp-videos'].forEach(id => {
+                const el = document.getElementById('content-' + id);
+                if (el) el.classList.add('hidden');
+                
+                const btn = document.getElementById('tab-' + id);
+                if (btn) btn.classList.remove('active');
+            });
+
+            // Show selected content
+            const activeContent = document.getElementById('content-' + tabId);
+            if (activeContent) activeContent.classList.remove('hidden');
+            
+            const activeBtn = document.getElementById('tab-' + tabId);
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+    </script>
+</body>
+</html>

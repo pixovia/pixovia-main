@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player - Xylem Learning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .icon-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e5e7eb;
+            background: white;
+            font-size: 18px;
+        }
+        .btn-active .icon-circle {
+            color: #374151;
+            border-color: #9ca3af;
+        }
+        .btn-disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .btn-disabled .icon-circle {
+            background: #f9fafb;
+            color: #9ca3af;
+        }
+        .timeline-item:hover {
+            background-color: #f0fdfa;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Header / Top Bar -->
+    <header class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <a href="chapter.html" class="text-gray-700 hover:bg-gray-100 p-2 rounded-full transition">
+                <i class="fa-solid fa-chevron-left"></i>
+            </a>
+            <div>
+                <h1 class="text-sm font-bold text-gray-800 uppercase">BUSINESS TECHNOLOGY - [PART 04]</h1>
+                <p class="text-[10px] text-gray-500">Fundamentals of Business Organization</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-3">
+            <div class="flex items-center bg-gray-50 border border-gray-200 rounded-full px-3 py-1">
+                <span class="text-[10px] font-bold text-blue-600 mr-1">XP</span>
+                <span class="text-xs font-bold text-gray-700">0</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-col lg:flex-row max-w-[1600px] mx-auto">
+        
+        <!-- Left Section: Player & Controls -->
+        <div class="flex-1 lg:p-6">
+            <!-- Player Wrapper -->
+            <div class="bg-black lg:rounded-xl overflow-hidden shadow-xl">
+                <div class="video-container">
+                    <!-- YouTube Embed with API enabled for timeline control -->
+                    <iframe id="player" 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Title & Features Bar -->
+            <div class="bg-white lg:rounded-xl lg:mt-6 p-6 shadow-sm border border-gray-100">
+                <h2 class="text-xl font-bold text-gray-800 mb-8 lg:block hidden">BUSINESS TECHNOLOGY - [PART 04]</h2>
+                
+                <!-- Action Buttons Grid -->
+                <div class="grid grid-cols-5 gap-2">
+                    <!-- Timeline (Active) -->
+                    <button onclick="toggleTimeline()" class="action-btn btn-active group">
+                        <div class="icon-circle group-hover:bg-gray-50">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+                        <span class="text-xs font-medium text-gray-600">Timeline</span>
+                    </button>
+
+                    <!-- Notes (Link to URL) -->
+                    <a href="https://example.com/notes-pdf" target="_blank" class="action-btn btn-active group">
+                        <div class="icon-circle group-hover:bg-gray-50">
+                            <i class="fa-regular fa-file-lines"></i>
+                        </div>
+                        <span class="text-xs font-medium text-gray-600">Notes</span>
+                    </a>
+
+                    <!-- Download (Grayed) -->
+                    <div class="action-btn btn-disabled">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-download"></i>
+                        </div>
+                        <span class="text-xs font-medium text-gray-400">Download</span>
+                    </div>
+
+                    <!-- Rating (Grayed) -->
+                    <div class="action-btn btn-disabled">
+                        <div class="icon-circle">
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                        <span class="text-xs font-medium text-gray-400">Rating</span>
+                    </div>
+
+                    <!-- Report (Grayed) -->
+                    <div class="action-btn btn-disabled">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
+                        <span class="text-xs font-medium text-gray-400">Report</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section: Timeline Sidebar (Desktop) / Dropdown (Mobile) -->
+        <div id="timeline-section" class="lg:w-80 w-full lg:mt-6 lg:mr-6 lg:mb-6 hidden lg:block">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 h-full flex flex-col">
+                <div class="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-xl">
+                    <h3 class="font-bold text-gray-800 flex items-center gap-2">
+                        <i class="fa-regular fa-clock text-cyan-600"></i> Video Timeline
+                    </h3>
+                    <button onclick="toggleTimeline()" class="lg:hidden text-gray-400 p-2">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                
+                <div class="flex-1 overflow-y-auto max-h-[400px] lg:max-h-none p-2 space-y-1">
+                    <!-- Timeline Item -->
+                    <button onclick="seekTo(0)" class="timeline-item w-full flex items-center gap-3 p-3 rounded-lg text-left transition">
+                        <span class="text-xs font-mono bg-gray-100 text-gray-600 px-2 py-1 rounded">00:00</span>
+                        <span class="text-sm text-gray-700 font-medium">Introduction to Business</span>
+                    </button>
+                    <!-- Timeline Item -->
+                    <button onclick="seekTo(125)" class="timeline-item w-full flex items-center gap-3 p-3 rounded-lg text-left transition">
+                        <span class="text-xs font-mono bg-gray-100 text-gray-600 px-2 py-1 rounded">02:05</span>
+                        <span class="text-sm text-gray-700 font-medium">Core Tech Features</span>
+                    </button>
+                    <!-- Timeline Item -->
+                    <button onclick="seekTo(345)" class="timeline-item w-full flex items-center gap-3 p-3 rounded-lg text-left transition">
+                        <span class="text-xs font-mono bg-gray-100 text-gray-600 px-2 py-1 rounded">05:45</span>
+                        <span class="text-sm text-gray-700 font-medium">Software Frameworks</span>
+                    </button>
+                    <!-- Timeline Item -->
+                    <button onclick="seekTo(612)" class="timeline-item w-full flex items-center gap-3 p-3 rounded-lg text-left transition">
+                        <span class="text-xs font-mono bg-gray-100 text-gray-600 px-2 py-1 rounded">10:12</span>
+                        <span class="text-sm text-gray-700 font-medium">Cloud Organization</span>
+                    </button>
+                    <!-- Timeline Item -->
+                    <button onclick="seekTo(900)" class="timeline-item w-full flex items-center gap-3 p-3 rounded-lg text-left transition">
+                        <span class="text-xs font-mono bg-gray-100 text-gray-600 px-2 py-1 rounded">15:00</span>
+                        <span class="text-sm text-gray-700 font-medium">Conclusion & Summary</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Timeline Drawer Backdrop -->
+    <div id="drawer-backdrop" onclick="toggleTimeline()" class="fixed inset-0 bg-black/50 z-[60] hidden lg:hidden"></div>
+
+    <script>
+    // ============================
+    // Configuration for Each Part
+    // ============================
+    const videoData = {
+        1: {
+            title: "FUNDAMENTALS OF CURRENT ELECTRICITY [P2]",
+            subtitle: "Introduction to Business Technology",
+            videoUrl: "https://www.youtube.com/embed/tgbNymZ7vqY?enablejsapi=1&rel=0",
+            notesUrl: "https://example.com/notes-part1.pdf",
+            timeline: [
+                { time: 0, label: "Introduction" },
+                { time: 90, label: "History of Technology" },
+                { time: 240, label: "Business Models" },
+                { time: 480, label: "Case Study" },
+                { time: 720, label: "Summary" }
+            ]
+        },
+        2: {
+            title: "FUNDAMENTALS OF CURRENT ELECTRICITY [P2]",
+            subtitle: "Emerging Trends in Business",
+            videoUrl: "https://www.youtube.com/embed/ysz5S6PUM-U?enablejsapi=1&rel=0",
+            notesUrl: "https://example.com/notes-part2.pdf",
+            timeline: [
+                { time: 0, label: "Overview" },
+                { time: 135, label: "Automation" },
+                { time: 390, label: "AI in Business" },
+                { time: 620, label: "Digital Transformation" },
+                { time: 900, label: "Conclusion" }
+            ]
+        }
+    };
+
+    // ============================
+    // Detect Query Param (?part=)
+    // ============================
+    const params = new URLSearchParams(window.location.search);
+    const part = params.get("part") || "4"; // default to part 4
+    const data = videoData[part];
+
+    if (data) {
+        // Update Titles
+        document.querySelector("h1").textContent = data.title;
+        document.querySelector("p.text-[10px]").textContent = data.subtitle;
+        const heading = document.querySelector("h2");
+        if (heading) heading.textContent = data.title;
+
+        // Update Video
+        const iframe = document.getElementById("player");
+        iframe.src = data.videoUrl;
+
+        // Update Notes Link
+        const notesLink = document.querySelector('a[href*="example.com/notes-pdf"]');
+        if (notesLink) notesLink.href = data.notesUrl;
+
+        // Update Timeline
+        const timelineContainer = document.querySelector("#timeline-section .flex-1");
+        timelineContainer.innerHTML = ""; // clear old items
+        data.timeline.forEach(item => {
+            const minutes = Math.floor(item.time / 60).toString().padStart(2, "0");
+            const seconds = (item.time % 60).toString().padStart(2, "0");
+            const timeLabel = `${minutes}:${seconds}`;
+
+            const button = document.createElement("button");
+            button.className = "timeline-item w-full flex items-center gap-3 p-3 rounded-lg text-left transition";
+            button.onclick = () => seekTo(item.time);
+            button.innerHTML = `
+                <span class="text-xs font-mono bg-gray-100 text-gray-600 px-2 py-1 rounded">${timeLabel}</span>
+                <span class="text-sm text-gray-700 font-medium">${item.label}</span>
+            `;
+            timelineContainer.appendChild(button);
+        });
+    }
+
+    // ============================
+    // Timeline toggle and seeking
+    // ============================
+    function toggleTimeline() {
+        const timeline = document.getElementById('timeline-section');
+        const backdrop = document.getElementById('drawer-backdrop');
+        
+        if (window.innerWidth < 1024) {
+            if (timeline.classList.contains('hidden')) {
+                timeline.classList.remove('hidden');
+                timeline.classList.add('fixed', 'bottom-0', 'left-0', 'right-0', 'z-[70]', 'bg-white', 'rounded-t-3xl');
+                backdrop.classList.remove('hidden');
+            } else {
+                timeline.classList.add('hidden');
+                timeline.classList.remove('fixed', 'bottom-0', 'left-0', 'right-0', 'z-[70]', 'bg-white', 'rounded-t-3xl');
+                backdrop.classList.add('hidden');
+            }
+        } else {
+            timeline.classList.toggle('hidden');
+        }
+    }
+
+    function seekTo(seconds) {
+        const iframe = document.getElementById('player');
+        const playerSrc = iframe.src;
+        const baseUrl = playerSrc.split('?')[0];
+        const params = new URLSearchParams(playerSrc.split('?')[1]);
+        params.set('start', seconds);
+        params.set('autoplay', '1');
+        iframe.src = `${baseUrl}?${params.toString()}`;
+        if (window.innerWidth < 1024) toggleTimeline();
+    }
+</script>
+</body>
+</html>
