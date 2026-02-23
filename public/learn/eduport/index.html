@@ -152,7 +152,7 @@
             <p class="font-semibold text-gray-800">${course.title}</p>
             <span class="course-badge">${category.title}</span>
           `;
-          card.onclick = () => window.location.href = `${slug}.html`;
+          card.onclick = () => window.location.href = `${slug}`;
           grid.appendChild(card);
         });
       });
@@ -181,4 +181,5 @@
     loadCourses();
   </script>
 </body>
+
 </html>
