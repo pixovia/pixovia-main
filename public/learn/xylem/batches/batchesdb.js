@@ -23,7 +23,8 @@ export const batchesData = [
         end: "30 Apr 2026",
         features: "Live Lectures | Recorded Lectures | Tests & many more",
         orgPrice: 24205,
-        nowPrice: 0
+        nowPrice: 0,
+        url: "https://pixovia.pages.dev/learn/xylem/super-kings-jee-state-2026"
     },
     {
         id: "batch_002",
@@ -55,3 +56,4 @@ export const batchesData = [
     }
 
 ];
+
