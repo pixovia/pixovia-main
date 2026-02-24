@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eduport | Pixovia Learn - Topics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F8F9FD;
+    }
+
+    .header-gradient {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    }
+
+    .maths-icon-blur {
+      background-color: #ffffff22;
+      backdrop-filter: blur(4px);
+      border-radius: 12px;
+      padding: 8px;
+    }
+
+    .lesson-dot-connector {
+      position: relative;
+    }
+
+    .lesson-dot-connector::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      width: 2px;
+      height: 16px;
+      background: #e5e7eb;
+      transform: translateX(-50%);
+    }
+
+    .lesson-dot-connector.last::after {
+      display: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- LESSON LIST PAGE -->
+  <div id="page-lessons">
+    <!-- Header Section -->
+    <div class="header-gradient text-white p-6 md:p-10">
+      <div class="max-w-4xl mx-auto flex items-center justify-between">
+        <div class="flex items-center">
+          <button id="backBtn" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mr-4">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+          <h1 id="lesson-header" class="text-xl font-bold">Loading...</h1>
+        </div>
+        <div class="maths-icon-blur w-12 h-12 flex items-center justify-center">
+          <img src="https://assets.eduport.app/media/assets/Maths_Basics_Image0821143717qynbnk.png"
+               class="w-full h-full object-contain" alt="Subject Icon">
+        </div>
+      </div>
+    </div>
+
+    <!-- Lesson List -->
+    <main class="max-w-4xl mx-auto px-4 -mt-4 mb-20">
+      <div class="bg-white rounded-t-[32px] shadow-sm border border-gray-100 overflow-hidden">
+        <div id="lesson-container" class="p-6 space-y-4">
+          <p class="text-center text-gray-400">Loading lessons...</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+  import { supabase } from "https://pixovia.pages.dev/learn/eduport/open/supabase.js";
+
+  const std = sessionStorage.getItem("std");
+  const course = sessionStorage.getItem("course");
+  const subject = sessionStorage.getItem("subject");
+  const chapter = sessionStorage.getItem("chapter");
+
+  const headerEl = document.getElementById("lesson-header");
+  const container = document.getElementById("lesson-container");
+  const backBtn = document.getElementById("backBtn");
+
+  // 🧭 Set header title
+  headerEl.textContent = `${subject || ""} - ${chapter || ""}`.trim() || "Lessons";
+  backBtn.onclick = () => window.history.back();
+
+  // 🧠 Load lessons
+  async function loadLessons() {
+    if (!std || !course || !subject || !chapter) {
+      container.innerHTML = "<p class='text-center text-gray-400'>Missing info.</p>";
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from("learn")
+        .select("topic, class, note, dpp")
+        .eq("institution", "eduport")
+        .eq("std", std)
+        .eq("course", course)
+        .eq("subject", subject)
+        .eq("chapter", chapter)
+        .order("topic", { ascending: true });
+
+      if (error) throw error;
+
+      if (!data?.length) {
+        container.innerHTML = "<p class='text-center text-gray-500'>No lessons found.</p>";
+        return;
+      }
+
+      renderLessons(data);
+    } catch (err) {
+      console.error(err);
+      container.innerHTML = "<p class='text-center text-red-500'>Error loading lessons.</p>";
+    }
+  }
+
+  // 🧩 Render lesson cards
+  function renderLessons(lessons) {
+    container.innerHTML = "";
+    lessons.forEach((lesson, idx) => {
+      const dotClass = idx === lessons.length - 1 ? "last" : "";
+      const active = idx === 0;
+
+      const card = document.createElement("div");
+      card.className = "flex items-start";
+
+      card.innerHTML = `
+        <div class="mr-4 pt-2">
+          <div class="w-6 h-6 rounded-full border-2 ${
+            active ? "border-indigo-400" : "border-gray-300"
+          } flex items-center justify-center bg-white z-10 lesson-dot-connector ${dotClass}">
+            <i class="fa-solid fa-play text-[8px] ${
+              active ? "text-indigo-500" : "text-gray-400"
+            }"></i>
+          </div>
+        </div>
+        <div class="flex-1 ${
+          active
+            ? "bg-blue-50/50 hover:bg-blue-100 cursor-pointer"
+            : "bg-gray-50 hover:bg-gray-100 cursor-pointer"
+        } p-4 rounded-2xl flex items-center justify-between transition">
+          <span class="font-medium ${
+            active ? "text-gray-700" : "text-gray-600"
+          }">${idx + 1}. ${lesson.topic || "Untitled Topic"}</span>
+          <div class="flex items-center space-x-2">
+            ${
+              lesson.note
+                ? `<span class='text-xs font-bold text-green-600 bg-white px-2 py-1 rounded-full border'>Notes</span>`
+                : ""
+            }
+            ${
+              lesson.dpp
+                ? `<span class='text-xs font-bold text-rose-600 bg-white px-2 py-1 rounded-full border'>DPP</span>`
+                : ""
+            }
+          </div>
+        </div>
+      `;
+
+      // 🧭 On click → store info and go to player page
+      card.onclick = () => {
+        sessionStorage.setItem("topic", lesson.topic || "Untitled Topic");
+        sessionStorage.setItem("class", lesson.class || "");
+        sessionStorage.setItem("note", lesson.note || "");
+        sessionStorage.setItem("dpp", lesson.dpp || "");
+        window.location.href = "player/";
+      };
+
+      container.appendChild(card);
+    });
+  }
+
+  loadLessons();
+</script>
+</body>
+</html>

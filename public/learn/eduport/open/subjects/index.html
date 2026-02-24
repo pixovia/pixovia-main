@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eduport | Pixovia Learn Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FD;
+        }
+
+        .sidebar-item.active {
+            background-color: #FFF0F3;
+            color: #E91E63;
+            border-radius: 12px;
+        }
+
+        .icon-card {
+            transition: transform 0.2s ease;
+        }
+
+        .icon-card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Mobile specific styles */
+        @media (max-width: 768px) {
+            .mobile-header-gradient {
+                background: linear-gradient(180deg, #3F51B5 0%, #673AB7 100%);
+                color: white;
+            }
+            .mobile-bottom-nav {
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Desktop Sidebar -->
+    <aside class="hidden md:flex flex-col w-64 h-screen bg-white border-r fixed left-0 top-0 p-6">
+        <div class="mb-10 flex items-center justify-center space-x-3">
+          <!-- Logo 1 -->
+          <img src="https://media.licdn.com/dms/image/v2/D560BAQEJe_G69SfZXA/company-logo_200_200/company-logo_200_200/0/1731746328968?e=2147483647&v=beta&t=i6VRtIcoqeb3nRbsqcj4KPnMuQ5AB_f81Ww18jQUGXQ"
+               alt="Logo 1"
+               class="h-8 w-8 rounded-full object-cover">
+
+          <!-- Divider -->
+          <div class="w-px h-6 bg-gray-400"></div>
+
+          <!-- Logo 2 -->
+          <img src="https://pixovia.pages.dev/icon-coloured-closeup.jpg"
+               alt="Logo 2"
+               class="h-8 w-8 rounded-full object-cover">
+
+          <!-- Text -->
+          <span class="text-gray-800 text-lg font-semibold ml-2">Learn</span>
+        </div>
+        
+        <nav class="space-y-4">
+            <a href="#" class="sidebar-item active flex items-center p-3 text-sm font-medium">
+                <span class="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center mr-3">
+                    <i class="fa-solid fa-house"></i>
+                </span>
+                Home
+            </a>
+            <a href="#" class="sidebar-item flex items-center p-3 text-sm font-gray-600 hover:bg-gray-50 rounded-xl transition-colors">
+                <span class="w-8 h-8 flex items-center justify-center mr-3 text-gray-400">
+                    <i class="fa-solid fa-file-lines"></i>
+                </span>
+                Exams
+            </a>
+            <a href="#" class="sidebar-item flex items-center p-3 text-sm font-gray-600 hover:bg-gray-50 rounded-xl transition-colors">
+                <span class="w-8 h-8 flex items-center justify-center mr-3 text-gray-400">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </span>
+                Daily Tasks
+            </a>
+            <a href="#" class="sidebar-item flex items-center p-3 text-sm font-gray-600 hover:bg-gray-50 rounded-xl transition-colors">
+                <span class="w-8 h-8 flex items-center justify-center mr-3 text-gray-400">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </span>
+                Analysis
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="md:ml-64 pb-24 md:pb-8">
+        
+        <!-- Desktop Header -->
+        <header class="hidden md:flex items-center justify-between px-8 py-4 bg-white border-b sticky top-0 z-10">
+            <div class="flex-1 max-w-2xl relative">
+            </div>
+            
+            <div class="flex items-center space-x-6 ml-4">
+                <a href="https://pixovia.pages.dev/learn/eduport/courses" class="flex items-center px-4 py-2 border rounded-full text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                    Plus Two Science Booster (2025 - 26)
+                    <i class="fa-solid fa-pencil ml-2 text-xs"></i>
+                </a>
+            </div>
+        </header>
+
+        <!-- Mobile Header -->
+        <div class="md:hidden mobile-header-gradient p-6 rounded-b-[40px] flex justify-center">
+          <div class="flex items-center space-x-3">
+            <!-- Logo 1 -->
+            <img src="https://media.licdn.com/dms/image/v2/D560BAQEJe_G69SfZXA/company-logo_200_200/company-logo_200_200/0/1731746328968?e=2147483647&v=beta&t=i6VRtIcoqeb3nRbsqcj4KPnMuQ5AB_f81Ww18jQUGXQ" 
+                 alt="Logo 1" 
+                 class="w-10 h-10 rounded-full object-cover">
+            <span class="text-white text-xl font-semibold ml-2">Eduport</span>
+
+            <!-- Vertical divider -->
+            <div class="w-px h-6 bg-white/60"></div>
+
+            <!-- Logo 2 -->
+            <img src="https://pixovia.pages.dev/icon-coloured-closeup.jpg" 
+                 alt="Logo 2" 
+                 class="w-10 h-10 rounded-full object-cover">
+
+            <!-- Text -->
+            <span class="text-white text-xl font-semibold ml-2">Learn</span>
+          </div>
+        </div>
+
+        <div class="px-4 md:px-10 py-4">
+            <!-- Mobile Course Selector -->
+            <a href="https://pixovia.pages.dev/learn/eduport/courses" class="md:hidden flex items-center font-bold text-gray-700 mb-6 text-lg">
+                Plus Two Science Booster (2025 - 26)
+                <i class="fa-solid fa-chevron-down ml-2 text-sm text-gray-400"></i>
+            </a>
+
+            <!-- Subjects Section -->
+            <section class="mb-10">
+  <h2 class="text-lg font-bold text-indigo-900 flex items-center mb-4">
+    Subjects 📚
+  </h2>
+  <div class="bg-white md:bg-white/50 border md:border-gray-100 rounded-[32px] p-4 md:p-8">
+    <!-- Dynamic grid -->
+    <div
+      id="subjects-grid"
+      class="grid grid-cols-4 md:grid-cols-6 gap-y-8 gap-x-4"
+    >
+      <p class="text-center text-gray-400 col-span-full">Loading...</p>
+    </div>
+  </div>
+</section>
+
+            <!-- Resources Section -->
+            <section class="mb-10">
+                <h2 class="text-lg font-bold text-indigo-900 flex items-center mb-4">
+                    Resources ✏️ 📐
+                </h2>
+                <div class="bg-white md:bg-white/50 border md:border-gray-100 rounded-[32px] p-4 md:p-8">
+                    <div class="grid grid-cols-4 md:grid-cols-6 gap-y-8 gap-x-4">
+                        <!-- Resource Item -->
+                        <div class="flex flex-col items-center text-center icon-card cursor-pointer" onclick="window.location.href=''">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-blue-500 rounded-2xl flex items-center justify-center mb-2 text-white text-xl shadow-blue-200 shadow-lg">
+                                <img src="https://web.eduport.app/assets/assets/asset_v2/live_class/live_tag.svg" class="w-12 h-6 md:w-10 md:h-10">
+                            </div>
+                            <span class="text-[11px] md:text-sm font-medium text-gray-600 leading-tight">Lives</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center icon-card cursor-pointer" onclick="window.location.href=''">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-emerald-500 rounded-2xl flex items-center justify-center mb-2 text-white text-xl shadow-emerald-200 shadow-lg">
+                                <i class="fa-solid fa-book-open-reader"></i>
+                            </div>
+                            <span class="text-[11px] md:text-sm font-medium text-gray-600 leading-tight">Question Library</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center icon-card cursor-pointer" onclick="window.location.href=''">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-amber-500 rounded-2xl flex items-center justify-center mb-2 text-white text-xl shadow-amber-200 shadow-lg">
+                                <i class="fa-solid fa-calendar-days"></i>
+                            </div>
+                            <span class="text-[11px] md:text-sm font-medium text-gray-600 leading-tight">Time Table</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center icon-card cursor-pointer" onclick="window.location.href=''">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-green-500 rounded-2xl flex items-center justify-center mb-2 text-white text-xl shadow-green-200 shadow-lg">
+                                <i class="fa-solid fa-pen-nib"></i>
+                            </div>
+                            <span class="text-[11px] md:text-sm font-medium text-gray-600 leading-tight">Exercises & Solutions</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center icon-card cursor-pointer" onclick="window.location.href=''">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-purple-400 rounded-2xl flex items-center justify-center mb-2 text-white text-xl shadow-purple-200 shadow-lg">
+                                <i class="fa-solid fa-book-journal-whills"></i>
+                            </div>
+                            <span class="text-[11px] md:text-sm font-medium text-gray-600 leading-tight">Micro Bit</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center icon-card cursor-pointer" onclick="window.location.href=''">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-blue-400 rounded-2xl flex items-center justify-center mb-2 text-white text-xl shadow-blue-200 shadow-lg">
+                                <i class="fa-solid fa-paste"></i>
+                            </div>
+                            <span class="text-[11px] md:text-sm font-medium text-gray-600 leading-tight">Study Materials</span>
+                        </div>
+                        
+                        <div class="flex flex-col items-center text-center icon-card cursor-pointer" onclick="window.location.href=''">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-rose-400 rounded-2xl flex items-center justify-center mb-2 text-white text-xl shadow-rose-200 shadow-lg">
+                                <i class="fa-solid fa-scroll"></i>
+                            </div>
+                            <span class="text-[11px] md:text-sm font-medium text-gray-600 leading-tight">Year Wise PYQ</span>
+                        </div>
+                        <div class="flex flex-col items-center text-center icon-card cursor-pointer" onclick="window.location.href=''">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-indigo-500 rounded-2xl flex items-center justify-center mb-2 text-white text-xl shadow-indigo-200 shadow-lg">
+                                <i class="fa-solid fa-file-circle-question"></i>
+                            </div>
+                            <span class="text-[11px] md:text-sm font-medium text-gray-600 leading-tight">Chapter Wise PYQ</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white mobile-bottom-nav flex justify-around items-center h-20 px-4 rounded-t-3xl border-t z-50">
+        <a href="#" class="flex flex-col items-center text-rose-500">
+            <div class="w-12 h-12 bg-rose-500 rounded-full flex items-center justify-center text-white mb-1">
+                <i class="fa-solid fa-house"></i>
+            </div>
+            <span class="text-[10px] font-bold">Home</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-gray-400">
+            <i class="fa-solid fa-file-lines text-xl mb-1"></i>
+            <span class="text-[10px]">Exams</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-gray-400">
+            <i class="fa-solid fa-calendar-check text-xl mb-1"></i>
+            <span class="text-[10px]">Daily Tasks</span>
+        </a>
+        <a href="#" class="flex flex-col items-center text-gray-400">
+            <i class="fa-solid fa-chart-pie text-xl mb-1"></i>
+            <span class="text-[10px]">Analysis</span>
+        </a>
+    </nav>
+
+    <script type="module">
+  import { supabase } from "https://pixovia.pages.dev/learn/eduport/open/supabase.js";
+
+  const std = sessionStorage.getItem("std");
+  const course = sessionStorage.getItem("course");
+
+  const subjectGrid = document.querySelector("#subjects-grid");
+
+  async function loadSubjects() {
+    if (!std || !course) {
+      subjectGrid.innerHTML =
+        "<p class='text-center text-gray-400 col-span-full'>No course selected.</p>";
+      return;
+    }
+
+    subjectGrid.innerHTML =
+      "<p class='text-center text-gray-400 col-span-full'>Loading subjects...</p>";
+
+    try {
+      const { data, error } = await supabase
+        .from("learn")
+        .select("subject, std, course")
+        .eq("institution", "eduport")
+        .eq("std", std)
+        .eq("course", course);
+
+      if (error) throw error;
+      if (!data?.length) {
+        subjectGrid.innerHTML =
+          "<p class='text-center text-gray-500 col-span-full'>No subjects found.</p>";
+        return;
+      }
+
+      // Extract unique subjects
+      const subjects = [...new Set(data.map((row) => row.subject))].filter(Boolean);
+      renderSubjects(subjects);
+    } catch (err) {
+      console.error(err);
+      subjectGrid.innerHTML =
+        "<p class='text-center text-red-500 col-span-full'>Error loading subjects.</p>";
+    }
+  }
+
+  function renderSubjects(subjects) {
+    subjectGrid.innerHTML = "";
+
+    subjects.forEach((subject) => {
+      const card = document.createElement("div");
+      card.className =
+        "flex flex-col items-center text-center icon-card cursor-pointer";
+      card.innerHTML = `
+        <div class="w-14 h-14 md:w-16 md:h-16 bg-indigo-500 rounded-2xl flex items-center justify-center mb-2">
+          <i class="fa-solid fa-book text-white text-lg md:text-xl"></i>
+        </div>
+        <span class="text-[11px] md:text-sm font-medium text-gray-600">${subject}</span>
+      `;
+
+      card.onclick = () => {
+        sessionStorage.setItem("subject", subject);
+        window.location.href = "chapters/";
+      };
+
+      subjectGrid.appendChild(card);
+    });
+  }
+
+  loadSubjects();
+</script>
+</body>
+</html>
