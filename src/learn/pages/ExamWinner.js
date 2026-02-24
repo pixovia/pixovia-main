@@ -102,7 +102,7 @@ const App = () => {
     script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
     script.async = true;
     script.onload = () => {
-      const client = window.supabase_ew_learn.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       setSupabase_ew_learn(client);
     };
     document.body.appendChild(script);
