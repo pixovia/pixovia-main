@@ -27,18 +27,16 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 // Image Mappings
 const SUBJECT_IMAGES = {
-  'maths': 'https://examwinner.app/media/subjects/Subject_name_slide-04_1_2XsKfIB_jA7R82z_jZb6LOG_q9mSqDA_JMARou5_2OKQ3KM_Ql2Etso_kXnLWW6.jpg',
-  'che': 'https://examwinner.app/media/subjects/Subject_name_slide-03_1_YJ4Ip67_CVc7TOK_C5COVdx_rDFVFYh_XgPvkdb.jpg',
-  'chemistry': 'https://examwinner.app/media/subjects/Subject_name_slide-03_1_YJ4Ip67_CVc7TOK_C5COVdx_rDFVFYh_XgPvkdb.jpg',
-  'phy': 'https://examwinner.app/media/subjects/Subject_name_slide-01_1_csP8hJa_hL2Tb39_ApyIn8E_H71SSXG_eWFmc2I.jpg',
-  'physics': 'https://examwinner.app/media/subjects/Subject_name_slide-01_1_csP8hJa_hL2Tb39_ApyIn8E_H71SSXG_eWFmc2I.jpg',
+  'maths': 'https://github.com/pixovia/pixovia-files/releases/download/v1.0.0.0.0.0.0.1/Subject_name_slide-04_1_2XsKfIB_jA7R82z_jZb6LOG_q9mSqDA_JMARou5_2OKQ3KM_Ql2Etso_kXnLWW6.jpg',
+  'chemistry': 'https://github.com/pixovia/pixovia-files/releases/download/v1.0.0.0.0.0.0.1/Subject_name_slide-03_1_YJ4Ip67_CVc7TOK_C5COVdx_rDFVFYh_XgPvkdb.jpg',
+  'physics': 'https://github.com/pixovia/pixovia-files/releases/download/v1.0.0.0.0.0.0.1/Subject_name_slide-01_1_csP8hJa_hL2Tb39_ApyIn8E_H71SSXG_eWFmc2I.jpg',
   'improvement': 'https://examwinner.app/media/subjects/WhatsApp_Image_2025-01-01_at_3.31.12_PM_bLbV8H9.jpeg',
-  'batch info': 'https://examwinner.app/media/subjects/BATCH_INFO-02_LWItCkw_bciw6pX_GCAdjKt_nqihPWq_16NU1XZ_oHroBZY_Q8tNUeS_qZZsrGk_i_B8Cv41y.jpg',
-  'bio': 'https://examwinner.app/media/subjects/Subject_name_slide-02_1_qMe7IjG_AeO6TVO_eGyfXtI_7x8dZ3Q_cBQnE3Y.jpg',
-  'biology': 'https://examwinner.app/media/subjects/Subject_name_slide-02_1_qMe7IjG_AeO6TVO_eGyfXtI_7x8dZ3Q_cBQnE3Y.jpg',
-  'cs': 'https://examwinner.app/media/subjects/Subject_name_slide-05_1_rzI8A30_BDhUESR_yLV8Lwf_D1m625p_eqcDcbI_ZYiBqVU_e7QxQGP_Zwj2UUa.jpg',
-  'computer science': 'https://examwinner.app/media/subjects/Subject_name_slide-05_1_rzI8A30_BDhUESR_yLV8Lwf_D1m625p_eqcDcbI_ZYiBqVU_e7QxQGP_Zwj2UUa.jpg'
+  'batch info': 'https://github.com/pixovia/pixovia-files/releases/download/v1.0.0.0.0.0.0.1/BATCH_INFO-02_LWItCkw_bciw6pX_GCAdjKt_nqihPWq_16NU1XZ_oHroBZY_Q8tNUeS_qZZsrGk_i_B8Cv41y.jpg',
+  'biology': 'https://github.com/pixovia/pixovia-files/releases/download/v1.0.0.0.0.0.0.1/Subject_name_slide-02_1_qMe7IjG_AeO6TVO_eGyfXtI_7x8dZ3Q_cBQnE3Y.jpg',
+  'cs': 'https://github.com/pixovia/pixovia-files/releases/download/v1.0.0.0.0.0.0.1/Subject_name_slide-05_1_rzI8A30_BDhUESR_yLV8Lwf_D1m625p_eqcDcbI_ZYiBqVU_e7QxQGP_Zwj2UUa.jpg',
+  'computer science': 'https://github.com/pixovia/pixovia-files/releases/download/v1.0.0.0.0.0.0.1/Subject_name_slide-05_1_rzI8A30_BDhUESR_yLV8Lwf_D1m625p_eqcDcbI_ZYiBqVU_e7QxQGP_Zwj2UUa.jpg'
 };
+
 
 const CustomVideoPlayer = ({ url, title }) => {
   const getYoutubeId = (rawUrl) => {
