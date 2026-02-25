@@ -309,7 +309,6 @@ const App = () => {
               <h4 className="font-bold text-xs text-gray-800 uppercase line-clamp-2 leading-snug">{item.title || `${currentSubject} Lecture`}</h4>
               <p className="text-[9px] text-gray-400 mt-1 font-bold uppercase tracking-wider">{currentTopicType}</p>
             </div>
-            <div className="flex items-center px-1"><Lock size={14} className="text-gray-300" /></div>
           </div>
         ))}
       </div>
