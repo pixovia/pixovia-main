@@ -19,7 +19,7 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    document.title = 'Pixovia Library - Home';
+    document.title = 'Pixovia Library - Home | Worlds Largest Open Digital File Library';
     fetchData();
   }, []);
 
