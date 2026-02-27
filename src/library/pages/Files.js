@@ -335,7 +335,7 @@ const Files = () => {
           <p>No files available{currentType !== 'all' ? ` for ${currentType} type` : ''}.</p>
         </div>
       )}
-     </div> {/* closes main wrapper */}
+    </div> {/* closes main wrapper */}
   );
 };
 
