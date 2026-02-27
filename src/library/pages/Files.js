@@ -3,6 +3,8 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { libraryService } from '../lib/supabase';
 import { Download, Filter } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { FixedSizeGrid as Grid } from 'react-window';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 const Files = () => {
   const [files, setFiles] = useState([]);
@@ -264,33 +266,57 @@ const Files = () => {
       </div>
       
       {filteredFiles.length > 0 ? (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-          gap: '1rem'
-        }}>
-          {filteredFiles.map(file => (
-            <Link
-              key={file.id}
-              to={`/library/file/${file.id}`}
-              style={{
-                borderRadius: '12px',
-                textDecoration: 'none',
-                color: 'inherit',
-                transition: 'all 0.3s ease',
-                overflow: 'hidden'
-              }}
-            >
-              {getFilePreview(file)}
-            </Link>
-          ))}
+        <div style={{ height: '80vh' }}>
+          <AutoSizer>
+            {({ height, width }) => {
+              const columnWidth = 220;
+              const rowHeight = 250;
+              const columnCount = Math.floor(width / columnWidth);
+              const rowCount = Math.ceil(filteredFiles.length / columnCount);
+
+              return (
+                <Grid
+                  columnCount={columnCount}
+                  columnWidth={columnWidth}
+                  height={height}
+                  rowCount={rowCount}
+                  rowHeight={rowHeight}
+                  width={width}
+                  style={{ overflowX: 'hidden' }}
+                >
+                  {({ columnIndex, rowIndex, style }) => {
+                    const index = rowIndex * columnCount + columnIndex;
+                    const file = filteredFiles[index];
+                    if (!file) return null;
+
+                    return (
+                      <div style={{ ...style, padding: '0.5rem' }}>
+                        <Link
+                          to={`/library/file/${file.id}`}
+                          style={{
+                            display: 'block',
+                            textDecoration: 'none',
+                            color: 'inherit',
+                            borderRadius: '12px',
+                            overflow: 'hidden',
+                            transition: 'all 0.3s ease',
+                          }}
+                        >
+                          {getFilePreview(file)}
+                        </Link>
+                      </div>
+                    );
+                  }}
+                </Grid>
+              );
+            }}
+          </AutoSizer>
         </div>
       ) : (
         <div style={{ textAlign: 'center', padding: '3rem', color: '#6c757d' }}>
           <p>No files available{currentType !== 'all' ? ` for ${currentType} type` : ''}.</p>
         </div>
       )}
-    </div>
   );
 };
 
