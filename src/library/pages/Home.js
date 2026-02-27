@@ -146,6 +146,25 @@ const Home = () => {
     if (fileType.includes('video')) {
       return (
         <div style={{ position: 'relative', width: '100%', aspectRatio: '1', borderRadius: '8px', overflow: 'hidden', background: '#333' }}>
+          {file.is_verified && (
+            <div
+              title="Verified"
+              style={{
+                position: 'absolute',
+                top: '8px',
+                left: '8px',
+                background: 'rgba(34,197,94,0.15)',
+                borderRadius: '50%',
+                padding: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 2
+              }}
+            >
+              <CheckCircle size={16} color="#22c55e" strokeWidth={2.5} />
+            </div>
+          )}
           <video 
             src={file.file_url} 
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -208,6 +227,25 @@ const Home = () => {
         alignItems: 'center',
         justifyContent: 'center'
       }}>
+       {file.is_verified && (
+            <div
+              title="Verified"
+              style={{
+                position: 'absolute',
+                top: '8px',
+                left: '8px',
+                background: 'rgba(34,197,94,0.15)',
+                borderRadius: '50%',
+                padding: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 2
+              }}
+            >
+              <CheckCircle size={16} color="#22c55e" strokeWidth={2.5} />
+            </div>
+          )}
         <img 
           src={iconUrl} 
           alt={file.title}
