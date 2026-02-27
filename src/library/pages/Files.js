@@ -156,47 +156,68 @@ const Files = () => {
         </div>
       </div>
       
-      <div style={{ height: '80vh' }}>
-        {filteredFiles.length > 0 ? (
-          <AutoSizer>
-            {({ height, width }) => {
-              const columnWidth = width <= 480 ? width / 2 : 220;
-              const columnCount = Math.floor(width / columnWidth);
-              const rowCount = Math.ceil(filteredFiles.length / columnCount);
+      <div style={{ height: '80vh', width: '100%' }}>
+      {filteredFiles.length > 0 ? (
+        <AutoSizer>
+          {({ height, width }) => {
+            // Determine responsive column width
+            const isMobile = width <= 480;
+            const columnWidth = isMobile ? width / 2 - 8 : 220;
+            const rowHeight = isMobile ? 220 : 250;
+            const columnCount = Math.max(1, Math.floor(width / columnWidth));
+            const rowCount = Math.ceil(filteredFiles.length / columnCount);
 
-              return (
-                <Grid
-                  columnCount={columnCount}
-                  columnWidth={columnWidth}
-                  height={height}
-                  rowCount={rowCount}
-                  rowHeight={250}
-                  width={width}
-                  style={{ overflowX: 'hidden' }}
-                >
-                  {({ columnIndex, rowIndex, style }) => {
-                    const index = rowIndex * columnCount + columnIndex;
-                    const file = filteredFiles[index];
-                    if (!file) return null;
+            return (
+              <Grid
+                columnCount={columnCount}
+                columnWidth={columnWidth}
+                height={height}
+                rowCount={rowCount}
+                rowHeight={rowHeight}
+                width={width}
+                style={{ overflowX: 'hidden' }}
+              >
+                {({ columnIndex, rowIndex, style }) => {
+                  const index = rowIndex * columnCount + columnIndex;
+                  const file = filteredFiles[index];
+                  if (!file) return null;
 
-                    return (
-                      <div style={{ ...style, padding: '0.5rem' }}>
-                        <Link to={`/library/file/${file.id}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit', borderRadius: '12px', overflow: 'hidden' }}>
-                          {getFilePreview(file)}
-                        </Link>
-                      </div>
-                    );
-                  }}
-                </Grid>
-              );
-            }}
-          </AutoSizer>
-        ) : (
-          <div style={{ textAlign: 'center', padding: '3rem', color: '#6c757d' }}>
-            <p>No files available{currentType !== 'all' ? ` for ${currentType} type` : ''}.</p>
-          </div>
-        )}
-      </div>
+                  return (
+                    <div
+                      style={{
+                        ...style,
+                        padding: '0.5rem',
+                        boxSizing: 'border-box',
+                      }}
+                    >
+                      <Link
+                        to={`/library/file/${file.id}`}
+                        style={{
+                          display: 'block',
+                          textDecoration: 'none',
+                          color: 'inherit',
+                          borderRadius: '12px',
+                          overflow: 'hidden',
+                          transition: 'all 0.3s ease',
+                          background: '#fff',
+                          boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+                        }}
+                      >
+                        {getFilePreview(file)}
+                      </Link>
+                    </div>
+                  );
+                }}
+              </Grid>
+            );
+          }}
+        </AutoSizer>
+      ) : (
+        <div style={{ textAlign: 'center', padding: '3rem', color: '#6c757d' }}>
+          <p>No files available{currentType !== 'all' ? ` for ${currentType} type` : ''}.</p>
+        </div>
+      )}
+    </div>
     </div>
   );
 };
