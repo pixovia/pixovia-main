@@ -127,10 +127,20 @@
 
       const icons = {
         "Foundation": "fa-rocket text-purple-600 bg-purple-100",
-        "Class 11": "fa-flask text-blue-600 bg-blue-100",
-        "Class 12": "fa-graduation-cap text-green-600 bg-green-100",
         "Repeater": "fa-repeat text-rose-600 bg-rose-100",
-        "Crash": "fa-bolt text-orange-600 bg-orange-100"
+        "Crash": "fa-bolt text-orange-600 bg-orange-100",
+        "Class 12": "fa-graduation-cap text-green-600 bg-green-100",
+        "Class 11": "fa-flask text-blue-600 bg-blue-100",
+        "Class 10": "fa-lightbulb text-yellow-600 bg-yellow-100",
+        "Class 9": "fa-book-open text-indigo-600 bg-indigo-100",
+        "Class 8": "fa-compass text-sky-600 bg-sky-100",
+        "Class 7": "fa-pen-nib text-teal-600 bg-teal-100",
+        "Class 6": "fa-seedling text-emerald-600 bg-emerald-100",
+        "Class 5": "fa-puzzle-piece text-lime-600 bg-lime-100",
+        "Class 4": "fa-pencil text-cyan-600 bg-cyan-100",
+        "One-on-One Maths Program": "fa-chalkboard-user text-fuchsia-600 bg-fuchsia-100",
+        "Franchise Programs": "fa-handshake text-amber-600 bg-amber-100",
+        "Former Programs": "fa-archive text-gray-600 bg-gray-100"
       };
       const iconMatch = Object.keys(icons).find(k => category.title.includes(k));
       const iconClass = icons[iconMatch] || "fa-book text-gray-600 bg-gray-100";
