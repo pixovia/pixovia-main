@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { libraryService } from '../lib/supabase';
-import { ArrowLeft, Download, ExternalLink, FolderOpen, X, Play, Maximize, Share } from 'lucide-react';
+import { ArrowLeft, Download, ExternalLink, FolderOpen, X, Play, Maximize, Share, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const FileDetails = () => {
@@ -228,6 +228,11 @@ const FileDetails = () => {
           </div>
           <div style={{ flex: 1, textAlign: window.innerWidth <= 768 ? 'center' : 'left' }}>
             <h1 style={{ color: '#333', margin: 0, fontSize: window.innerWidth <= 768 ? '1.5rem' : '2rem' }}>{file.title}</h1>
+            {file.is_verified && ( <div title="Verified" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.3rem', background: 'rgba(34,197,94,0.15)', color: '#16a34a', padding: '0.2rem 0.6rem', borderRadius: '6px', fontSize: '0.85rem', fontWeight: 600, width: 'fit-content',     }}  >
+               <CheckCircle size={16} color="#22c55e" strokeWidth={2.5} />
+                   Verified
+               </div>
+             )}
             <p style={{ color: '#6c757d', fontSize: '1rem', margin: '0.5rem 0' }}>
               {file.file_type} • {file.file_size} • by {file.uploader}
             </p>
