@@ -79,6 +79,11 @@ const Files = () => {
     if (fileType.includes('video')) {
       return (
         <div style={{ position: 'relative', width: '100%', aspectRatio: '1', borderRadius: '8px', overflow: 'hidden', background: '#333' }}>
+          {file.is_verified && (
+            <div title="Verified" style={{ position: 'absolute', top: '8px', left: '8px', background: 'rgba(34, 197, 94, 0.15)', borderRadius: '50%', padding: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
+              <CheckCircle size={16} color="#22c55e" strokeWidth={2.5} />
+            </div>
+          )}
           <video src={file.file_url} style={{ width: '100%', height: '100%', objectFit: 'cover' }} muted />
           <div style={{ position: 'absolute', top: '8px', right: '8px', background: 'rgba(0,0,0,0.7)', color: '#fff', padding: '2px 6px', borderRadius: '4px', fontSize: '0.7rem' }}>VID</div>
           <div style={{ position: 'absolute', bottom: '0', left: '0', right: '0', background: 'linear-gradient(transparent, rgba(0,0,0,0.8))', color: '#fff', padding: '1rem 0.8rem 0.8rem 0.8rem', fontSize: '0.9rem', fontWeight: '500', lineHeight: '1.2' }}>
@@ -97,6 +102,11 @@ const Files = () => {
     
     return (
       <div style={{ position: 'relative', width: '100%', aspectRatio: '1', borderRadius: '8px', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {file.is_verified && (
+            <div title="Verified" style={{ position: 'absolute', top: '8px', left: '8px', background: 'rgba(34, 197, 94, 0.15)', borderRadius: '50%', padding: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1 }}>
+              <CheckCircle size={16} color="#22c55e" strokeWidth={2.5} />
+            </div>
+        )}
         <img src={iconUrl} alt={file.title} style={{ width: '60%', height: '60%', objectFit: 'contain' }} />
         <div style={{ position: 'absolute', bottom: '0', left: '0', right: '0', background: 'rgba(0,0,0,0.8)', color: '#fff', padding: '0.8rem', fontSize: '0.9rem', fontWeight: '500', lineHeight: '1.2', textAlign: 'center' }}>
           {file.title.length > 25 ? `${file.title.substring(0, 25)}...` : file.title}
