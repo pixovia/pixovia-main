@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { libraryService } from '../lib/supabase';
 import { useAuth } from '../lib/auth';
-import { FolderOpen, File, Download, Upload, User, Search } from 'lucide-react';
+import { FolderOpen, File, Download, Upload, User, Search, CheckCircle } from 'lucide-react';
 import UploadModal from '../components/UploadModal';
 import AuthModal from '../components/AuthModal';
 import toast from 'react-hot-toast';
