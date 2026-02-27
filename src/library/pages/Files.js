@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { libraryService } from '../lib/supabase';
-import { Download, Filter } from 'lucide-react';
+import { Download, Filter, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { FixedSizeGrid as Grid } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -88,6 +88,24 @@ const Files = () => {
     if (fileType.includes('image')) {
       return (
         <div style={{ position: 'relative', width: '100%', aspectRatio: '1', borderRadius: '8px', overflow: 'hidden' }}>
+          {file.is_verified && (
+            <div
+              title="Verified"
+              style={{
+                position: 'absolute',
+                top: '8px',
+                left: '8px',
+                background: 'rgba(34, 197, 94, 0.15)',
+                borderRadius: '50%',
+                padding: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <CheckCircle size={16} color="#22c55e" strokeWidth={2.5} />
+            </div>
+          )}
           <img 
             src={file.file_url} 
             alt={file.title}
