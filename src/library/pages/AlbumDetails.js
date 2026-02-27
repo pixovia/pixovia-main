@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { libraryService } from '../lib/supabase';
-import { ArrowLeft, Download, Share } from 'lucide-react';
+import { ArrowLeft, Download, Share, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const AlbumDetails = () => {
@@ -35,13 +35,21 @@ const AlbumDetails = () => {
 
   const fetchAlbumData = async () => {
     try {
-      const [albumData, filesData] = await Promise.all([
-        libraryService.getAlbum(id),
-        libraryService.getFilesByAlbum(id)
-      ]);
+      setLoading(true);
+
+      // Start both fetches in parallel
+      const albumPromise = libraryService.getAlbum(id);
+      const filesPromise = libraryService.getFilesByAlbum(id);
+
+      // Wait for album first (show immediately)
+      const albumData = await albumPromise;
       setAlbum(albumData);
-      setFiles(filesData);
       setLoading(false);
+
+      // Then load files (don’t block the UI)
+      filesPromise
+        .then(filesData => setFiles(filesData))
+        .catch(err => console.error("File load failed", err));
     } catch (error) {
       console.error('Error fetching album:', error);
       toast.error('Failed to load album');
@@ -55,6 +63,25 @@ const AlbumDetails = () => {
     if (fileType.includes('image')) {
       return (
         <div style={{ position: 'relative', width: '100%', aspectRatio: '1', borderRadius: '8px', overflow: 'hidden' }}>
+          {file.is_verified && (
+            <div
+              title="Verified"
+              style={{
+                position: 'absolute',
+                top: '8px',
+                left: '8px',
+                background: 'rgba(34,197,94,0.15)',
+                borderRadius: '50%',
+                padding: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 2
+              }}
+            >
+              <CheckCircle size={16} color="#22c55e" strokeWidth={2.5} />
+            </div>
+          )}
           <img 
             src={file.file_url} 
             alt={file.title}
