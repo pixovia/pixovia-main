@@ -287,7 +287,19 @@ const FileDetails = () => {
           
           <button
             onClick={() => {
-              navigator.clipboard.writeText(file.file_url);
+              let url = file.file_url;
+          
+              // Check if the URL matches a GitHub release asset pattern
+              const ghReleasePattern = /^https:\/\/github\.com\/([^/]+)\/([^/]+)\/releases\/download\/([^/]+)\/(.+)$/;
+
+              const match = url.match(ghReleasePattern);
+              if (match) {
+                const [, owner, repo, tag, filePath] = match;
+                url = `https://libfiles.pixovia.workers.dev/${owner}/${repo}/${tag}/${filePath}`;
+              }
+
+              // Copy final URL
+              navigator.clipboard.writeText(url);
               toast.success('Direct URL copied to clipboard!');
             }}
             style={{
