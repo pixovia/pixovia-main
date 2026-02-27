@@ -25,15 +25,22 @@ const Home = () => {
 
   const fetchData = async () => {
     try {
-      const [filesData, albumsData] = await Promise.all([
-        libraryService.getFiles(),
-        libraryService.getAlbums()
-      ]);
-      
+      // Start fetching both, but don't block rendering
+      const filesPromise = libraryService.getFiles();
+      const albumsPromise = libraryService.getAlbums();
+
+      // Wait for files first — show them as soon as ready
+      const filesData = await filesPromise;
       setRecentFiles(filesData.slice(0, 8));
       setAllFiles(filesData);
-      setAlbums(albumsData.slice(0, 6));
-      setLoading(false);
+      setLoading(false); // allow UI render right away
+
+      // Then albums (background)
+      albumsPromise
+        .then((albumsData) => {
+          setAlbums(albumsData.slice(0, 6));
+        })
+        .catch((err) => console.error("Album load failed", err));
     } catch (error) {
       console.error('Error fetching data:', error);
       toast.error('Failed to load data');
@@ -78,6 +85,25 @@ const Home = () => {
     if (fileType.includes('image')) {
       return (
         <div style={{ position: 'relative', width: '100%', aspectRatio: '1', borderRadius: '8px', overflow: 'hidden' }}>
+          {file.is_verified && (
+            <div
+              title="Verified"
+              style={{
+                position: 'absolute',
+                top: '8px',
+                left: '8px',
+                background: 'rgba(34,197,94,0.15)',
+                borderRadius: '50%',
+                padding: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 2
+              }}
+            >
+              <CheckCircle size={16} color="#22c55e" strokeWidth={2.5} />
+            </div>
+          )}
           <img 
             src={file.file_url} 
             alt={file.title}
