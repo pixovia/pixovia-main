@@ -99,6 +99,7 @@ const Files = () => {
     else if (fileType.includes('audio')) iconUrl = 'https://cdn-icons-png.flaticon.com/512/1977/1977285.png';
     else if (fileType.includes('apk')) iconUrl = 'https://cdn-icons-png.flaticon.com/512/28/28869.png';
     else if (fileType.includes('exe')) iconUrl = 'https://cdn-icons-png.flaticon.com/512/29/29614.png';
+    else if (fileType.includes('pdf')) iconUrl = 'https://www.citypng.com/public/uploads/preview/hd-pdf-file-document-black-icon-png-701751695035299dspnijtzoi.png';
     
     return (
       <div style={{ position: 'relative', width: '100%', aspectRatio: '1', borderRadius: '8px', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
