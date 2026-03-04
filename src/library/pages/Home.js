@@ -212,6 +212,8 @@ const Home = () => {
       iconUrl = 'https://cdn-icons-png.flaticon.com/512/28/28869.png';
     } else if (fileType.includes('exe')) {
       iconUrl = 'https://cdn-icons-png.flaticon.com/512/29/29614.png';
+    } else if (fileType.includes('pdf')) {
+      iconUrl = 'https://www.citypng.com/public/uploads/preview/hd-pdf-file-document-black-icon-png-701751695035299dspnijtzoi.png';
     } else {
       iconUrl = 'https://cdn-icons-png.flaticon.com/512/702/702820.png';
     }
