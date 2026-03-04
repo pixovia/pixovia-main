@@ -76,15 +76,27 @@ const FileDetails = () => {
   };
 
   const getFileIcon = (fileType) => {
-    if (!fileType) return '📄';
+    if (!fileType) return 'https://cdn-icons-png.flaticon.com/512/702/702820.png';
     const type = fileType.toLowerCase();
-    if (type.includes('image')) return '🖼️';
-    if (type.includes('video')) return '🎥';
-    if (type.includes('audio')) return '🎵';
-    if (type.includes('zip') || type.includes('rar')) return '📦';
-    if (type.includes('exe')) return '⚙️';
-    if (type.includes('apk')) return '📱';
-    return '📄';
+
+    let iconUrl = '';
+    if (type.includes('rar')) {
+      iconUrl = 'https://cdn-icons-png.flaticon.com/512/28/28792.png';
+    } else if (type.includes('zip')) {
+      iconUrl = 'https://www.clipartmax.com/png/small/247-2477228_zip-file-format-free-icon-zip-file-icon-png.png';
+    } else if (type.includes('audio')) {
+      iconUrl = 'https://cdn-icons-png.flaticon.com/512/1977/1977285.png';
+    } else if (type.includes('apk')) {
+      iconUrl = 'https://cdn-icons-png.flaticon.com/512/28/28869.png';
+    } else if (type.includes('exe')) {
+      iconUrl = 'https://cdn-icons-png.flaticon.com/512/29/29614.png';
+    } else if (type.includes('pdf')) {
+      iconUrl = 'https://www.citypng.com/public/uploads/preview/hd-pdf-file-document-black-icon-png-701751695035299dspnijtzoi.png';
+    } else {
+      iconUrl = 'https://cdn-icons-png.flaticon.com/512/702/702820.png';
+    }
+
+    return iconUrl;
   };
 
   if (loading) {
@@ -223,7 +235,7 @@ const FileDetails = () => {
                 </div>
               </div>
             ) : (
-              <span style={{ fontSize: window.innerWidth <= 768 ? '4rem' : '8rem' }}>{getFileIcon(file.file_type)}</span>
+              <img src={getFileIcon(file.file_type)} alt="File icon" style={{ width: window.innerWidth <= 768 ? '100px' : '150px', height: 'auto', borderRadius: '10px', objectFit: 'contain' }} onError={(e) => { e.target.src = 'https://cdn-icons-png.flaticon.com/512/702/702820.png'; }} />
             )}
           </div>
           <div style={{ flex: 1, textAlign: window.innerWidth <= 768 ? 'center' : 'left' }}>
