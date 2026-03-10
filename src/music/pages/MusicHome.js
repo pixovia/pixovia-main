@@ -3,6 +3,22 @@ import { Link, useNavigate } from "react-router-dom";
 
 const API = "https://jiosaavn-api5.vercel.app/api";
 
+const getImage = (images) => {
+  if (!images) return null;
+
+  if (Array.isArray(images)) {
+    return images[images.length - 1]?.link;
+  }
+
+  if (images?.quality) {
+    return images.quality === "500x500"
+      ? images.link
+      : images.link;
+  }
+
+  return null;
+};
+
 async function getSongs(query) {
   const res = await fetch(`${API}/search/songs?query=${encodeURIComponent(query)}&limit=12`);
   const data = await res.json();
@@ -195,7 +211,7 @@ function MusicHome() {
               key={track.id}
               title={track.name}
               subtitle={track.primaryArtists}
-              image={track.image?.[2]?.link}
+              image={getImage(track.image)}
               link={`/music/player/${track.id}`}
             />
           ))}
@@ -208,7 +224,7 @@ function MusicHome() {
               key={album.id}
               title={album.name}
               subtitle={album.primaryArtists}
-              image={album.image?.[2]?.link}
+              image={getImage(album.image)}
               link={`/music/album/${album.id}`}
             />
           ))}
@@ -221,7 +237,7 @@ function MusicHome() {
               key={artist.id}
               title={artist.name}
               subtitle="Artist"
-              image={artist.image?.[2]?.link}
+              image={getImage(artist.image)}
               link={`/music/artist/${artist.id}`}
               circle
             />
