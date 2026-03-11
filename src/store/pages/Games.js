@@ -9,9 +9,9 @@ const Games = () => {
   const [loading, setLoading] = useState(true);
 
   useSEO({
-    title: 'Free Games - Pixovia Store',
-    description: 'Download the latest free games on Pixovia Store. Browse free gaming titles for Windows and other platforms.',
-    keywords: 'free games, free gaming, download free games, free windows games, free game store',
+    title: 'All Free Games - Pixovia Store',
+    description: 'Download the latest games on Pixovia Store freely. Browse free gaming titles for Windows and other platforms.',
+    keywords: 'free games, topgames, fitgirlrepack, free gaming, download free games, free windows games, free game store',
     url: 'https://pixovia.pages.dev/store/games',
     type: 'website'
   });
