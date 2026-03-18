@@ -11,6 +11,7 @@ function MusicHome() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isClient, setIsClient] = useState(false);
   const navigate = useNavigate();
+  const isMobile = isClient && window.innerWidth < 768;
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -263,26 +264,28 @@ function MusicHome() {
               </span>
             </div>
           </div>
-          <div style={{ flex: 1, maxWidth: isClient && window.innerWidth >= 768 ? '520px' : '260px' }}>
-            <input
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') handleSearch(searchQuery);
-              }}
-              placeholder="Search songs, artists, albums..."
-              style={{
-                width: '100%',
-                background: 'rgba(255, 255, 255, 0.1)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                borderRadius: '0.75rem',
-                padding: window.innerWidth >= 768 ? '0.6rem 0.9rem' : '0.5rem 0.75rem',
-                color: '#ffffff',
-                fontSize: '0.9rem',
-                outline: 'none',
-              }}
-            />
-          </div>
+          {!isMobile && (
+            <div style={{ flex: 1, maxWidth: '520px' }}>
+              <input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleSearch(searchQuery);
+                }}
+                placeholder="Search songs, artists, albums..."
+                style={{
+                  width: '100%',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '0.75rem',
+                  padding: '0.6rem 0.9rem',
+                  color: '#ffffff',
+                  fontSize: '0.9rem',
+                  outline: 'none',
+                }}
+              />
+            </div>
+          )}
           <Link 
             to="/" 
             style={{
@@ -300,6 +303,29 @@ function MusicHome() {
       </header>
 
 
+      {isMobile && (
+       <div style={{ padding: '1rem' }}>
+         <input
+           value={searchQuery}
+           onChange={(e) => setSearchQuery(e.target.value)}
+           onKeyDown={(e) => {
+             if (e.key === 'Enter') handleSearch(searchQuery);
+           }}
+           placeholder="Search songs, artists, albums..."
+           style={{
+             width: '100%',
+             background: 'rgba(255, 255, 255, 0.1)',
+             border: '1px solid rgba(255, 255, 255, 0.2)',
+             borderRadius: '0.75rem',
+             padding: '0.6rem 0.9rem',
+             color: '#ffffff',
+             fontSize: '0.9rem',
+             outline: 'none',
+           }}
+         />
+       </div>
+     )}
+
       {/* Hero Section */}
       <section style={{ padding: window.innerWidth >= 768 ? '2rem 2rem' : '1rem' }}>
           <div style={{
@@ -309,6 +335,7 @@ function MusicHome() {
             gap: '2rem',
             marginBottom: '3rem'
           }}>
+            {isClient && window.innerWidth >= 768 && (
             <div style={{
               width: window.innerWidth >= 768 ? '16rem' : '12rem',
               height: window.innerWidth >= 768 ? '16rem' : '12rem',
@@ -321,6 +348,7 @@ function MusicHome() {
             }}>
               <svg width="128" height="128" fill="rgba(255,255,255,0.2)" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
             </div>
+            )}
             <div style={{ textAlign: window.innerWidth >= 768 ? 'left' : 'center' }}>
               <p style={{
                 fontSize: '0.75rem',
@@ -381,7 +409,7 @@ function MusicHome() {
                 display: 'grid',
                 gridTemplateColumns: window.innerWidth >= 768 ? 'repeat(auto-fill, 190px)' : 'repeat(2, 165px)',
                 justifyContent: window.innerWidth >= 768 ? 'space-between' : 'center',
-                gap: window.innerWidth >= 768 ? '1.25rem' : '1rem'
+                gap: window.innerWidth >= 768 ? '0.75rem' : '0.5rem'
               }}>
                 {tracks.slice(0, window.innerWidth >= 768 ? 8 : 4).map((track) => (
                   <Link key={track.id} to={`/music/player/${track.id}`} style={{ textDecoration: 'none' }}>
@@ -392,7 +420,6 @@ function MusicHome() {
                       cursor: 'pointer',
                       transition: 'background 0.3s ease',
                       width: window.innerWidth >= 768 ? '190px' : '165px',
-                      minHeight: '265px',
                       boxSizing: 'border-box'
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.background = '#282828'}
@@ -475,7 +502,7 @@ function MusicHome() {
                 display: 'grid',
                 gridTemplateColumns: window.innerWidth >= 768 ? 'repeat(auto-fill, 190px)' : 'repeat(2, 165px)',
                 justifyContent: window.innerWidth >= 768 ? 'space-between' : 'center',
-                gap: window.innerWidth >= 768 ? '1.25rem' : '1rem'
+                gap: window.innerWidth >= 768 ? '0.75rem' : '0.5rem'
               }}>
                 {albums.slice(0, window.innerWidth >= 768 ? 8 : 4).map((album) => (
                   <Link key={album.id} to={`/music/album/${album.id}`} style={{ textDecoration: 'none' }}>
@@ -486,7 +513,6 @@ function MusicHome() {
                       cursor: 'pointer',
                       transition: 'background 0.3s ease',
                       width: window.innerWidth >= 768 ? '190px' : '165px',
-                      minHeight: '265px',
                       boxSizing: 'border-box'
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.background = '#282828'}
@@ -570,7 +596,7 @@ function MusicHome() {
                 display: 'grid',
                 gridTemplateColumns: window.innerWidth >= 768 ? 'repeat(auto-fill, 190px)' : 'repeat(2, 165px)',
                 justifyContent: window.innerWidth >= 768 ? 'space-between' : 'center',
-                gap: window.innerWidth >= 768 ? '1.25rem' : '1rem'
+                gap: window.innerWidth >= 768 ? '0.75rem' : '0.5rem'
               }}>
                 {artists
                   .slice(0, window.innerWidth >= 768 ? 8 : 4)
@@ -583,7 +609,6 @@ function MusicHome() {
                       cursor: 'pointer',
                       transition: 'background 0.3s ease',
                       width: window.innerWidth >= 768 ? '190px' : '165px',
-                      minHeight: '265px',
                       boxSizing: 'border-box'
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.background = '#282828'}
