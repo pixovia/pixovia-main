@@ -257,7 +257,6 @@ function AlbumsPage() {
                   cursor: 'pointer',
                   transition: 'background 0.3s ease',
                   width: isClient && window.innerWidth >= 768 ? '190px' : '165px',
-                  minHeight: '265px',
                   boxSizing: 'border-box'
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.background = '#282828'}
