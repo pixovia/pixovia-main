@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import MobileBottomNav from '../components/MobileBottomNav';
 import { saavnApi } from '../lib/saavnApi';
@@ -10,17 +10,47 @@ function PlayerPage() {
   const [isClient, setIsClient] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [selectedUrl, setSelectedUrl] = useState(null);
+  const [bgStyle, setBgStyle] = useState('#121212');
+  const [isMobile, setIsMobile] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     setIsClient(true);
+  
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+
+
+  
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  
+  useEffect(() => {
     loadTrack();
   }, [id]);
+
+  useEffect(() => {
+    if (!audioRef.current || !selectedUrl) return;
+  
+    const wasPlaying = !audioRef.current.paused;
+  
+    audioRef.current.src = selectedUrl;
+  
+    if (wasPlaying) {
+      audioRef.current.play().catch(() => {});
+    }
+  }, [selectedUrl]);
 
   const loadTrack = async () => {
     try {
       setLoading(true);
       const data = await saavnApi.getSong(id);
       setTrack(data);
+      if (data?.image) {
+        setBgStyle('linear-gradient(to bottom, rgba(99,102,241,0.6), #121212)');
+      }
       setSelectedUrl(getDefaultStreamUrl(data) || null);
       try {
         if (data?.id) localStorage.setItem('pixovia_music_last_song_id', String(data.id));
@@ -86,12 +116,12 @@ function PlayerPage() {
       margin: 0,
       minHeight: '100vh',
       display: 'flex',
-      flexDirection: isClient && window.innerWidth >= 768 ? 'row' : 'column',
-      paddingBottom: isClient && window.innerWidth < 768 ? '76px' : 0
+      flexDirection: !isMobile ? 'row' : 'column',
+      paddingBottom: isMobile ? '76px' : 0
     }}>
       
       {/* Sidebar - Desktop Only */}
-      {isClient && window.innerWidth >= 768 && (
+      {!isMobile && (
         <aside style={{
           width: '280px',
           backgroundColor: '#000000',
@@ -101,7 +131,7 @@ function PlayerPage() {
           gap: '0.5rem'
         }}>
           <div style={{
-            background: '#121212',
+            background: 'rgba(255,255,255,0.05)',
             borderRadius: '0.5rem',
             padding: '1.25rem',
             display: 'flex',
@@ -145,9 +175,9 @@ function PlayerPage() {
       {/* Main Content */}
       <main style={{
         flexGrow: 1,
-        background: isClient && window.innerWidth >= 768 ? 'linear-gradient(to bottom, #1e1e1e 0%, #121212 100%)' : '#000000',
-        borderRadius: isClient && window.innerWidth >= 768 ? '0.5rem' : '0',
-        margin: isClient && window.innerWidth >= 768 ? '0.5rem 0.5rem 0.5rem 0' : '0',
+        background: !isMobile ? bgStyle : '#000000',
+        borderRadius: !isMobile ? '0.5rem' : '0',
+        margin: !isMobile ? '0.5rem 0.5rem 0.5rem 0' : '0',
         overflowY: 'auto',
         display: 'flex',
         flexDirection: 'column'
@@ -158,7 +188,7 @@ function PlayerPage() {
           position: 'sticky',
           top: 0,
           zIndex: 10,
-          padding: isClient && window.innerWidth >= 768 ? '1rem' : '0.75rem',
+          padding: !isMobile ? '1rem' : '0.75rem',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -171,18 +201,18 @@ function PlayerPage() {
               alt="Pixovia Logo"
               style={{ width: '1.5rem', height: '1.5rem', borderRadius: '0.375rem' }}
             />
-            <h1 style={{ fontSize: isClient && window.innerWidth >= 768 ? '1.5rem' : '1.25rem', fontWeight: 'bold', margin: 0 }}>Now Playing</h1>
+            <h1 style={{ fontSize: !isMobile ? '1.5rem' : '1.25rem', fontWeight: 'bold', margin: 0 }}>Now Playing</h1>
           </div>
           <Link to="/music" style={{ color: '#6366f1', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.875rem' }}>← Back</Link>
         </header>
 
         {/* Content */}
-        <section style={{ padding: isClient && window.innerWidth >= 768 ? '2rem' : '1rem', flexGrow: 1 }}>
+        <section style={{ padding: !isMobile ? '2rem' : '1rem', flexGrow: 1 }}>
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: isClient && window.innerWidth >= 768 ? '1fr 1fr' : '1fr',
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            alignItems: isMobile ? 'center' : 'flex-start',
             gap: '2rem',
-            alignItems: 'center',
             maxWidth: '1200px',
             margin: '0 auto'
           }}>
@@ -190,7 +220,7 @@ function PlayerPage() {
             <div style={{ textAlign: 'center' }}>
               <div style={{
                 width: '100%',
-                maxWidth: isClient && window.innerWidth >= 768 ? '400px' : '300px',
+                maxWidth: !isMobile ? '400px' : '300px',
                 aspectRatio: '1',
                 borderRadius: '0.5rem',
                 overflow: 'hidden',
@@ -217,9 +247,9 @@ function PlayerPage() {
             </div>
 
             {/* Track Info & Controls */}
-            <div style={{ textAlign: isClient && window.innerWidth >= 768 ? 'left' : 'center' }}>
+            <div style={{ textAlign: !isMobile ? 'left' : 'center' }}>
               <h2 style={{ 
-                fontSize: isClient && window.innerWidth >= 768 ? '2.5rem' : '2rem', 
+                fontSize: !isMobile ? '2.5rem' : '2rem', 
                 marginBottom: '1rem',
                 fontWeight: 'bold',
                 lineHeight: 1.2
@@ -227,38 +257,144 @@ function PlayerPage() {
                 {track.title || 'Untitled'}
               </h2>
 
-              <p style={{ 
-                fontSize: '1.25rem',
-                color: '#9ca3af',
-                marginBottom: '2rem'
-              }}>
-                {track.artists && Array.isArray(track.artists) ? 
-                  track.artists.map(a => a.name).join(', ') : 'Unknown Artist'
-                }
-              </p>
+              
+              {/* Artists */}
+              <div style={{
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.4rem',
+  marginBottom: '1rem'
+}}>
+  {track.artists?.slice(0, 5).map((artist, i) => (
+    <Link
+      key={i}
+      to={`/music/artist/${artist.id}`} // 👈 IMPORTANT
+      style={{ display: 'inline-block' }}
+    >
+      <img
+        src={artist.image}
+        alt={artist.name}
+        title={artist.name}
+        style={{
+          width: '40px',
+          height: '40px',
+          minWidth: '40px',        // ✅ prevents shrinking
+          minHeight: '40px',       // ✅ prevents shrinking
+          borderRadius: '50%',
+          objectFit: 'cover',
+          border: '2px solid #121212',
+          marginLeft: i !== 0 ? '-10px' : '0',
+          cursor: 'pointer',
+          flexShrink: 0            // ✅ MOST IMPORTANT FIX
+        }}
+      />
+    </Link>
+  ))}
+</div>
+
+{/* Album */}
+{track.album && (
+  <Link
+    to={`/music/album/${track.album.id}`} // 👈 IMPORTANT
+    style={{ textDecoration: 'none' }}
+  >
+  <div style={{
+    marginBottom: '1.2rem',
+    color: '#9ca3af',
+    fontSize: '0.9rem'
+  }}>
+    From album <span style={{ color: '#fff', fontWeight: '600' }}>
+      {track.album.name}
+    </span>
+  </div>
+  </Link>
+)}
+
+
+
+<button
+  onClick={() => {
+    if (!audioRef.current) return;
+  
+    if (audioRef.current.paused) {
+      audioRef.current.play();
+      setIsPlaying(true);   // ✅ force update instantly
+    } else {
+      audioRef.current.pause();
+      setIsPlaying(false);  // ✅ force update instantly
+    }
+  }}
+  style={{
+    width: '60px',
+    height: '60px',
+    borderRadius: '50%',
+    background: '#22c55e',
+    border: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    margin: '1rem 0'
+  }}
+>
+  {isPlaying ? (
+    // PAUSE ICON
+    <svg width="24" height="24" fill="#000">
+      <rect x="6" y="4" width="4" height="16" />
+      <rect x="14" y="4" width="4" height="16" />
+    </svg>
+  ) : (
+    // PLAY ICON
+    <svg width="24" height="24" fill="#000">
+      <polygon points="5,3 19,12 5,21" />
+    </svg>
+  )}
+</button>
+
+{selectedUrl && (
+  <a
+    href={selectedUrl}
+    download
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{
+      display: 'inline-block',
+      marginTop: '0.5rem',
+      background: '#6366f1',
+      padding: '0.5rem 1rem',
+      borderRadius: '999px',
+      color: '#fff',
+      fontWeight: 'bold',
+      textDecoration: 'none',
+      fontSize: '0.8rem'
+    }}
+  >
+    Download
+  </a>
+)}
 
               {/* Audio Player */}
               {selectedUrl ? (
-                <audio 
-                  controls
-                  preload="metadata"
-                  crossOrigin="anonymous"
-                  style={{
-                    width: '100%',
-                    marginBottom: '2rem',
-                    borderRadius: '0.5rem',
-                    background: '#121212'
-                  }}
-                >
-                  <source src={selectedUrl} type="video/mp4" />
-                  <source src={selectedUrl} type="audio/mp4" />
-                  <source src={selectedUrl} type="audio/aac" />
-                  <source src={selectedUrl} type="audio/mpeg" />
-                  Your browser does not support the audio element.
-                </audio>
+                <div style={{
+                  position: 'fixed',
+  bottom: isMobile ? '76px' : '0',
+  left: 0,
+  width: '100%',
+  background: '#181818',
+  padding: '0.8rem 1rem',
+  borderTop: '1px solid #333',
+  zIndex: 50
+                }}>
+                <audio
+                  ref={audioRef}
+                  src={selectedUrl}
+                  onPlay={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
+                  style={{ display: 'none' }}
+                /></div>
               ) : (
                 <div style={{
-                  background: '#121212',
+                  background: 'rgba(255,255,255,0.05)',
                   borderRadius: '0.5rem',
                   padding: '2rem',
                   textAlign: 'center',
@@ -283,7 +419,10 @@ function PlayerPage() {
                         return (
                           <button
                             key={d.url}
-                            onClick={() => setSelectedUrl(d.url)}
+                            onClick={() => {
+                              setSelectedUrl(d.url);
+                              setIsPlaying(true); // auto play new quality
+                            }}
                             style={{
                               border: '1px solid rgba(255,255,255,0.14)',
                               background: active ? 'rgba(99,102,241,0.22)' : 'rgba(255,255,255,0.06)',
@@ -303,61 +442,14 @@ function PlayerPage() {
                 </div>
               )}
 
-              {/* Track Details */}
-              <div style={{
-                background: '#121212',
-                borderRadius: '0.5rem',
-                padding: '1.5rem'
-              }}>
-                <h3 style={{ color: '#ffffff', marginBottom: '1rem', fontSize: '1.25rem', fontWeight: 'bold' }}>Track Details</h3>
-                <div style={{ display: 'grid', gap: '0.75rem' }}>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                    <strong style={{ color: '#6366f1', minWidth: '80px' }}>Title:</strong> 
-                    <span style={{ color: '#ffffff' }}>{track.title || 'Unknown'}</span>
-                  </div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                    <strong style={{ color: '#6366f1', minWidth: '80px' }}>Artist:</strong> 
-                    <span>
-                      {track.artists && Array.isArray(track.artists) ? (
-                        track.artists.map((artist, index) => (
-                          <span key={artist.id || artist.name || index}>
-                            <Link 
-                              to={`/music/artist/${encodeURIComponent(artist.id || artist.name)}`}
-                              style={{ 
-                                color: '#ffffff', 
-                                textDecoration: 'underline'
-                              }}
-                            >
-                              {artist.name}
-                            </Link>
-                            {index < track.artists.length - 1 && ', '}
-                          </span>
-                        ))
-                      ) : (
-                        <span style={{ color: '#9ca3af' }}>Unknown</span>
-                      )}
-                    </span>
-                  </div>
-                  {track.album?.id && (
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                      <strong style={{ color: '#6366f1', minWidth: '80px' }}>Album:</strong> 
-                      <Link 
-                        to={`/music/album/${track.album.id}`}
-                        style={{ color: '#ffffff', textDecoration: 'underline' }}
-                      >
-                        {track.album.name || 'Unknown Album'}
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              </div>
+              
 
               {suggestions.length > 0 && (
                 <div style={{ marginTop: '1.25rem' }}>
                   <h3 style={{ fontSize: '1rem', fontWeight: 900, marginBottom: '0.75rem', color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.14em' }}>
                     More like this
                   </h3>
-                  <div style={{ display: 'grid', gridTemplateColumns: isClient && window.innerWidth >= 768 ? 'repeat(2, 1fr)' : '1fr', gap: '0.5rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(220px, 1fr))', gap: '0.75rem', width: '100%'}}>
                     {suggestions.slice(0, 10).map((s) => (
                       <Link key={s.id} to={`/music/player/${s.id}`} style={{ textDecoration: 'none' }}>
                         <div
@@ -367,7 +459,7 @@ function PlayerPage() {
                             gap: '0.75rem',
                             padding: '0.75rem',
                             borderRadius: '0.75rem',
-                            background: '#121212',
+                            background: 'rgba(255,255,255,0.05)',
                             border: '1px solid rgba(255,255,255,0.08)',
                           }}
                           onMouseEnter={(e) => (e.currentTarget.style.background = '#1a1a1a')}
@@ -396,7 +488,7 @@ function PlayerPage() {
           </div>
         </section>
       </main>
-      {isClient && window.innerWidth < 768 && <MobileBottomNav />}
+      {isMobile && <MobileBottomNav />}
     </div>
   );
 }
