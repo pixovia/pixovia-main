@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { musicService } from '../../library/lib/supabase';
+import MobileBottomNav from '../components/MobileBottomNav';
+import { saavnApi } from '../lib/saavnApi';
 
 function SearchResults() {
   const { query } = useParams();
@@ -14,8 +15,8 @@ function SearchResults() {
   const searchMusic = async () => {
     try {
       setLoading(true);
-      const data = await musicService.searchMusic(decodeURIComponent(query));
-      setResults(data);
+      const songs = await saavnApi.searchSongs(decodeURIComponent(query), { limit: 30 });
+      setResults(songs);
     } catch (err) {
       console.error(err);
     } finally {
@@ -46,7 +47,8 @@ function SearchResults() {
       padding,
       background: 'linear-gradient(135deg, #121212 0%, #1e1e1e 100%)',
       minHeight: '100vh',
-      color: '#fff'
+      color: '#fff',
+      paddingBottom: window.innerWidth <= 768 ? '76px' : undefined
     }}>
       <Link to="/music" style={{ color: '#1db954', textDecoration: 'none', display: 'inline-block', marginBottom: '2rem' }}>
         ← Back to Music
@@ -71,13 +73,13 @@ function SearchResults() {
                 transition: 'background 0.3s ease',
                 cursor: 'pointer'
               }}
-              onMouseEnter={(e) => e.target.style.background = '#282828'}
-              onMouseLeave={(e) => e.target.style.background = 'transparent'}
+              onMouseEnter={(e) => (e.currentTarget.style.background = '#282828')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
               >
                 <div style={{ width: '50px', height: '50px', borderRadius: '4px', overflow: 'hidden' }}>
-                  {track.thumbnail_file?.file_url ? (
+                  {track.image ? (
                     <img 
-                      src={track.thumbnail_file.file_url}
+                      src={track.image}
                       alt={track.title}
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       referrerPolicy="no-referrer"
@@ -93,13 +95,16 @@ function SearchResults() {
                 </div>
                 <div style={{ flex: 1, marginLeft: '1rem' }}>
                   <h3 style={{ color: '#fff', fontSize: '1rem', marginBottom: '0.25rem' }}>{track.title}</h3>
-                  <p style={{ color: '#b3b3b3', fontSize: '0.9rem' }}>{track.artist}</p>
+                  <p style={{ color: '#b3b3b3', fontSize: '0.9rem' }}>
+                    {track.artists?.length ? track.artists.map((a) => a.name).join(', ') : 'Unknown Artist'}
+                  </p>
                 </div>
               </div>
             </Link>
           ))}
         </div>
       )}
+      {window.innerWidth <= 768 && <MobileBottomNav />}
     </div>
   );
 }

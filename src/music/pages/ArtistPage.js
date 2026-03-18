@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { musicService } from '../../library/lib/supabase';
+import MobileBottomNav from '../components/MobileBottomNav';
+import { saavnApi } from '../lib/saavnApi';
 
 function ArtistPage() {
   const { name } = useParams();
@@ -17,23 +18,26 @@ function ArtistPage() {
   const loadArtistTracks = async () => {
     try {
       setLoading(true);
-      const allTracks = await musicService.getMusic();
-      const artistTracks = allTracks.filter(track => 
-        track.artist && Array.isArray(track.artist) && 
-        track.artist.some(artist => 
-          artist.name && artist.name.toLowerCase().includes(decodeURIComponent(name).toLowerCase())
-        )
-      );
-      setTracks(artistTracks);
-      
-      // Find artist info from the first track that contains this artist
-      if (artistTracks.length > 0) {
-        const foundArtist = artistTracks[0].artist.find(artist => 
-          artist.name && artist.name.toLowerCase().includes(decodeURIComponent(name).toLowerCase())
-        );
-        setArtistInfo(foundArtist);
-        document.title = `${foundArtist?.name || decodeURIComponent(name)} - Pixovia Music`;
+      const key = decodeURIComponent(name);
+      const isId = /^[0-9]+$/.test(key);
+      let artist = null;
+
+      if (isId) {
+        artist = await saavnApi.getArtist(key);
+      } else {
+        const results = await saavnApi.searchArtists(key, { limit: 5 });
+        artist = results[0] || null;
       }
+
+      setArtistInfo(artist);
+      if (artist?.id) {
+        const songs = await saavnApi.getArtistSongs(artist.id, { limit: 50 });
+        setTracks(songs);
+      } else {
+        setTracks([]);
+      }
+
+      document.title = `${artist?.name || key} - Pixovia Music`;
     } catch (err) {
       console.error(err);
     } finally {
@@ -65,7 +69,8 @@ function ArtistPage() {
       margin: 0,
       minHeight: '100vh',
       display: 'flex',
-      flexDirection: isClient && window.innerWidth >= 768 ? 'row' : 'column'
+      flexDirection: isClient && window.innerWidth >= 768 ? 'row' : 'column',
+      paddingBottom: isClient && window.innerWidth < 768 ? '76px' : 0
     }}>
       
       {/* Sidebar - Desktop Only */}
@@ -99,6 +104,18 @@ function ArtistPage() {
             <Link to="/music" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
               Home
+            </Link>
+            <Link to="/music/songs" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              Songs
+            </Link>
+            <Link to="/music/albums" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/></svg>
+              Albums
+            </Link>
+            <Link to="/music/artists" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              All Artists
             </Link>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#ffffff', fontWeight: 'bold' }}>
               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
@@ -162,9 +179,9 @@ function ArtistPage() {
               alignItems: 'center',
               justifyContent: 'center'
             }}>
-              {artistInfo?.avatar ? (
-                <img 
-                  src={artistInfo.avatar}
+              {artistInfo?.image ? (
+                <img
+                  src={artistInfo.image}
                   alt={artistInfo.name || decodeURIComponent(name)}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   referrerPolicy="no-referrer"
@@ -186,9 +203,7 @@ function ArtistPage() {
                 {artistInfo?.country && (
                   <p style={{ marginBottom: '0.5rem' }}>📍 {artistInfo.country}</p>
                 )}
-                {artistInfo?.main_lang && (
-                  <p style={{ marginBottom: '0.5rem' }}>🗣️ {artistInfo.main_lang}</p>
-                )}
+                {artistInfo?.dominantLanguage && <p style={{ marginBottom: '0.5rem' }}>🗣️ {artistInfo.dominantLanguage}</p>}
                 <p>{tracks.length} tracks</p>
               </div>
             </div>
@@ -230,9 +245,9 @@ function ArtistPage() {
                     alignItems: 'center',
                     justifyContent: 'center'
                   }}>
-                    {track.thumbnail_file?.file_url ? (
+                    {track.image ? (
                       <img 
-                        src={track.thumbnail_file.file_url}
+                        src={track.image}
                         alt={track.title}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         referrerPolicy="no-referrer"
@@ -244,7 +259,7 @@ function ArtistPage() {
                   <div style={{ flex: 1, marginLeft: '1rem' }}>
                     <h4 style={{ color: '#ffffff', fontSize: '1rem', marginBottom: '0.25rem', fontWeight: '500' }}>{track.title}</h4>
                     <p style={{ color: '#9ca3af', fontSize: '0.875rem' }}>
-                      {track.artist && Array.isArray(track.artist) ? track.artist.map(a => a.name).join(', ') : 'Unknown Artist'}
+                      {track.artists && Array.isArray(track.artists) ? track.artists.map(a => a.name).join(', ') : 'Unknown Artist'}
                     </p>
                   </div>
                 </div>
@@ -253,6 +268,7 @@ function ArtistPage() {
           </div>
         </section>
       </main>
+      {isClient && window.innerWidth < 768 && <MobileBottomNav />}
     </div>
   );
 }

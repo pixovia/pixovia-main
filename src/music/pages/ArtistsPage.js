@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { musicService } from '../../library/lib/supabase';
+import MobileBottomNav from '../components/MobileBottomNav';
+import { saavnApi } from '../lib/saavnApi';
 
 function ArtistsPage() {
   const [artists, setArtists] = useState([]);
@@ -45,18 +46,9 @@ function ArtistsPage() {
 
   const loadArtists = async () => {
     try {
-      const data = await musicService.getMusic();
-      const allArtists = data.filter(track => track.artist && Array.isArray(track.artist) && track.artist.length > 0)
-        .flatMap(track => track.artist)
-        .reduce((uniqueArtists, artist) => {
-          if (!uniqueArtists.find(a => a.name === artist.name)) {
-            uniqueArtists.push(artist);
-          }
-          return uniqueArtists;
-        }, []);
-      const shuffled = allArtists.sort(() => Math.random() - 0.5);
-      setArtists(shuffled);
-      setFilteredArtists(shuffled);
+      const data = await saavnApi.searchArtists('top', { limit: 60 });
+      setArtists(data);
+      setFilteredArtists(data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -69,10 +61,13 @@ function ArtistsPage() {
     if (!query.trim()) {
       setFilteredArtists(artists);
     } else {
-      const filtered = artists.filter(artist => 
-        artist.name?.toLowerCase().includes(query.toLowerCase())
-      );
-      setFilteredArtists(filtered);
+      saavnApi
+        .searchArtists(query.trim(), { limit: 60 })
+        .then((a) => setFilteredArtists(a))
+        .catch(() => {
+          const filtered = artists.filter((artist) => artist.name?.toLowerCase().includes(query.toLowerCase()));
+          setFilteredArtists(filtered);
+        });
     }
   };
 
@@ -100,7 +95,8 @@ function ArtistsPage() {
       margin: 0,
       minHeight: '100vh',
       display: 'flex',
-      flexDirection: isClient && window.innerWidth >= 768 ? 'row' : 'column'
+      flexDirection: isClient && window.innerWidth >= 768 ? 'row' : 'column',
+      paddingBottom: isClient && window.innerWidth < 768 ? '76px' : 0
     }}>
       
       {/* Sidebar - Desktop Only */}
@@ -134,6 +130,14 @@ function ArtistsPage() {
             <Link to="/music" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
               Home
+            </Link>
+            <Link to="/music/songs" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              Songs
+            </Link>
+            <Link to="/music/albums" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/></svg>
+              Albums
             </Link>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#ffffff', fontWeight: 'bold' }}>
               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
@@ -205,7 +209,7 @@ function ArtistsPage() {
             gap: isClient && window.innerWidth >= 768 ? '1.5rem' : '1rem'
           }}>
             {filteredArtists.map((artist, index) => (
-              <Link key={`artist-${artist.name}-${index}`} to={`/music/artist/${encodeURIComponent(artist.name)}`} style={{ textDecoration: 'none' }}>
+              <Link key={`artist-${artist.id || artist.name}-${index}`} to={`/music/artist/${encodeURIComponent(artist.id || artist.name)}`} style={{ textDecoration: 'none' }}>
                 <div style={{
                   background: '#121212',
                   padding: '1rem',
@@ -226,9 +230,9 @@ function ArtistsPage() {
                     justifyContent: 'center',
                     overflow: 'hidden'
                   }}>
-                    {artist.avatar ? (
+                    {artist.image ? (
                       <img 
-                        src={artist.avatar}
+                        src={artist.image}
                         alt={artist.name}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         referrerPolicy="no-referrer"
@@ -249,6 +253,7 @@ function ArtistsPage() {
           </div>
         </section>
       </main>
+      {isClient && window.innerWidth < 768 && <MobileBottomNav />}
     </div>
   );
 }

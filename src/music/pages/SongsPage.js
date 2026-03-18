@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { musicService } from '../../library/lib/supabase';
+import MobileBottomNav from '../components/MobileBottomNav';
+import { saavnApi } from '../lib/saavnApi';
 
 function SongsPage() {
   const [tracks, setTracks] = useState([]);
@@ -8,6 +9,14 @@ function SongsPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [isClient, setIsClient] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const sentinelRef = useRef(null);
+  const lastRequestId = useRef(0);
+
+  const limit = 24;
+  const effectiveQuery = useMemo(() => (searchQuery.trim() ? searchQuery.trim() : 'top hits'), [searchQuery]);
 
   useEffect(() => {
     setIsClient(true);
@@ -40,15 +49,20 @@ function SongsPage() {
       document.getElementsByTagName('head')[0].appendChild(meta);
     });
     
-    loadTracks();
+    loadFirstPage();
   }, []);
 
-  const loadTracks = async () => {
+  const loadFirstPage = async () => {
     try {
-      const data = await musicService.getMusic();
-      const shuffled = data.sort(() => Math.random() - 0.5);
-      setTracks(shuffled);
-      setFilteredTracks(shuffled);
+      setLoading(true);
+      setPage(1);
+      setHasMore(true);
+      const reqId = ++lastRequestId.current;
+      const data = await saavnApi.searchSongs(effectiveQuery, { limit, page: 1 });
+      if (reqId !== lastRequestId.current) return;
+      setTracks(data);
+      setFilteredTracks(data);
+      setHasMore(data.length === limit);
     } catch (err) {
       console.error(err);
     } finally {
@@ -58,17 +72,44 @@ function SongsPage() {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    if (!query.trim()) {
-      setFilteredTracks(tracks);
-    } else {
-      const filtered = tracks.filter(track => 
-        track.title?.toLowerCase().includes(query.toLowerCase()) ||
-        (track.artist && Array.isArray(track.artist) && 
-         track.artist.some(a => a.name?.toLowerCase().includes(query.toLowerCase())))
-      );
-      setFilteredTracks(filtered);
+    // Pagination is query-dependent, so restart.
+    setTimeout(() => loadFirstPage(), 0);
+  };
+
+  const loadNextPage = async () => {
+    if (loadingMore || loading || !hasMore) return;
+    setLoadingMore(true);
+    try {
+      const next = page + 1;
+      const reqId = ++lastRequestId.current;
+      const more = await saavnApi.searchSongs(effectiveQuery, { limit, page: next });
+      if (reqId !== lastRequestId.current) return;
+      setPage(next);
+      setHasMore(more.length === limit);
+      setTracks((prev) => mergeById(prev, more));
+      setFilteredTracks((prev) => mergeById(prev, more));
+    } catch (err) {
+      console.error(err);
+      setHasMore(false);
+    } finally {
+      setLoadingMore(false);
     }
   };
+
+  useEffect(() => {
+    if (!isClient) return;
+    if (!sentinelRef.current) return;
+
+    const el = sentinelRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) loadNextPage();
+      },
+      { root: null, rootMargin: '500px 0px', threshold: 0.01 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isClient, sentinelRef.current, hasMore, loadingMore, loading, page, effectiveQuery]);
 
   if (loading) {
     return (
@@ -94,7 +135,8 @@ function SongsPage() {
       margin: 0,
       minHeight: '100vh',
       display: 'flex',
-      flexDirection: isClient && window.innerWidth >= 768 ? 'row' : 'column'
+      flexDirection: isClient && window.innerWidth >= 768 ? 'row' : 'column',
+      paddingBottom: isClient && window.innerWidth < 768 ? '76px' : 0
     }}>
       
       {/* Sidebar - Desktop Only */}
@@ -133,6 +175,14 @@ function SongsPage() {
               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
               Songs
             </div>
+            <Link to="/music/albums" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/></svg>
+              Albums
+            </Link>
+            <Link to="/music/artists" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              Artists
+            </Link>
           </div>
         </aside>
       )}
@@ -195,8 +245,9 @@ function SongsPage() {
         <section style={{ padding: isClient && window.innerWidth >= 768 ? '2rem' : '1rem' }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: isClient && window.innerWidth >= 768 ? 'repeat(auto-fill, minmax(180px, 1fr))' : 'repeat(2, 1fr)',
-            gap: isClient && window.innerWidth >= 768 ? '1.5rem' : '1rem'
+            gridTemplateColumns: isClient && window.innerWidth >= 768 ? 'repeat(auto-fill, 190px)' : 'repeat(2, 165px)',
+            justifyContent: isClient && window.innerWidth >= 768 ? 'space-between' : 'center',
+            gap: isClient && window.innerWidth >= 768 ? '1.25rem' : '1rem'
           }}>
             {filteredTracks.map((track) => (
               <Link key={track.id} to={`/music/player/${track.id}`} style={{ textDecoration: 'none' }}>
@@ -205,7 +256,10 @@ function SongsPage() {
                   padding: '1rem',
                   borderRadius: '0.5rem',
                   cursor: 'pointer',
-                  transition: 'background 0.3s ease'
+                  transition: 'background 0.3s ease',
+                  width: isClient && window.innerWidth >= 768 ? '190px' : '165px',
+                  minHeight: '265px',
+                  boxSizing: 'border-box'
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.background = '#282828'}
                 onMouseLeave={(e) => e.currentTarget.style.background = '#121212'}
@@ -220,9 +274,9 @@ function SongsPage() {
                     justifyContent: 'center',
                     overflow: 'hidden'
                   }}>
-                    {track.thumbnail_file?.file_url ? (
+                    {track.image ? (
                       <img 
-                        src={track.thumbnail_file.file_url}
+                        src={track.image}
                         alt={track.title}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         referrerPolicy="no-referrer"
@@ -231,20 +285,65 @@ function SongsPage() {
                       <svg width="40" height="40" fill="#6b7280" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
                     )}
                   </div>
-                  <p style={{ fontWeight: 'bold', fontSize: '0.875rem', marginBottom: '0.25rem', color: '#ffffff' }}>
+                  <p
+                    title={track.title || 'Untitled'}
+                    style={{
+                      fontWeight: 'bold',
+                      fontSize: '0.875rem',
+                      marginBottom: '0.25rem',
+                      color: '#ffffff',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
                     {track.title || 'Untitled'}
                   </p>
-                  <p style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: '500' }}>
-                    {track.artist && Array.isArray(track.artist) ? track.artist.map(a => a.name).join(', ') : 'Unknown Artist'}
+                  <p
+                    title={track.artists && Array.isArray(track.artists) ? track.artists.map(a => a.name).join(', ') : 'Unknown Artist'}
+                    style={{
+                      fontSize: '0.75rem',
+                      color: '#6b7280',
+                      fontWeight: '500',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    {track.artists && Array.isArray(track.artists) ? track.artists.map(a => a.name).join(', ') : 'Unknown Artist'}
                   </p>
                 </div>
               </Link>
             ))}
           </div>
+
+          <div ref={sentinelRef} style={{ height: '1px' }} />
+
+          {loadingMore && (
+            <div style={{ textAlign: 'center', padding: '1.25rem 0', color: '#9ca3af', fontWeight: 800 }}>
+              Loading more songs...
+            </div>
+          )}
+
+          {!hasMore && filteredTracks.length > 0 && (
+            <div style={{ textAlign: 'center', padding: '1.25rem 0', color: '#6b7280', fontWeight: 800 }}>
+              You reached the end.
+            </div>
+          )}
         </section>
       </main>
+      {isClient && window.innerWidth < 768 && <MobileBottomNav />}
     </div>
   );
 }
 
 export default SongsPage;
+
+function mergeById(prev, next) {
+  const map = new Map(prev.map((x) => [x.id, x]));
+  next.forEach((x) => {
+    if (!x?.id) return;
+    if (!map.has(x.id)) map.set(x.id, x);
+  });
+  return Array.from(map.values());
+}

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { musicService } from '../../library/lib/supabase';
+import MobileBottomNav from '../components/MobileBottomNav';
+import { saavnApi } from '../lib/saavnApi';
 
 function MusicDetails() {
   const { id } = useParams();
   const [music, setMusic] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedUrl, setSelectedUrl] = useState(null);
 
   useEffect(() => {
     loadMusic();
@@ -15,18 +17,13 @@ function MusicDetails() {
   const loadMusic = async () => {
     try {
       setLoading(true);
-      const data = await musicService.getMusicItem(id);
+      const data = await saavnApi.getSong(id);
       setMusic(data);
+      setSelectedUrl(getDefaultStreamUrl(data) || null);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleContentClick = (file) => {
-    if (file.file_url) {
-      window.open(`https://pixovia.pages.dev/player/?url=${encodeURIComponent(file.file_url)}`, '_blank');
     }
   };
 
@@ -57,7 +54,8 @@ function MusicDetails() {
       padding,
       background: 'linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #2d1b69 100%)',
       minHeight: '100vh',
-      color: '#fff'
+      color: '#fff',
+      paddingBottom: window.innerWidth <= 768 ? '76px' : undefined
     }}>
       <div style={{ width: '100%' }}>
         <div style={{ marginBottom: '2rem' }}>
@@ -81,9 +79,9 @@ function MusicDetails() {
           alignItems: 'start'
         }}>
           <div style={{ position: 'relative' }}>
-            {music.thumbnail_file?.file_url ? (
+            {music.image ? (
               <img 
-                src={music.thumbnail_file.file_url}
+                src={music.image}
                 alt={music.title || 'Album cover'}
                 style={{
                   width: '100%',
@@ -131,55 +129,59 @@ function MusicDetails() {
               </p>
             )}
 
-            {music.content_files && music.content_files.length > 0 && (
-              <div>
-                <h3 style={{ 
-                  fontSize: '1.5rem', 
-                  marginBottom: '1rem',
-                  color: '#00d4ff'
-                }}>
-                  Play Options
-                </h3>
-                <div style={{ 
-                  display: 'grid', 
-                  gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : 'repeat(auto-fit, minmax(200px, 1fr))',
-                  gap: '1rem'
-                }}>
-                  {music.content_files.map((file, index) => (
-                    <button
-                      key={file.id}
-                      onClick={() => handleContentClick(file)}
-                      style={{
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                        border: 'none',
-                        borderRadius: '10px',
-                        padding: '1rem',
-                        color: '#fff',
-                        cursor: 'pointer',
-                        fontSize: '1rem',
-                        fontWeight: '600',
-                        transition: 'transform 0.2s ease',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '0.5rem'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.transform = 'translateY(-2px)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.transform = 'translateY(0)';
-                      }}
-                    >
-                      <span>🎵</span>
-                      {file.title || `Track ${index + 1}`}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+            {selectedUrl ? (
+              <div style={{ marginTop: '0.5rem' }}>
+                <audio
+                  controls
+                  preload="metadata"
+                  crossOrigin="anonymous"
+                  style={{
+                    width: '100%',
+                    marginBottom: '1rem',
+                    borderRadius: '0.75rem',
+                    background: 'rgba(255,255,255,0.06)',
+                  }}
+                >
+                  <source src={selectedUrl} type="video/mp4" />
+                  <source src={selectedUrl} type="audio/mp4" />
+                  <source src={selectedUrl} type="audio/aac" />
+                  <source src={selectedUrl} type="audio/mpeg" />
+                </audio>
 
-            {(!music.content_files || music.content_files.length === 0) && (
+                {music?.downloadUrls?.length > 0 && (
+                  <div>
+                    <div style={{ color: '#9ca3af', fontWeight: 800, fontSize: '0.75rem', letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                      Quality
+                    </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                      {music.downloadUrls
+                        .slice()
+                        .reverse()
+                        .map((d) => {
+                          const active = d.url === selectedUrl;
+                          return (
+                            <button
+                              key={d.url}
+                              onClick={() => setSelectedUrl(d.url)}
+                              style={{
+                                background: active ? 'rgba(0,212,255,0.18)' : 'rgba(255,255,255,0.06)',
+                                color: '#fff',
+                                border: '1px solid rgba(255,255,255,0.12)',
+                                borderRadius: '999px',
+                                padding: '0.4rem 0.65rem',
+                                fontWeight: 800,
+                                cursor: 'pointer',
+                              }}
+                            >
+                              {d.quality || 'Audio'}
+                            </button>
+                          );
+                        })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
               <div style={{
                 background: 'rgba(255,255,255,0.06)',
                 border: '1px solid rgba(255,255,255,0.08)',
@@ -188,18 +190,29 @@ function MusicDetails() {
                 textAlign: 'center'
               }}>
                 <h3 style={{ color: '#00d4ff', marginBottom: '1rem' }}>
-                  Coming Soon
+                  Audio Not Available
                 </h3>
                 <p style={{ color: '#b3b3b3' }}>
-                  This music will be available for streaming soon.
+                  This track does not provide a playable audio URL.
                 </p>
               </div>
             )}
           </div>
         </div>
       </div>
+      {window.innerWidth <= 768 && <MobileBottomNav />}
     </div>
   );
 }
 
 export default MusicDetails;
+
+function getDefaultStreamUrl(song) {
+  const list = song?.downloadUrls || [];
+  const pick =
+    list.find((d) => d.quality === '160kbps') ||
+    list.find((d) => d.quality === '96kbps') ||
+    list.find((d) => d.quality === '320kbps') ||
+    list[0];
+  return pick?.url || song?.audioUrl || null;
+}

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { musicService } from '../../library/lib/supabase';
+import MobileBottomNav from '../components/MobileBottomNav';
+import { saavnApi } from '../lib/saavnApi';
 
 function AlbumsPage() {
   const [albums, setAlbums] = useState([]);
@@ -8,6 +9,14 @@ function AlbumsPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [isClient, setIsClient] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const sentinelRef = useRef(null);
+  const lastRequestId = useRef(0);
+
+  const limit = 24;
+  const effectiveQuery = useMemo(() => (searchQuery.trim() ? searchQuery.trim() : 'top'), [searchQuery]);
 
   useEffect(() => {
     setIsClient(true);
@@ -40,19 +49,20 @@ function AlbumsPage() {
       document.getElementsByTagName('head')[0].appendChild(meta);
     });
     
-    loadAlbums();
+    loadFirstPage();
   }, []);
 
-  const loadAlbums = async () => {
+  const loadFirstPage = async () => {
     try {
-      const data = await musicService.getMusic();
-      const uniqueAlbums = [...new Map(
-        data.filter(track => track.album_id)
-          .map(track => [track.album_id, track])
-      ).values()];
-      const shuffled = uniqueAlbums.sort(() => Math.random() - 0.5);
-      setAlbums(shuffled);
-      setFilteredAlbums(shuffled);
+      setLoading(true);
+      setPage(1);
+      setHasMore(true);
+      const reqId = ++lastRequestId.current;
+      const data = await saavnApi.searchAlbums(effectiveQuery, { limit, page: 1 });
+      if (reqId !== lastRequestId.current) return;
+      setAlbums(data);
+      setFilteredAlbums(data);
+      setHasMore(data.length === limit);
     } catch (err) {
       console.error(err);
     } finally {
@@ -62,17 +72,43 @@ function AlbumsPage() {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    if (!query.trim()) {
-      setFilteredAlbums(albums);
-    } else {
-      const filtered = albums.filter(album => 
-        album.album_name?.toLowerCase().includes(query.toLowerCase()) ||
-        (album.artist && Array.isArray(album.artist) && 
-         album.artist.some(a => a.name?.toLowerCase().includes(query.toLowerCase())))
-      );
-      setFilteredAlbums(filtered);
+    setTimeout(() => loadFirstPage(), 0);
+  };
+
+  const loadNextPage = async () => {
+    if (loadingMore || loading || !hasMore) return;
+    setLoadingMore(true);
+    try {
+      const next = page + 1;
+      const reqId = ++lastRequestId.current;
+      const more = await saavnApi.searchAlbums(effectiveQuery, { limit, page: next });
+      if (reqId !== lastRequestId.current) return;
+      setPage(next);
+      setHasMore(more.length === limit);
+      setAlbums((prev) => mergeById(prev, more));
+      setFilteredAlbums((prev) => mergeById(prev, more));
+    } catch (err) {
+      console.error(err);
+      setHasMore(false);
+    } finally {
+      setLoadingMore(false);
     }
   };
+
+  useEffect(() => {
+    if (!isClient) return;
+    if (!sentinelRef.current) return;
+
+    const el = sentinelRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) loadNextPage();
+      },
+      { root: null, rootMargin: '500px 0px', threshold: 0.01 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isClient, sentinelRef.current, hasMore, loadingMore, loading, page, effectiveQuery]);
 
   if (loading) {
     return (
@@ -98,7 +134,8 @@ function AlbumsPage() {
       margin: 0,
       minHeight: '100vh',
       display: 'flex',
-      flexDirection: isClient && window.innerWidth >= 768 ? 'row' : 'column'
+      flexDirection: isClient && window.innerWidth >= 768 ? 'row' : 'column',
+      paddingBottom: isClient && window.innerWidth < 768 ? '76px' : 0
     }}>
       
       {/* Sidebar - Desktop Only */}
@@ -133,10 +170,18 @@ function AlbumsPage() {
               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
               Home
             </Link>
+            <Link to="/music/songs" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              Songs
+            </Link>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#ffffff', fontWeight: 'bold' }}>
               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/></svg>
               Albums
             </div>
+            <Link to="/music/artists" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              Artists
+            </Link>
           </div>
         </aside>
       )}
@@ -199,17 +244,21 @@ function AlbumsPage() {
         <section style={{ padding: isClient && window.innerWidth >= 768 ? '2rem' : '1rem' }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: isClient && window.innerWidth >= 768 ? 'repeat(auto-fill, minmax(180px, 1fr))' : 'repeat(2, 1fr)',
-            gap: isClient && window.innerWidth >= 768 ? '1.5rem' : '1rem'
+            gridTemplateColumns: isClient && window.innerWidth >= 768 ? 'repeat(auto-fill, 190px)' : 'repeat(2, 165px)',
+            justifyContent: isClient && window.innerWidth >= 768 ? 'space-between' : 'center',
+            gap: isClient && window.innerWidth >= 768 ? '1.25rem' : '1rem'
           }}>
             {filteredAlbums.map((album) => (
-              <Link key={album.id} to={`/music/album/${album.album_id}`} style={{ textDecoration: 'none' }}>
+              <Link key={album.id} to={`/music/album/${album.id}`} style={{ textDecoration: 'none' }}>
                 <div style={{
                   background: '#121212',
                   padding: '1rem',
                   borderRadius: '0.5rem',
                   cursor: 'pointer',
-                  transition: 'background 0.3s ease'
+                  transition: 'background 0.3s ease',
+                  width: isClient && window.innerWidth >= 768 ? '190px' : '165px',
+                  minHeight: '265px',
+                  boxSizing: 'border-box'
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.background = '#282828'}
                 onMouseLeave={(e) => e.currentTarget.style.background = '#121212'}
@@ -224,10 +273,10 @@ function AlbumsPage() {
                     justifyContent: 'center',
                     overflow: 'hidden'
                   }}>
-                    {album.thumbnail_file?.file_url ? (
+                    {album.image ? (
                       <img 
-                        src={album.thumbnail_file.file_url}
-                        alt={album.album_name}
+                        src={album.image}
+                        alt={album.name}
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         referrerPolicy="no-referrer"
                       />
@@ -235,20 +284,65 @@ function AlbumsPage() {
                       <svg width="40" height="40" fill="#6b7280" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/></svg>
                     )}
                   </div>
-                  <p style={{ fontWeight: 'bold', fontSize: '0.875rem', marginBottom: '0.25rem', color: '#ffffff' }}>
-                    {album.album_name || 'Untitled Album'}
+                  <p
+                    title={album.name || 'Untitled Album'}
+                    style={{
+                      fontWeight: 'bold',
+                      fontSize: '0.875rem',
+                      marginBottom: '0.25rem',
+                      color: '#ffffff',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    {album.name || 'Untitled Album'}
                   </p>
-                  <p style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: '500' }}>
-                    {album.artist && Array.isArray(album.artist) ? album.artist.map(a => a.name).join(', ') : 'Various Artists'}
+                  <p
+                    title={album.artists && Array.isArray(album.artists) ? album.artists.map(a => a.name).join(', ') : 'Various Artists'}
+                    style={{
+                      fontSize: '0.75rem',
+                      color: '#6b7280',
+                      fontWeight: '500',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    {album.artists && Array.isArray(album.artists) ? album.artists.map(a => a.name).join(', ') : 'Various Artists'}
                   </p>
                 </div>
               </Link>
             ))}
           </div>
+
+          <div ref={sentinelRef} style={{ height: '1px' }} />
+
+          {loadingMore && (
+            <div style={{ textAlign: 'center', padding: '1.25rem 0', color: '#9ca3af', fontWeight: 800 }}>
+              Loading more albums...
+            </div>
+          )}
+
+          {!hasMore && filteredAlbums.length > 0 && (
+            <div style={{ textAlign: 'center', padding: '1.25rem 0', color: '#6b7280', fontWeight: 800 }}>
+              You reached the end.
+            </div>
+          )}
         </section>
       </main>
+      {isClient && window.innerWidth < 768 && <MobileBottomNav />}
     </div>
   );
 }
 
 export default AlbumsPage;
+
+function mergeById(prev, next) {
+  const map = new Map(prev.map((x) => [x.id, x]));
+  next.forEach((x) => {
+    if (!x?.id) return;
+    if (!map.has(x.id)) map.set(x.id, x);
+  });
+  return Array.from(map.values());
+}

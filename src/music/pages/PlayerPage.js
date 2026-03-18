@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { musicService } from '../../library/lib/supabase';
+import MobileBottomNav from '../components/MobileBottomNav';
+import { saavnApi } from '../lib/saavnApi';
 
 function PlayerPage() {
   const { id } = useParams();
   const [track, setTrack] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isClient, setIsClient] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [selectedUrl, setSelectedUrl] = useState(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -16,8 +19,20 @@ function PlayerPage() {
   const loadTrack = async () => {
     try {
       setLoading(true);
-      const data = await musicService.getMusicItem(id);
+      const data = await saavnApi.getSong(id);
       setTrack(data);
+      setSelectedUrl(getDefaultStreamUrl(data) || null);
+      try {
+        if (data?.id) localStorage.setItem('pixovia_music_last_song_id', String(data.id));
+      } catch {
+        // ignore storage failures (private mode, etc.)
+      }
+      try {
+        const sug = await saavnApi.getSongSuggestions(id, { limit: 12 });
+        setSuggestions(sug);
+      } catch {
+        setSuggestions([]);
+      }
       if (data) {
         document.title = `${data.title || 'Song'} - Pixovia Music`;
       }
@@ -71,7 +86,8 @@ function PlayerPage() {
       margin: 0,
       minHeight: '100vh',
       display: 'flex',
-      flexDirection: isClient && window.innerWidth >= 768 ? 'row' : 'column'
+      flexDirection: isClient && window.innerWidth >= 768 ? 'row' : 'column',
+      paddingBottom: isClient && window.innerWidth < 768 ? '76px' : 0
     }}>
       
       {/* Sidebar - Desktop Only */}
@@ -110,6 +126,18 @@ function PlayerPage() {
               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
               Now Playing
             </div>
+            <Link to="/music/songs" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              All Songs
+            </Link>
+            <Link to="/music/albums" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/></svg>
+              Albums
+            </Link>
+            <Link to="/music/artists" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#9ca3af', fontWeight: 'bold', textDecoration: 'none' }}>
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              Artists
+            </Link>
           </div>
         </aside>
       )}
@@ -170,9 +198,9 @@ function PlayerPage() {
                 boxShadow: '0 25px 50px rgba(0,0,0,0.5)',
                 background: '#282828'
               }}>
-                {track.thumbnail_file?.file_url ? (
+                {track.image ? (
                   <img 
-                    src={track.thumbnail_file.file_url}
+                    src={track.image}
                     alt={track.title}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     referrerPolicy="no-referrer"
@@ -204,15 +232,17 @@ function PlayerPage() {
                 color: '#9ca3af',
                 marginBottom: '2rem'
               }}>
-                {track.artist && Array.isArray(track.artist) ? 
-                  track.artist.map(a => a.name).join(', ') : 'Unknown Artist'
+                {track.artists && Array.isArray(track.artists) ? 
+                  track.artists.map(a => a.name).join(', ') : 'Unknown Artist'
                 }
               </p>
 
               {/* Audio Player */}
-              {track.audio_file?.file_url ? (
+              {selectedUrl ? (
                 <audio 
                   controls
+                  preload="metadata"
+                  crossOrigin="anonymous"
                   style={{
                     width: '100%',
                     marginBottom: '2rem',
@@ -220,9 +250,10 @@ function PlayerPage() {
                     background: '#121212'
                   }}
                 >
-                  <source src={track.audio_file.file_url} type="audio/mpeg" />
-                  <source src={track.audio_file.file_url} type="audio/wav" />
-                  <source src={track.audio_file.file_url} type="audio/ogg" />
+                  <source src={selectedUrl} type="video/mp4" />
+                  <source src={selectedUrl} type="audio/mp4" />
+                  <source src={selectedUrl} type="audio/aac" />
+                  <source src={selectedUrl} type="audio/mpeg" />
                   Your browser does not support the audio element.
                 </audio>
               ) : (
@@ -235,6 +266,40 @@ function PlayerPage() {
                 }}>
                   <h3 style={{ color: '#6366f1', marginBottom: '1rem' }}>Audio Not Available</h3>
                   <p style={{ color: '#9ca3af' }}>The audio file for this track is not available.</p>
+                </div>
+              )}
+
+              {track?.downloadUrls?.length > 0 && (
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <div style={{ color: '#9ca3af', fontSize: '0.75rem', fontWeight: 900, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+                    Streaming quality
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    {track.downloadUrls
+                      .slice()
+                      .reverse()
+                      .map((d) => {
+                        const active = d.url === selectedUrl;
+                        return (
+                          <button
+                            key={d.url}
+                            onClick={() => setSelectedUrl(d.url)}
+                            style={{
+                              border: '1px solid rgba(255,255,255,0.14)',
+                              background: active ? 'rgba(99,102,241,0.22)' : 'rgba(255,255,255,0.06)',
+                              color: active ? '#fff' : '#d1d5db',
+                              padding: '0.4rem 0.65rem',
+                              borderRadius: '999px',
+                              fontWeight: 900,
+                              fontSize: '0.75rem',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            {d.quality || 'Audio'}
+                          </button>
+                        );
+                      })}
+                  </div>
                 </div>
               )}
 
@@ -253,11 +318,11 @@ function PlayerPage() {
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                     <strong style={{ color: '#6366f1', minWidth: '80px' }}>Artist:</strong> 
                     <span>
-                      {track.artist && Array.isArray(track.artist) ? (
-                        track.artist.map((artist, index) => (
-                          <span key={artist.name}>
+                      {track.artists && Array.isArray(track.artists) ? (
+                        track.artists.map((artist, index) => (
+                          <span key={artist.id || artist.name || index}>
                             <Link 
-                              to={`/music/artist/${encodeURIComponent(artist.name)}`}
+                              to={`/music/artist/${encodeURIComponent(artist.id || artist.name)}`}
                               style={{ 
                                 color: '#ffffff', 
                                 textDecoration: 'underline'
@@ -265,7 +330,7 @@ function PlayerPage() {
                             >
                               {artist.name}
                             </Link>
-                            {index < track.artist.length - 1 && ', '}
+                            {index < track.artists.length - 1 && ', '}
                           </span>
                         ))
                       ) : (
@@ -273,25 +338,77 @@ function PlayerPage() {
                       )}
                     </span>
                   </div>
-                  {track.album_id && (
+                  {track.album?.id && (
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                       <strong style={{ color: '#6366f1', minWidth: '80px' }}>Album:</strong> 
                       <Link 
-                        to={`/music/album/${track.album_id}`}
+                        to={`/music/album/${track.album.id}`}
                         style={{ color: '#ffffff', textDecoration: 'underline' }}
                       >
-                        {track.albums?.title || track.album_name || 'Unknown Album'}
+                        {track.album.name || 'Unknown Album'}
                       </Link>
                     </div>
                   )}
                 </div>
               </div>
+
+              {suggestions.length > 0 && (
+                <div style={{ marginTop: '1.25rem' }}>
+                  <h3 style={{ fontSize: '1rem', fontWeight: 900, marginBottom: '0.75rem', color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.14em' }}>
+                    More like this
+                  </h3>
+                  <div style={{ display: 'grid', gridTemplateColumns: isClient && window.innerWidth >= 768 ? 'repeat(2, 1fr)' : '1fr', gap: '0.5rem' }}>
+                    {suggestions.slice(0, 10).map((s) => (
+                      <Link key={s.id} to={`/music/player/${s.id}`} style={{ textDecoration: 'none' }}>
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.75rem',
+                            padding: '0.75rem',
+                            borderRadius: '0.75rem',
+                            background: '#121212',
+                            border: '1px solid rgba(255,255,255,0.08)',
+                          }}
+                          onMouseEnter={(e) => (e.currentTarget.style.background = '#1a1a1a')}
+                          onMouseLeave={(e) => (e.currentTarget.style.background = '#121212')}
+                        >
+                          <div style={{ width: 44, height: 44, borderRadius: 10, overflow: 'hidden', background: '#282828', flexShrink: 0 }}>
+                            {s.image ? (
+                              <img src={s.image} alt={s.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} referrerPolicy="no-referrer" />
+                            ) : null}
+                          </div>
+                          <div style={{ minWidth: 0 }}>
+                            <div style={{ fontWeight: 900, color: '#fff', fontSize: '0.95rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              {s.title}
+                            </div>
+                            <div style={{ color: '#9ca3af', fontSize: '0.8rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              {s.artists?.length ? s.artists.map((a) => a.name).join(', ') : 'Unknown Artist'}
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>
       </main>
+      {isClient && window.innerWidth < 768 && <MobileBottomNav />}
     </div>
   );
 }
 
 export default PlayerPage;
+
+function getDefaultStreamUrl(song) {
+  const list = song?.downloadUrls || [];
+  const pick =
+    list.find((d) => d.quality === '160kbps') ||
+    list.find((d) => d.quality === '96kbps') ||
+    list.find((d) => d.quality === '320kbps') ||
+    list[0];
+  return pick?.url || song?.audioUrl || null;
+}
