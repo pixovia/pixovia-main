@@ -102,7 +102,7 @@
     try {
       const { data, error } = await supabase
         .from("learn")
-        .select("topic, class, note, dpp")
+        .select("topic, class, class2, class3, note, dpp")
         .eq("institution", "eduport")
         .eq("std", std)
         .eq("course", course)
@@ -171,6 +171,8 @@
       card.onclick = () => {
         sessionStorage.setItem("topic", lesson.topic || "Untitled Topic");
         sessionStorage.setItem("class", lesson.class || "");
+        sessionStorage.setItem("class2", lesson.class2 || "");
+        sessionStorage.setItem("class3", lesson.class3 || "");
         sessionStorage.setItem("note", lesson.note || "");
         sessionStorage.setItem("dpp", lesson.dpp || "");
         window.location.href = "player/";
