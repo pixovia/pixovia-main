@@ -66,7 +66,7 @@ const UploadModal = ({ isOpen, onClose }) => {
   const getFileType = (filename) => {
     const ext = filename.split('.').pop().toLowerCase();
     if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) return 'image';
-    if (['mp4', 'avi', 'mov', 'wmv'].includes(ext)) return 'video';
+    if (['mp4', 'avi', 'mov', 'wmv', '.m3u8'].includes(ext)) return 'video';
     if (['mp3', 'wav', 'flac', 'aac'].includes(ext)) return 'audio';
     if (['pdf'].includes(ext)) return 'pdf';
     if (['doc', 'docx'].includes(ext)) return 'document';
