@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Star, Download, ArrowLeft, Monitor, HardDrive, ExternalLink, User, Calendar, FileText, Image, Play, ChevronLeft, ChevronRight, X, Share } from 'lucide-react';
 import { appsService } from '../lib/supabase';
-import { useSEO } from '../lib/useSEO';
+import SEO from '../../components/SEO';
 import StarRating from '../components/StarRating';
 import ReviewSection from '../components/ReviewSection';
 import ImageModal from '../components/ImageModal';
@@ -267,6 +267,15 @@ const AppDetails = () => {
     );
   }
 
+  const seoProps = {
+    title: `${app.name} - Download on Pixovia Store`,
+    description: app.description || `Download ${app.name} by ${app.developers?.name || app.developer}. ${app.category} app for ${selectedPlatform || 'Windows'}. Free software from Pixovia Store.`,
+    keywords: `${app.name}, ${app.category}, ${app.developer}, free download, Pixovia Store, apps, games, extensions, ${selectedPlatform}`,
+    image: app.image_url || app.bg_image || 'https://pixovia.pages.dev/icon-coloured-closeup.png',
+    url: `https://pixovia.pages.dev/store/app/${id}`,
+    type: "software-application"
+  };
+
   const screenshots = app?.screenshots?.[selectedPlatform] || [];
   const videos = app?.videos?.[selectedPlatform] || [];
   const downloads = app?.download_url || {};
@@ -275,6 +284,7 @@ const AppDetails = () => {
 
   return (
     <div className="app-details">
+      <SEO {...seoProps} />
       <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
         <Link to="/store/" className="btn btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
           <ArrowLeft size={16} />
