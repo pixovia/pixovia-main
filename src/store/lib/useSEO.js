@@ -5,7 +5,11 @@ import { useEffect } from "react";
  * Keeps meta tags in sync for the /store section
  * Aligned with the global SEO.js system
  */
+/* Deprecated - use src/components/SEO.js (Helmet) instead to avoid DOM conflicts */
 export const useSEO = (config = {}) => {
+  console.warn('useSEO hook deprecated. Use <SEO> component.');
+  // TODO: Remove after verification
+
   useEffect(() => {
     const {
       title = "Pixovia Store - Free Apps, Games & Extensions",
