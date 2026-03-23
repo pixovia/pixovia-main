@@ -50,20 +50,38 @@ const SEO = ({
       <meta name="msapplication-TileColor" content="#0f172a" />
 
       {/* Organization Schema */}
-      <script type="application/ld+json">{`
+<script type="application/ld+json">{`
         {
           "@context": "https://schema.org",
-          "@type": "Organization",
+          "@type": "${type === 'software-application' ? 'SoftwareApplication' : 'Organization'}",
+          ${type === 'software-application' ? `
+          "name": "${title.replace(' - Download on Pixovia Store', '')}",
+          "description": "${description}",
+          "applicationCategory": "https://schema.org/${title.includes('Game') ? 'GameApplication' : 'MultimediaApplication'}",
+          "operatingSystem": "${window.navigator.platform || 'Windows'}",
+          "author": {
+            "@type": "Organization",
+            "name": "Pixovia LLC"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "url": "${url}",
+          "image": "${image}"
+          ` : `
           "name": "Pixovia LLC",
-          "url": "https://pixovia.pages.dev",
-          "logo": "https://pixovia.pages.dev/icon-coloured-closeup.png",
-          "description": "Pixovia LLC is a free digital ecosystem offering apps, games, movies, music, tools, and learning resources — all in one place.",
+          "url": "${url}",
+          "logo": "${image}",
+          "description": "${description}",
           "sameAs": [
             "https://www.instagram.com/pixoviallc",
             "https://www.youtube.com/@pixoviallc",
             "https://x.com/pixoviallc",
             "https://www.facebook.com/pixoviallc"
           ]
+          `}
         }
       `}</script>
 
