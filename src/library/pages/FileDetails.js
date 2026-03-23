@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { libraryService } from '../lib/supabase';
 import { ArrowLeft, Download, ExternalLink, FolderOpen, X, Play, Maximize, Share, CheckCircle } from 'lucide-react';
+import SEO from '../../components/SEO';
 import toast from 'react-hot-toast';
 
 const FileDetails = () => {
@@ -116,21 +117,31 @@ const FileDetails = () => {
     );
   }
 
+  const seoProps = {
+    title: `${file.title} - Pixovia Library`,
+    description: file.description || `${file.file_type} file (${file.file_size}) uploaded by ${file.uploader}. Download from Pixovia Library.`,
+    keywords: `${file.title}, ${file.file_type}, ${file.uploader}, Pixovia Library, download, files`,
+    image: file.file_url || 'https://pixovia.pages.dev/icon-coloured-closeup.png',
+    url: `https://pixovia.pages.dev/library/file/${id}`,
+    type: "digital-document"
+  };
+
   return (
-    <div style={{ padding: '2rem 1rem', maxWidth: '800px', margin: '0 auto', background: '#f8f9fa', minHeight: '100vh', color: '#333' }}>
-      <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
-        <Link to="/library/files" style={{ 
-          display: 'inline-flex', 
-          alignItems: 'center', 
-          gap: '0.5rem', 
-          color: '#6c757d', 
+    <div style={{ padding: '2rem 1rem', maxWidth: '800px', margin: '0 auto', background: '#f8f9fa', minHeight: '100vh', color: '#333' }}>  
+      <SEO {...seoProps} />
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>  
+        <Link to="/library/files" style={{   
+          display: 'inline-flex',   
+          alignItems: 'center',   
+          gap: '0.5rem',   
+          color: '#6c757d',   
           textDecoration: 'none'
         }}>
           <ArrowLeft size={16} />
           Back to Files
         </Link>
         
-        <button 
+        <button   
           onClick={handleShare}
           style={{
             background: 'transparent',
