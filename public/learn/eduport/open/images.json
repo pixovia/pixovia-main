@@ -1,0 +1,162 @@
+{
+  "Maths": {
+    "image": "https://assets.eduport.app/media/assets/maths0821143619gosuqc.png",
+    "icon": "https://assets.eduport.app/media/assets/Maths_Image0821143619qqrrho.png"
+  },
+  "Physics": {
+    "image": "https://assets.eduport.app/media/assets/physics0821143317mmuwap.png",
+    "icon": "https://assets.eduport.app/media/assets/Physics__image0821143317ayyfcq.png"
+  },
+  "Chemistry": {
+    "image": "https://assets.eduport.app/media/assets/Chemistry0821143212naowmf.png",
+    "icon": "https://assets.eduport.app/media/assets/Chemistry_image0821143212exvdqf.png"
+  },
+  "Zoology": {
+    "image": "https://assets.eduport.app/media/assets/Biology0821143109soecli.png",
+    "icon": "https://example.com/icons/english.png"
+  },
+  "Botany": {
+    "image": "https://assets.eduport.app/media/assets/Biology0821143109soecli.png",
+    "icon": "https://example.com/icons/english.png"
+  },
+  "Practicals": {
+    "image": "https://assets.eduport.app/media/assets/Practicals0914175424dqhzmu.png",
+    "icon": "https://assets.eduport.app/media/assets/Practical_image0821143438gfnjxp.png"
+  },
+  "English": {
+    "image": "https://assets.eduport.app/media/assets/English0821142314zdcuth.png",
+    "icon": "https://assets.eduport.app/media/assets/English_image0821142314valgph.png"
+  },
+  "Maths Basics": {
+    "image": "https://assets.eduport.app/media/assets/Math_basics0821143718ylkrdv.png",
+    "icon": "https://assets.eduport.app/media/assets/Maths_Basics_Image0821143717qynbnk.png"
+  },
+  "Biology": {
+    "image": "https://assets.eduport.app/media/assets/Biology0821143109soecli.png",
+    "icon": "https://assets.eduport.app/media/assets/Biology_Image0821143109excsfo.png"
+  },
+  "Computer Science": {
+    "image": "https://assets.eduport.app/media/assets/Computer_science0821152405gugatz.png",
+    "icon": "https://assets.eduport.app/media/assets/CS_Image0821152405fssjax.png"
+  },
+  "Malayalam": {
+    "image": "https://assets.eduport.app/media/assets/malayalam_20821142000liibtg.png",
+    "icon": "https://assets.eduport.app/media/assets/Malayalam_01_Image0821142000vrptet.png"
+  },
+  "Hindi": {
+    "image": "https://assets.eduport.app/media/assets/Hindi0821123449ptfslt.png",
+    "icon": "https://assets.eduport.app/media/assets/Hindi_Image0821123449oundbr.png"
+  },
+  "Study Material": {
+    "image": "https://assets.eduport.app/media/assets/Study_Material0821130650eornvm.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Year Wise PYQ": {
+    "image": "https://assets.eduport.app/media/assets/Year_PYQ0919104105rhrllc.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Chapter Wise PYQ": {
+    "image": "https://assets.eduport.app/media/assets/PYQ_10821125115iapesl.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Micro Bit": {
+    "image": "https://assets.eduport.app/media/assets/Catch_Up0822115332xfkqtj.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Question Library": {
+    "image": "https://assets.eduport.app/media/assets/Question0821125755ucqtjv.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Sanskrit": {
+    "image": "https://assets.eduport.app/media/assets/Sanskrit0823110717glqqea.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Maths Crusader": {
+    "image": "https://assets.eduport.app/media/assets/SAT0821143939vykoav.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Public Exam": {
+    "image": "https://assets.eduport.app/media/assets/public_exam_icon0224122345svfpiz.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Descriptive Examination": {
+    "image": "https://assets.eduport.app/media/assets/Descriptive_Exam0919103824dqeasi.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Youtube Notes": {
+    "image": "https://assets.eduport.app/media/assets/Work_book1129180057ngmtkb.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Club Resources": {
+    "image": "https://assets.eduport.app/media/assets/Material_Solution0927193249epbiwo.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Time Table": {
+    "image": "https://assets.eduport.app/media/assets/Time_table0828124510lgguma.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Malayalam 2": {
+    "image": "https://assets.eduport.app/media/assets/malayalam_30821142122pdkfip.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Urdu": {
+    "image": "https://assets.eduport.app/media/assets/Urdu0822113146hbungf.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Geography": {
+    "image": "https://assets.eduport.app/media/assets/Geography0821145809dbkyoo.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "History": {
+    "image": "https://assets.eduport.app/media/assets/History0821150421btqjrx.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "IT Notes": {
+    "image": "https://assets.eduport.app/media/assets/IT_QUIZ_Studies0821131807xkaokf.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Xmas": {
+    "image": "https://assets.eduport.app/media/assets/Resourse1117160047prtosp.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Exam Results": {
+    "image": "https://assets.eduport.app/media/assets/Exam0821130153ewukzl.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Daily Notes": {
+    "image": "https://assets.eduport.app/media/assets/Daily_Notes0812181249aiwurs.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Notice": {
+    "image": "https://assets.eduport.app/media/assets/Notice0919120435khytqi.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Strategy": {
+    "image": "https://assets.eduport.app/media/assets/Strategy0919104312rziiks.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Revision": {
+    "image": "https://assets.eduport.app/media/assets/revision0822115822bszafx.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Self Learn": {
+    "image": "https://assets.eduport.app/media/assets/Self_Learn0822120115tuqosp.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Others": {
+    "image": "https://assets.eduport.app/media/assets/others0822120236zoqmnl.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Answer key": {
+    "image": "https://assets.eduport.app/media/assets/others0822120236zoqmnl.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "Foundation": {
+    "image": "https://assets.eduport.app/media/assets/Foundation1009163257pmuwwi.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  },
+  "IQ Booster": {
+    "image": "https://assets.eduport.app/media/assets/MAT0821143809wgnjsd.png",
+    "icon": "https://assets.eduport.app/media/assets/Arabic_Image0821142736lwsvow.png"
+  }
+}

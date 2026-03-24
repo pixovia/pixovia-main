@@ -1,0 +1,50 @@
+{
+  "KEAM": {
+    "YODHA": {
+      "Lives": {
+        "link": "https://pixovia.free.nf/learn/eduport/res/2025/prevpapers.pdf",
+        "image": "https://img.utdstc.com/icon/950/2c7/9502c7390d0d97f7954dbee35e8464d153206855fba1041ea2116b860a65bd5a:200"
+      },
+      "Practice": {
+        "link": "https://example.com/class1/2025/notes.pdf",
+        "image": "https://www.vserveecommerce.com/wp-content/uploads/2023/06/process3.png"
+      },
+      "Question Library": {
+        "link": "https://example.com/class1/2025/notes.pdf",
+        "image": "https://assets.eduport.app/media/assets/Question0821125755ucqtjv.png"
+      }
+    },
+    "2026": {
+      "Previous Papers": {
+        "link": "https://example.com/class1/2026/prevpapers.pdf",
+        "image": "https://example.com/class1/2026/prevpapers.jpg"
+      },
+      "Notes": {
+        "link": "https://example.com/class1/2026/notes.pdf",
+        "image": "https://example.com/class1/2026/notes.jpg"
+      }
+    }
+  },
+  "Class 2": {
+    "2025": {
+      "Previous Papers": {
+        "link": "https://example.com/class2/2025/prevpapers.pdf",
+        "image": "https://example.com/class2/2025/prevpapers.jpg"
+      },
+      "Notes": {
+        "link": "https://example.com/class2/2025/notes.pdf",
+        "image": "https://example.com/class2/2025/notes.jpg"
+      }
+    },
+    "2026": {
+      "Previous Papers": {
+        "link": "https://example.com/class2/2026/prevpapers.pdf",
+        "image": "https://example.com/class2/2026/prevpapers.jpg"
+      },
+      "Notes": {
+        "link": "https://example.com/class2/2026/notes.pdf",
+        "image": "https://example.com/class2/2026/notes.jpg"
+      }
+    }
+  }
+}
