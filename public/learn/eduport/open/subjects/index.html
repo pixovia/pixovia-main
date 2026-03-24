@@ -203,7 +203,7 @@
   // 🔹 Load subject images JSON
   async function loadImages() {
     try {
-      const res = await fetch("https://pixovia.free.nf/learn/eduport/images.json");
+      const res = await fetch(`https://pixovia.pages.dev/learn/eduport/open/images.json?v=${Date.now()}`);
       subjectImages = await res.json();
     } catch (err) {
       console.error("Image JSON load failed", err);
@@ -250,7 +250,7 @@
   // 🔹 Load resources JSON
   async function loadResourcesJSON() {
     try {
-      const res = await fetch(`https://pixovia.free.nf/learn/eduport/resources.json?v=${Date.now()}`); // <-- your JSON URL
+      const res = await fetch(`https://pixovia.pages.dev/learn/eduport/open/resources.json?v=${Date.now()}`); // <-- your JSON URL
       const json = await res.json();
       
 
