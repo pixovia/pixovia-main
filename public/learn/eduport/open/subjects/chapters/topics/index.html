@@ -108,7 +108,7 @@
         .eq("course", course)
         .eq("subject", subject)
         .eq("chapter", chapter)
-        .order("topic", { ascending: true });
+        .order("created_at", { ascending: true });
 
       if (error) throw error;
 
