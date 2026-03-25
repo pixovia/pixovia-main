@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pixovia World Chatroom</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -105,13 +106,45 @@
     <main id="chat-box" class="chat-container overflow-y-auto px-4 py-6 flex flex-col gap-4 hide-scrollbar">
         <!-- Messages will appear here -->
     </main>
+    
+    <div id="upload-modal" 
+class="fixed inset-0 z-50 hidden flex items-end justify-center bg-black/30">
+
+  <div class="glass rounded-t-3xl p-4 w-full max-w-md shadow-2xl mb-6 animate-slide-up">
+    <div class="flex flex-col gap-2">
+      
+      <button onclick="uploadFromDevice()"
+      class="bg-slate-800 hover:bg-slate-700 p-3 rounded-xl text-sm flex items-center gap-2">
+      <i class="fas fa-mobile"></i> From Device
+      </button>
+
+      <button onclick="showUrlInput()"
+      class="bg-slate-800 hover:bg-slate-700 p-3 rounded-xl text-sm flex items-center gap-2">
+      <i class="fas fa-link"></i> From URL
+      </button>
+
+      <div id="url-upload-box" class="hidden mt-2">
+        <input id="url-upload-input"
+        placeholder="Direct file URL..."
+        class="w-full bg-slate-900 p-2 rounded-lg text-xs outline-none">
+
+        <button onclick="uploadFromUrl()"
+        class="w-full mt-2 bg-blue-600 p-2 rounded-lg text-xs font-bold">
+        Upload
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
 
     <!-- Input Area -->
     <footer class="p-4 bg-slate-900 border-t border-slate-800 safe-area-bottom">
         <div class="flex items-end gap-2 max-w-4xl mx-auto">
             <div class="relative group">
                 <input type="file" id="file-input" class="hidden" accept="image/*,video/*,image/gif">
-                <button onclick="document.getElementById('file-input').click()" class="w-12 h-12 flex items-center justify-center bg-slate-800 rounded-2xl text-blue-400 active:scale-90 transition-all">
+                <button onclick="openUploadModal()" class="w-12 h-12 flex items-center justify-center bg-slate-800 rounded-2xl text-blue-400 active:scale-90 transition-all">
                     <i class="fas fa-paperclip"></i>
                 </button>
                 <div id="upload-loading" class="absolute inset-0 bg-slate-800 rounded-2xl items-center justify-center hidden">
@@ -274,13 +307,15 @@
             
             let mediaContent = '';
             if (msg.file_url) {
-                const isVideo = msg.file_url.match(/\.(mp4|mov|webm|ogg)$/i);
+                const isVideo = msg.file_url.match(/\.(mp4|mov|webm|ogg|m3u8|m3u)$/i);
                 if (isVideo) {
                     mediaContent = `
-                        <div class="relative rounded-2xl overflow-hidden mb-1 cursor-pointer" onclick="openMedia('${msg.file_url}', 'video')">
-                            <video src="${msg.file_url}" autoplay loop muted playsinline class="chat-video-preview max-w-[200px] block"></video>
-                            <div class="absolute inset-0 flex items-center justify-center bg-black/20"><i class="fas fa-play text-white/50 text-2xl"></i></div>
-                        </div>`;
+                    <div class="relative rounded-2xl overflow-hidden mb-1 cursor-pointer" onclick="openMedia('${msg.file_url}', 'video')">
+                       <video data-src="${msg.file_url}" autoplay muted playsinline loop class="chat-video-preview max-w-[200px] block hls-video"></video>
+                       <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+                           <i class="fas fa-play text-white/50 text-2xl"></i>
+                       </div>
+                    </div>`;
                 } else {
                     mediaContent = `
                         <img src="${msg.file_url}" onclick="openMedia('${msg.file_url}', 'image')" class="max-w-[200px] rounded-2xl mb-1 cursor-pointer border border-slate-700 shadow-lg">`;
@@ -298,7 +333,44 @@
                 </div>
             `;
             container.appendChild(div);
+            setTimeout(initHLS,100);
         }
+        
+        function initHLS(){
+           document.querySelectorAll('.hls-video').forEach(video=>{
+             const src = video.dataset.src;
+
+             if(src.includes('.m3u8') || src.includes('.m3u')){
+             if(Hls.isSupported()){
+                const hls = new Hls();
+                hls.loadSource(src);
+                hls.attachMedia(video);
+             }else{
+                video.src = src;
+             }
+             }else{
+                video.src = src;
+             }
+           });
+        }
+        
+        function openUploadModal(){
+ document.getElementById('upload-modal').classList.remove('hidden');
+}
+
+function closeUploadModal(){
+ document.getElementById('upload-modal').classList.add('hidden');
+ document.getElementById('url-upload-box').classList.add('hidden');
+}
+
+function uploadFromDevice(){
+ closeUploadModal();
+ document.getElementById('file-input').click();
+}
+
+function showUrlInput(){
+ document.getElementById('url-upload-box').classList.remove('hidden');
+}
 
         async function sendMessage() {
             const input = document.getElementById('message-input');
@@ -380,16 +452,35 @@
         }
 
         function openMedia(url, type) {
-            const modal = document.getElementById('media-modal');
-            const content = document.getElementById('modal-content');
-            const dl = document.getElementById('download-btn');
+           const modal = document.getElementById('media-modal');
+           const content = document.getElementById('modal-content');
+           const dl = document.getElementById('download-btn');
 
-            content.innerHTML = type === 'video' 
-                ? `<video src="${url}" controls autoplay loop class="max-w-full max-h-[70vh] rounded-lg"></video>`
-                : `<img src="${url}" class="max-w-full max-h-[70vh] rounded-lg shadow-2xl">`;
-            
-            dl.href = url;
-            modal.classList.remove('hidden');
+           if(type === 'video'){
+              content.innerHTML = `<video id="modal-video" controls autoplay
+              class="max-w-full max-h-[70vh] rounded-lg"></video>`;
+
+              const video = document.getElementById('modal-video');
+
+              if(url.includes('.m3u8') || url.includes('.m3u')){
+                  if(Hls.isSupported()){
+                     const hls = new Hls();
+                     hls.loadSource(url);
+                     hls.attachMedia(video);
+                 }else{
+                     video.src = url;
+                 }
+              }else{
+                 video.src = url;
+              }
+
+           }else{
+              content.innerHTML = `<img src="${url}"
+              class="max-w-full max-h-[70vh] rounded-lg shadow-2xl">`;
+           }
+
+           dl.href = url;
+           modal.classList.remove('hidden');
         }
 
         function closeModal() {
@@ -488,7 +579,58 @@
                 sendMessage();
             }
         });
+        async function uploadFromUrl(){
 
+let url = document.getElementById('url-upload-input').value.trim();
+if(!url) return;
+
+// videy convert
+if(url.includes("videy.co/v/?id=")){
+ const id = url.split("id=")[1];
+ url = `https://cdn.videy.co/${id}.mp4`;
+}
+
+// basic validation only
+if(!url.startsWith("http")){
+ return alert("Invalid URL");
+}
+
+const loader = document.getElementById('upload-loading');
+loader.classList.remove('hidden');
+loader.classList.add('flex');
+
+try{
+
+// Insert directly (no CORS check)
+await supabase_chatroom.from('chatroom_messages').insert([{
+ username: currentUser.username,
+ file_url: url,
+ gender: currentUser.gender,
+ ig: currentUser.ig,
+ fb: currentUser.fb,
+ x: currentUser.x,
+ yt: currentUser.yt,
+ created_at: new Date().toISOString()
+}]);
+
+closeUploadModal();
+
+}catch(e){
+ alert("Upload failed");
+}
+
+loader.classList.add('hidden');
+loader.classList.remove('flex');
+
+}
+
+
+
+document.getElementById('upload-modal').addEventListener('click', function(e){
+if(e.target.id === 'upload-modal'){
+closeUploadModal();
+}
+});
     </script>
 </body>
 </html>
