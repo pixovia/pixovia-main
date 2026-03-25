@@ -230,7 +230,7 @@
             document.getElementById('header-username').innerText = currentUser.username;
             document.getElementById('my-avatar').innerHTML = `<img src="${currentUser.avatar}" class="w-full h-full object-cover">`;
             
-            fetchMessages();
+            fetchMessages().then(scrollToBottom);
 
             supabase_chatroom
                 .channel('room-1')
@@ -247,14 +247,18 @@
             const { data, error } = await supabase_chatroom
                 .from('chatroom_messages')
                 .select('*')
-                .order('id', { ascending: true })
+                .order('created_at', { ascending: true })
                 .limit(100);
 
             if (data) {
                 const container = document.getElementById('chat-box');
                 container.innerHTML = '';
+
                 data.forEach(msg => renderMessage(msg));
-                setTimeout(scrollToBottom, 100);
+
+                setTimeout(() => {
+                    scrollToBottom();
+                }, 50);
             }
         }
 
@@ -306,14 +310,15 @@
             input.style.height = 'auto';
 
             await supabase_chatroom.from('chatroom_messages').insert([{
-                username: currentUser.username,
-                text: text,
-                gender: currentUser.gender,
-                ig: currentUser.ig,
-                fb: currentUser.fb,
-                x: currentUser.x,
-                yt: currentUser.yt
-            }]);
+               username: currentUser.username,
+               text: text,
+               gender: currentUser.gender,
+               ig: currentUser.ig,
+               fb: currentUser.fb,
+               x: currentUser.x,
+               yt: currentUser.yt,
+               created_at: new Date().toISOString()
+           }]);
         }
 
         document.getElementById('file-input').addEventListener('change', async (e) => {
@@ -356,6 +361,7 @@
 
             if (url && url.startsWith('http')) {
                 await supabase_chatroom.from('chatroom_messages').insert([{
+                    created_at: new Date().toISOString(),
                     username: currentUser.username,
                     file_url: url.trim(),
                     gender: currentUser.gender,
