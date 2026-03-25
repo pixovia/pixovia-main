@@ -247,18 +247,17 @@
             const { data, error } = await supabase_chatroom
                 .from('chatroom_messages')
                 .select('*')
-                .order('created_at', { ascending: true })
+                .order('created_at', { ascending: false })
                 .limit(100);
 
             if (data) {
                 const container = document.getElementById('chat-box');
                 container.innerHTML = '';
 
-                data.forEach(msg => renderMessage(msg));
+                // reverse so newest at bottom
+                data.reverse().forEach(msg => renderMessage(msg));
 
-                setTimeout(() => {
-                    scrollToBottom();
-                }, 50);
+                setTimeout(scrollToBottom, 50);
             }
         }
 
