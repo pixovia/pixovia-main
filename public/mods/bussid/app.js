@@ -1,5 +1,5 @@
 /* ============================================
-   Voltxis FileHost — BUSSID Mods Hub
+   BUSSID Mods Hub
    app.js (Supabase Powered)
 ============================================ */
 
