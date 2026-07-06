@@ -5,5 +5,11 @@
 /learn/xylem https://pixovia-learn.pages.dev 301
 /library https://pixovia-library.pages.dev 301
 /library/* https://pixovia-library.pages.dev 301
-/library/albums https://pixovia-library.pages.dev/albums 301
-/library/album/tags https://pixovia-library.pages.dev/tags 301
+/store https://pixovia-library.pages.dev/?q=store 301
+/store/* https://pixovia-library.pages.dev/?q=store 301
+/movies https://pixovia-library.pages.dev/?q=movie 301
+/movies/* https://pixovia-library.pages.dev/?q=movie 301
+/chatroom https://pixovia-chat.pages.dev 301
+/chatroom/* https://pixovia-chat.pages.dev 301
+/sports https://pixovia-library.pages.dev/?q=sports 301
+/sports/* https://pixovia-library.pages.dev/?q=sports 301
