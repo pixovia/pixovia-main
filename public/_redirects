@@ -1,9 +1,9 @@
-/learn https://pixovia-learn.pages.dev 301
+/learn/* https://pixovia-learn.pages.dev 301
 /learn/institutes https://pixovia-learn.pages.dev 301
 /learn/eduport https://pixovia-learn.pages.dev 301
 /learn/examwinner https://pixovia.pages.dev 301
 /learn/xylem https://pixovia-learn.pages.dev 301
 /library https://pixovia-library.pages.dev 301
-/library/albums https://pixovia-library.pages.dev 301
-/library/album/videy.co.helbo90 https://pixovia-library.pages.dev 301
-/library/album/kerala.syllabus.plusoneplustwo.textbooks.f6mhh3h https://pixovia-library.pages.dev 301
+/library/* https://pixovia-library.pages.dev 301
+/library/albums https://pixovia-library.pages.dev/albums 301
+/library/album/tags https://pixovia-library.pages.dev/tags 301
